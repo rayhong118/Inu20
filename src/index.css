@@ -1,13 +1,19 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+#SideBarToggle{
+    margin: 0.25em;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.header{
+    flex: 0 1 auto;
+}
+
+.main-panel{
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.content{
+    height: 100%;
+    width: 100vw;
+    overflow-y: auto;
+    border-radius: 0 !important;
 }

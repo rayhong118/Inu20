@@ -1,12 +1,98 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, NavLink} from 'react-router-dom';
+import { Container, Sidebar, Segment, Menu, Icon } from 'semantic-ui-react'
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// import Navbar from './components/navbar';
+import AboutPage from './pages/about/about';
+import Restaurant from './pages/items/items-page';
+import HomePage from './pages/home/home'
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+import rootReducer from './reducers/rootReducer';
+
+const store = createStore(rootReducer);
+
+class Root extends React.Component {
+  state = {
+    sideBarVisable: false
+  }
+
+  toggleSideBar(){
+    let newState = this.state.sideBarVisable;
+    this.setState({sideBarVisable: !!newState ? false : true});
+  }
+
+  handleOutSideClick(e) {
+    if(!e) return;
+    console.log(e);
+    e.stopPropagation();
+    if(e.target.name !== "SideBarToggle") {
+      this.setState({sideBarVisable: false });
+    }
+    
+  }
+
+  
+	render() {
+    const { sideBarVisable } = this.state;
+		return(
+			<div style={{height: '100vh', display: 'flex', flexFlow: 'column nowrap', position: 'sticky'}}> 
+        <Menu.Item onClick={()=> this.toggleSideBar()} className='header'>
+          <Icon id="SideBarToggle" name='bars' size='big'/>
+        </Menu.Item>
+        <BrowserRouter>
+          <Sidebar.Pushable className='main-panel'>
+            <Sidebar 
+              as={Menu}
+              animation='overlay'
+              direction='left'
+              inverted
+              onHide={(e) => this.handleOutSideClick(e)}
+              vertical
+              visible={sideBarVisable}
+              width='thin'>
+              <Menu.Item as={NavLink} exact to='/' onClick={()=> this.toggleSideBar()}
+              name='Home'
+              routerid='home'>
+                <span><Icon name='home'/>Home</span>
+              </Menu.Item>
+
+              <Menu.Item as={NavLink} to='/restaurants' onClick={()=> this.toggleSideBar()}
+                name='Restaurants'
+                routerid='restaurants'>
+                <span><Icon name='food' />Restaurants</span>
+              </Menu.Item>
+
+              <Menu.Item as={NavLink} to='/about' onClick={()=> this.toggleSideBar()}
+                name='About'
+                routerid='about'>
+                <span><Icon name='question circle outline' />About</span>
+              </Menu.Item>
+            </Sidebar>
+
+            <Sidebar.Pusher dimmed={sideBarVisable}>
+              <Segment className='content'>
+                <Container>
+                <Route exact path='/' component={HomePage} />
+                <Route path='/about' component={AboutPage} />
+                <Route path='/restaurants' component={Restaurant} />
+                </Container>
+            </Segment>
+              
+                
+
+            </Sidebar.Pusher>
+
+          </Sidebar.Pushable>
+        </BrowserRouter>
+        
+			</div>
+		)
+	}
+}
+
+ReactDOM.render(<Provider store = {store}><Root /></Provider>, document.getElementById('root'));
