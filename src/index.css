@@ -1,19 +1,19 @@
 #SideBarToggle{
-    margin: 0.25em;
+  margin: 0.25em;
 }
 
 .header{
-    flex: 0 1 auto;
+  flex: 0 1 auto;
 }
 
 .main-panel{
-    display: flex;
-    flex: 1 1 auto;
+  display: flex;
+  flex: 1 1 auto;
 }
 
 .content{
-    height: 100%;
-    width: 100vw;
-    overflow-y: auto;
-    border-radius: 0 !important;
+  height: 100%;
+  width: 100vw;
+  overflow-y: auto;
+  border-radius: 0 !important;
 }

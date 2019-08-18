@@ -1,9 +1,9 @@
 const initState = {
-    items: []
+  items: []
 }
 
 const rootReducer = (state = initState, action) => {
-    return state;
+  return state;
 }
 
 export default rootReducer;

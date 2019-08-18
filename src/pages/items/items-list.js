@@ -3,8 +3,6 @@ import { Segment, Header, Button, Icon, Modal, Form, Input} from 'semantic-ui-re
 
 const ItemsList = ({ items, deleteItem, editItem }) => {
 
-
-
 	const itemsList = items.map( item => {
 		console.log(item)
 		return (
