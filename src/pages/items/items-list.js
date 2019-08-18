@@ -45,7 +45,6 @@ const ItemsList = ({ items, deleteItem, editItem }) => {
 				<Icon name='delete'></Icon>Delete
 			</Button>
 
-			
 		</Segment>
 		);
 	});

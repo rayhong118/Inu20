@@ -36,7 +36,7 @@ class AddItem extends Component{
 					<label>Price</label>
 					<Input placeholder='price' type="number" id="price" onChange={this.handleChange}/>
 					</Form.Field>
-        		</Form.Group>
+        </Form.Group>
         
 				<Button primary>Submit</Button>
 			</Form>
