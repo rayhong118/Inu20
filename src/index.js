@@ -41,9 +41,15 @@ class Root extends React.Component {
     const { sideBarVisable } = this.state;
 		return(
 			<div style={{height: '100vh', display: 'flex', flexFlow: 'column nowrap', position: 'sticky'}}> 
-        <Menu.Item onClick={()=> this.toggleSideBar()} className='header'>
-          <Icon id="SideBarToggle" name='bars' size='big'/>
-        </Menu.Item>
+        <Menu secondary className='header'>
+          <Menu.Item onClick={()=> this.toggleSideBar()}>
+            <Icon id="SideBarToggle" name='bars'/>
+          </Menu.Item>
+          <Menu.Item header>
+            title
+          </Menu.Item>
+        </Menu>
+
         <BrowserRouter>
           <Sidebar.Pushable className='main-panel'>
             <Sidebar 

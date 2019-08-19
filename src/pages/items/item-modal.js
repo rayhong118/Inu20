@@ -3,19 +3,21 @@ import React from 'react';
 import { Segment, Header, Button, Icon, Modal, Form, Input} from 'semantic-ui-react'
 
 const ItemModal = ({ type, item }) => {
-  const modal = (
-    <div>
-      <Modal.Header>Edit restaurant info</Modal.Header>
-        <Modal.Content>
-        <Form >
-          <Form.Group widths='equal'>
+  return (
+    <Modal trigger={
+      <Button color='blue' size='mini'> 
+        <Icon name='edit'>
+        </Icon>Edit
+      </Button>
+      }>
+    <Modal.Header>Edit restaurant info</Modal.Header>
+      <Modal.Content>
+      <Form>
 
-          </Form.Group>
-
-          <Button primary>Submit</Button>
-          </Form>
-      </Modal.Content>
-    </div>
+        <Button primary>Submit</Button>
+        </Form>
+    </Modal.Content>
+    </Modal>
   );
  
 }

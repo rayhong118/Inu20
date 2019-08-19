@@ -7,9 +7,10 @@ import AddItem from './add-item';
 export default class Restautant extends React.Component {
   state = {
     items: [
-      { id: '1', name: 'item1', address: '990 N 1st St.', price: '30'},
-      { id: '2', name: 'item2', address: '312 Avanida Nagolas', price: '27'},
-      { id: '3', name: 'item3', address: '4087 Gaucho Way', price: '37'}
+      { id: '1', name: 'item1', address: '999 N 1st St.', price: '30'},
+      { id: '2', name: 'item2', address: '345 Avanida Nagolas', price: '27'},
+      { id: '3', name: 'item3', address: '408 Gaucho Way', price: '37'},
+      { id: '4', name: 'item4', address: '281 Hunolt St', price: '37'},
     ],
   }
 
@@ -21,20 +22,21 @@ export default class Restautant extends React.Component {
   }
 
   deleteItem = (id) => {
-    console.log(id);
+    
     let items = this.state.items.filter(item => {
         return item.id !== id;
     });
     this.setState({
       items: items
     });
+    console.log(this.state.items);
   }
 
-  editItem = (item) => {
-    console.log(item.key);
+  editItem = (modifiedItem) => {
+    console.log(modifiedItem.key);
     this.setState( prevState => ({
       items: prevState.items.map(
-        el => el.key === item.key ? {...el, name: item.name, address: item.address, price: item.price} : el
+        el => el.key === modifiedItem.key ? {...el, name: modifiedItem.name, address: modifiedItem.address, price: modifiedItem.price} : el
       )
     }));
   }

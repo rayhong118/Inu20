@@ -4,6 +4,7 @@
 
 .header{
   flex: 0 1 auto;
+  margin-bottom: 0 !important;
 }
 
 .main-panel{

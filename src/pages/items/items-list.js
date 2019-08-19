@@ -1,5 +1,6 @@
 import React from 'react';
-import { Segment, Header, Button, Icon, Modal, Form, Input} from 'semantic-ui-react'
+import { Segment, Header, Button, Icon, Modal, Form, Input} from 'semantic-ui-react';
+import ItemModal from './item-modal'
 
 const ItemsList = ({ items, deleteItem, editItem }) => {
 
@@ -12,12 +13,9 @@ const ItemsList = ({ items, deleteItem, editItem }) => {
       <div>address: { item.address }</div>
       <div>price: { item.price }</div>
 
-      <Modal trigger={
-        <Button color='blue' size='mini'> 
-          <Icon name='edit'>
-          </Icon>Edit
-        </Button>
-        }>
+      
+          <ItemModal></ItemModal>
+          {/*
         <Modal.Header>Edit restaurant info</Modal.Header>
         <Modal.Content>
         <Form >
@@ -35,11 +33,10 @@ const ItemsList = ({ items, deleteItem, editItem }) => {
             <Input placeholder={item.price} type="number" id="price"/>
             </Form.Field>
           </Form.Group>
-      
+          
           <Button primary onClick={() => {editItem(item)}}>Submit</Button>
           </Form>
-        </Modal.Content>
-      </Modal>
+        </Modal.Content>*/}
 
       <Button color='red' size='mini' onClick={() => {deleteItem(item.id)}}>
         <Icon name='delete'></Icon>Delete
