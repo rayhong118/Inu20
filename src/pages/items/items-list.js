@@ -14,7 +14,7 @@ const ItemsList = ({ items, deleteItem, editItem }) => {
       <div>price: { item.price }</div>
 
       
-          <ItemModal></ItemModal>
+          <ItemModal item={item}></ItemModal>
           {/*
         <Modal.Header>Edit restaurant info</Modal.Header>
         <Modal.Content>
