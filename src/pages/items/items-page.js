@@ -2,6 +2,7 @@ import React from 'react';
 import {Container, Message} from 'semantic-ui-react'
 import ItemsList from './items-list';
 import AddItem from './add-item';
+import ItemModal from './item-modal';
 
 
 export default class Restautant extends React.Component {
@@ -13,7 +14,6 @@ export default class Restautant extends React.Component {
       { id: '4', name: 'item4', address: '281 Hunolt St', price: '37'},
     ],
   }
-
 
   addItem = (item) => {
     item.id = Math.random();
@@ -42,8 +42,10 @@ export default class Restautant extends React.Component {
   }
 
   render() {
+    const emptyItem = { }
     return(
       <Container>
+        <ItemModal item={ {} } type={'add'}></ItemModal>
         {this.state.items.length > 0 ? (
           <div>Total number of items: {this.state.items.length}
             <ItemsList items={this.state.items} deleteItem={this.deleteItem} editItem={this.editItem}/>

@@ -14,7 +14,8 @@ const ItemsList = ({ items, deleteItem, editItem }) => {
       <div>price: { item.price }</div>
 
       
-          <ItemModal item={item}></ItemModal>
+          <ItemModal item={item} type={'edit'}></ItemModal>
+          <ItemModal item={item} type={'delete'}></ItemModal>
           {/*
         <Modal.Header>Edit restaurant info</Modal.Header>
         <Modal.Content>
@@ -36,11 +37,11 @@ const ItemsList = ({ items, deleteItem, editItem }) => {
           
           <Button primary onClick={() => {editItem(item)}}>Submit</Button>
           </Form>
-        </Modal.Content>*/}
+        </Modal.Content>
 
       <Button color='red' size='mini' onClick={() => {deleteItem(item.id)}}>
         <Icon name='delete'></Icon>Delete
-      </Button>
+      </Button>*/}
 
     </Segment>
     );
