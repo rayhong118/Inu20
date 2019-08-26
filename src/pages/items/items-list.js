@@ -5,7 +5,6 @@ import ItemModal from './item-modal';
 const ItemsList = ({ items, deleteItem, editItem }) => {
 
   const itemsList = items.map( item => {
-    console.log(item)
     return (
 
     <Segment key = { item.id } color = 'teal'>

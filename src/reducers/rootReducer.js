@@ -9,12 +9,23 @@ const initState = {
 }
 
 const rootReducer = (state = initState, action) => {
-  console.log(action);
   if ( action.type === 'DELETE_ITEM') {
     let newItems = state.items.filter( item => {
       return action.id !== item.id;
     });
 
+    return {
+      ...state, items: newItems
+    }
+  }
+  else if (action.type === 'ADD_ITEM') {
+    console.log(action.item);
+    let newItems = state.items.filter( item => {
+      return action.item.id !== item.id;
+    });
+
+    newItems.push(action.item);
+    
     return {
       ...state, items: newItems
     }

@@ -2,19 +2,20 @@
 import React from 'react';
 import { Button, Icon, Modal, Form, Input} from 'semantic-ui-react'
 import { connect } from 'react-redux';
+import { deleteItem, editItem } from '../../actions/restaurantActions'
 
 class ItemModal extends React.Component{
   state = {
     modalOpen: false,
-    modalType: this.props.type,
-    name: this.props.item.name,
-    address: this.props.item.address,
-    price: this.props.item.price,
+    item: this.props.item
   }
 
   handleChange = (e) => {
 		this.setState({
-			[e.target.id]: e.target.value
+      item:{
+        ...this.state.item,
+        [e.target.id]: e.target.value
+      }
 		})
   }
   
@@ -23,23 +24,17 @@ class ItemModal extends React.Component{
     this.setState({modalOpen: false});
   } 
 
-  logData(){
-    console.log(this.state)
-  }
-
   editData(){
-    //this.logData();
+    this.props.editItem(this.state.item);
     this.closeModal();
   }
 
   deleteData = () =>{
-    //this.logData();
     this.props.deleteItem(this.props.item.id);
     this.closeModal();
   }
 
   render(){
-    const itemData = this.props.item;
     let action = {
       edit: {title:'Edit', color:'blue'},
       delete: {title:'Delete', color:'red'},
@@ -71,17 +66,20 @@ class ItemModal extends React.Component{
               <Form.Field>
               <label>Name</label>
               <Input defaultValue={this.props.item.name} 
-              onBlur={this.handleChange} type="text" id="name"/>
+              onBlur={this.handleChange} type="text" id="name"
+              readOnly={this.props.type === 'delete'}/>
               </Form.Field>
               <Form.Field>
               <label>Address</label>
               <Input defaultValue={this.props.item.address} 
-              onBlur={this.handleChange} type="text" id="address"/>
+              onBlur={this.handleChange} type="text" id="address"
+              readOnly={this.props.type === 'delete'}/>
               </Form.Field>
               <Form.Field>
               <label>Price</label>
               <Input defaultValue={this.props.item.price} 
-              onBlur={this.handleChange} type="number" id="price"/>
+              onBlur={this.handleChange} type="number" id="price"
+              readOnly={this.props.type === 'delete'}/>
               </Form.Field>
           </Form.Group>
           {actionButton}
@@ -100,7 +98,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteItem: (id) => { dispatch({type: 'DELETE_ITEM', id: id}) }
+    deleteItem: (id) => { dispatch(deleteItem(id)) },
+    editItem: (item) => { dispatch(editItem(item)) },
+    // addItem: (item) => { dispatch(addItem(item)) }
   }
 }
 
