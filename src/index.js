@@ -59,8 +59,7 @@ class Root extends React.Component {
               inverted
               onHide={(e) => this.handleOutSideClick(e)}
               vertical
-              visible={sideBarVisable}
-              width='thin'>
+              visible={sideBarVisable}>
               <Menu.Item as={NavLink} exact to='/' onClick={()=> this.toggleSideBar()}
               name='Home'
               routerid='home'>

@@ -1,6 +1,7 @@
 // not being used
 import React from 'react';
-import { Segment, Header, Button, Icon, Modal, Form, Input} from 'semantic-ui-react'
+import { Button, Icon, Modal, Form, Input} from 'semantic-ui-react'
+import { connect } from 'react-redux';
 
 class ItemModal extends React.Component{
   state = {
@@ -31,8 +32,9 @@ class ItemModal extends React.Component{
     this.closeModal();
   }
 
-  deleteData(){
+  deleteData = () =>{
     //this.logData();
+    this.props.deleteItem(this.props.item.id);
     this.closeModal();
   }
 
@@ -47,18 +49,18 @@ class ItemModal extends React.Component{
     let actionButton;
 
     if(this.props.type === 'add'){
-      actionButton = <Button color={action.add.color} onClick={() => this.editData()} >Add</Button>
+      actionButton = <Button type="button" color={action.add.color} onClick={() => this.editData()} >Add</Button>
     } else if (this.props.type === 'delete'){
-      actionButton = <Button color={action.delete.color} onClick={() => this.editData()} >Delete</Button>
+      actionButton = <Button type="button" color={action.delete.color} onClick={() => this.deleteData()} >Delete</Button>
     } else if (this.props.type === 'edit'){
-      actionButton = <Button color={action.edit.color} onClick={() => this.editData()} >Edit</Button>
+      actionButton = <Button type="button" color={action.edit.color} onClick={() => this.editData()} >Edit</Button>
     }
    
     return(
       <Modal 
-        trigger={<Button color={action[this.state.modalType].color} size='mini' onClick={this.openModal}> 
-          <Icon name={this.state.modalType}>
-          </Icon>{action[this.state.modalType].title}
+        trigger={<Button color={action[this.props.type].color} size='mini' onClick={this.openModal}> 
+          <Icon name={this.props.type}>
+          </Icon>{action[this.props.type].title}
         </Button>}
         open={this.state.modalOpen}
         onClose={() => {this.closeModal()}}>
@@ -90,5 +92,16 @@ class ItemModal extends React.Component{
     )
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  return{
 
-export default ItemModal;
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteItem: (id) => { dispatch({type: 'DELETE_ITEM', id: id}) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemModal);
