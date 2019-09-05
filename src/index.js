@@ -18,12 +18,12 @@ const store = createStore(rootReducer);
 
 class Root extends React.Component {
   state = {
-    sideBarVisable: false
+    sideBarVisible: false
   }
 
   toggleSideBar(){
-    let newState = this.state.sideBarVisable;
-    this.setState({sideBarVisable: !!newState ? false : true});
+    let newState = this.state.sideBarVisible;
+    this.setState({sideBarVisible: !!newState ? false : true});
   }
 
   handleOutSideClick(e) {
@@ -31,14 +31,14 @@ class Root extends React.Component {
     console.log(e);
     e.stopPropagation();
     if(e.target.name !== "SideBarToggle") {
-      this.setState({sideBarVisable: false });
+      this.setState({sideBarVisible: false });
     }
     
   }
 
   
 	render() {
-    const { sideBarVisable } = this.state;
+    const { sideBarVisible } = this.state;
 		return(
 			<div style={{height: '100vh', display: 'flex', flexFlow: 'column nowrap', position: 'sticky'}}> 
         <Menu secondary className='header'>
@@ -59,7 +59,7 @@ class Root extends React.Component {
               inverted
               onHide={(e) => this.handleOutSideClick(e)}
               vertical
-              visible={sideBarVisable}>
+              visible={sideBarVisible}>
               <Menu.Item as={NavLink} exact to='/' onClick={()=> this.toggleSideBar()}
               name='Home'
               routerid='home'>
@@ -79,7 +79,7 @@ class Root extends React.Component {
               </Menu.Item>
             </Sidebar>
 
-            <Sidebar.Pusher dimmed={sideBarVisable}>
+            <Sidebar.Pusher dimmed={sideBarVisible}>
               <Segment className='content'>
                 <Container>
                 <Route exact path='/' component={HomePage} />
