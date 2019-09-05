@@ -1,14 +1,19 @@
+import { firestoreReducer } from 'redux-firestore';
+import { combineReducers } from 'redux';
+
 const initState = {
-  items: [
-    { id: '1', name: 'item1', address: '999 N 1st St.', price: '30'},
-    { id: '2', name: 'item2', address: '345 Avanida Nagolas', price: '27'},
-    { id: '3', name: 'item3', address: '408 Gaucho Way', price: '37'},
-    { id: '4', name: 'item4', address: '281 Hunolt St', price: '37'},
-    { id: '5', name: 'item5', address: '290 Miramar Dr', price: '45'},
-  ]
+  items: []
 }
 
-const rootReducer = (state = initState, action) => {
+const restaurantReducer = (state = initState, action) => {
+  if ( action.type === 'GET_ITEMS') {
+    return state;
+  }
+  if ( action.type === 'GET_ITEMS_ERROR') {
+    console.log(action.err);
+    return state;
+  }
+  
   if ( action.type === 'DELETE_ITEM') {
     let newItems = state.items.filter( item => {
       return action.id !== item.id;
@@ -32,6 +37,11 @@ const rootReducer = (state = initState, action) => {
   }
   return state;
 }
+
+const rootReducer = combineReducers({
+  restaurant: restaurantReducer,
+  firestore: firestoreReducer
+});
 
 export default rootReducer;
 

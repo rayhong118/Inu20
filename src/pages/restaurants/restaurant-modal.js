@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button, Icon, Modal, Form, Input} from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import { deleteItem, editItem } from '../../actions/restaurantActions'
+import { deleteItem, editItem } from '../../shared/store/actions/restaurantActions';
 
 class ItemModal extends React.Component{
   state = {

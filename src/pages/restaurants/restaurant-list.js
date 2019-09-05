@@ -1,6 +1,6 @@
 import React from 'react';
 import { Segment, Header, Button, Icon, Modal, Form, Input} from 'semantic-ui-react';
-import ItemModal from './item-modal';
+import ItemModal from './restaurant-modal';
 
 const ItemsList = ({ items, deleteItem, editItem }) => {
 

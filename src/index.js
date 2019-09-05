@@ -6,15 +6,10 @@ import './index.css';
 
 // import Navbar from './components/navbar';
 import AboutPage from './pages/about/about';
-import Restaurant from './pages/items/items-page';
+import Restaurant from './pages/restaurants/restaurant-page';
 import HomePage from './pages/home/home'
 
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
 
-import rootReducer from './reducers/rootReducer';
-
-const store = createStore(rootReducer);
 
 class Root extends React.Component {
   state = {
@@ -100,4 +95,4 @@ class Root extends React.Component {
 	}
 }
 
-ReactDOM.render(<Provider store = {store}><Root /></Provider>, document.getElementById('root'));
+ReactDOM.render(<Root />, document.getElementById('root'));
