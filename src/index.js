@@ -28,9 +28,7 @@ class Root extends React.Component {
     if(e.target.name !== "SideBarToggle") {
       this.setState({sideBarVisable: false });
     }
-    
   }
-
   
 	render() {
     const { sideBarVisable } = this.state;
@@ -81,10 +79,7 @@ class Root extends React.Component {
                 <Route path='/about' component={AboutPage} />
                 <Route path='/restaurants' component={Restaurant} />
                 </Container>
-            </Segment>
-              
-                
-
+              </Segment>
             </Sidebar.Pusher>
 
           </Sidebar.Pushable>

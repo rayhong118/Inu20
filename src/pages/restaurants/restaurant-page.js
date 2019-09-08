@@ -28,19 +28,20 @@ class Restautant extends React.Component {
     
     return(
       <Provider store = {store}>
-      <Container>
-        <ItemModal item={ {} } type={'add'}></ItemModal>
-        {this.props.items ? (
-          <div>Total number of items: {this.props.items.length}
-            <ItemsList items={this.props.items}/>
-          </div>
-        ) : (
-          <Message color='red'>
-            <Icon name='circle notch' loading={true}></Icon>
-            No item here
-          </Message>
-        )}
-      </Container></Provider>
+        <Container>
+          <ItemModal item={ {} } type={'add'}></ItemModal>
+          {this.props.items ? (
+            <div>Total number of items: {this.props.items.length}
+              <ItemsList items={this.props.items}/>
+            </div>
+          ) : (
+            <Message color='red'>
+              <Icon name='circle notch' loading={true}></Icon>
+              No item here
+            </Message>
+          )}
+        </Container>
+      </Provider>
     )
   }
     
