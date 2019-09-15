@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Header, Button, Icon, Modal, Form, Input} from 'semantic-ui-react';
+import { Segment, Header } from 'semantic-ui-react';
 import ItemModal from './restaurant-modal';
 
 const ItemsList = ({ items, deleteItem, editItem }) => {
@@ -24,5 +24,4 @@ const ItemsList = ({ items, deleteItem, editItem }) => {
   )
 }
 
-//export default connect()(ItemsList);
 export default ItemsList;

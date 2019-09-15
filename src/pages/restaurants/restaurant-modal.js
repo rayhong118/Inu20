@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button, Icon, Modal, Form, Input} from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import { deleteItem, editItem } from '../../shared/store/actions/restaurantActions';
+import { deleteItem, editItem, addItem } from '../../shared/store/actions/restaurantActions';
 
 class ItemModal extends React.Component{
   state = {
@@ -24,6 +24,11 @@ class ItemModal extends React.Component{
     this.setState({modalOpen: false});
   } 
 
+  addData(){
+    this.props.addItem(this.state.item);
+    this.closeModal();
+  }
+
   editData(){
     this.props.editItem(this.state.item);
     this.closeModal();
@@ -44,7 +49,7 @@ class ItemModal extends React.Component{
     let actionButton;
 
     if(this.props.type === 'add'){
-      actionButton = <Button type="button" color={action.add.color} onClick={() => this.editData()} >Add</Button>
+      actionButton = <Button type="button" color={action.add.color} onClick={() => this.addData()} >Add</Button>
     } else if (this.props.type === 'delete'){
       actionButton = <Button type="button" color={action.delete.color} onClick={() => this.deleteData()} >Delete</Button>
     } else if (this.props.type === 'edit'){
@@ -83,7 +88,7 @@ class ItemModal extends React.Component{
               </Form.Field>
           </Form.Group>
           {actionButton}
-          <Button onClick={() => this.closeModal()} >Cancel</Button>
+          <Button type="button" onClick={() => this.closeModal()} >Cancel</Button>
         </Form>
       </Modal.Content>
     </Modal>
@@ -100,7 +105,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteItem: (id) => { dispatch(deleteItem(id)) },
     editItem: (item) => { dispatch(editItem(item)) },
-    // addItem: (item) => { dispatch(addItem(item)) }
+    addItem: (item) => { dispatch(addItem(item)) }
   }
 }
 

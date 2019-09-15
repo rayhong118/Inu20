@@ -1,16 +1,3 @@
-export const getItem = () => {
-  return (dispatch, getState, {getFirebase, getFirestore}) => {
-    
-    const firestore = getFirestore();
-    firestore.collection('restaurants').get().then( ()=> {
-      dispatch({ type: 'GET_ITEMS' });
-    }).catch( (err) => {
-      dispatch({ type: 'GET_ITEMS_ERROR', err });
-    })
-    
-  }
-}
-
 export const deleteItem = (id) => {
   return {
     type: 'DELETE_ITEM',
@@ -19,8 +6,19 @@ export const deleteItem = (id) => {
 }
 
 export const editItem = (item) => {
-  return{
-    type: 'ADD_ITEM',
-    item
+  return { type: 'EDIT_ITEMS' }
+    
+}
+export const addItem = (item) => {
+  return (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore();
+    firestore.collection('restaurants').add(
+      ...item,
+    ).then( ()=> {
+      dispatch({ type: 'ADD_ITEM' });
+    }).catch( (err) => {
+      dispatch({ type: 'ADD_ITEM_ERROR', err });
+    })
+    
   }
 }
