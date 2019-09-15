@@ -9,7 +9,19 @@ import AboutPage from './pages/about/about';
 import Restaurant from './pages/restaurants/restaurant-page';
 import HomePage from './pages/home/home'
 
+import rootReducer from './shared/store/reducers/rootReducer';
 
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux'
+
+import { createFirestoreInstance, getFirestore } from 'redux-firestore';
+import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
+
+import thunk from 'redux-thunk';
+import firebaseConfig from './config/firebaseConfig';
+
+const store = createStore(rootReducer, applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore})),
+);
 
 class Root extends React.Component {
   state = {
@@ -90,4 +102,13 @@ class Root extends React.Component {
 	}
 }
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store = {store}>
+    <ReactReduxFirebaseProvider
+     firebase={firebaseConfig}
+     config={firebaseConfig}
+     dispatch={store.dispatch}
+     createFirestoreInstance={createFirestoreInstance}>
+       <Root />
+    </ReactReduxFirebaseProvider>
+  </Provider>, document.getElementById('root'));

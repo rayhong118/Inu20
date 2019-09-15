@@ -4,30 +4,18 @@ import ItemsList from './restaurant-list';
 import ItemModal from './restaurant-modal';
 import { connect, Provider } from 'react-redux';
 import { firestoreConnect} from 'react-redux-firebase';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { compose } from 'redux';
 
-import rootReducer from '../../shared/store/reducers/rootReducer';
 
-import { reduxFirestore, getFirestore } from 'redux-firestore';
-import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 
-import thunk from 'redux-thunk';
-import firebaseConfig from '../../config/firebaseConfig';
 
-const store = createStore(rootReducer, 
-  compose(
-    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore})),
-    reduxFirestore(firebaseConfig),
-    reactReduxFirebase(firebaseConfig)
-  )
-);
 
 class Restautant extends React.Component {
-
+  
   render() {
     
     return(
-      <Provider store = {store}>
+
         <Container>
           <ItemModal item={ {} } type={'add'}></ItemModal>
           {this.props.items ? (
@@ -41,7 +29,6 @@ class Restautant extends React.Component {
             </Message>
           )}
         </Container>
-      </Provider>
     )
   }
     
