@@ -13,7 +13,7 @@ export const addItem = (item) => {
   return (dispatch, getState, {getFirestore}) => {
     const firestore = getFirestore();
     firestore.collection('restaurants').add(
-      ...item,
+      item
     ).then( ()=> {
       dispatch({ type: 'ADD_ITEM' });
     }).catch( (err) => {

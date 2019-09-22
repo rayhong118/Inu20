@@ -6,10 +6,10 @@ import Root from './pages/root';
 
 import rootReducer from './shared/store/reducers/rootReducer';
 
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux'
 
-import { createFirestoreInstance, getFirestore } from 'redux-firestore';
+import { createFirestoreInstance, getFirestore, reduxFirestore } from 'redux-firestore';
 import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
 
 import thunk from 'redux-thunk';
@@ -22,9 +22,13 @@ const initState = {}
 const store = createStore(
   rootReducer,
   initState,
-  applyMiddleware(
-    thunk.withExtraArgument({ getFirebase, getFirestore})
+  compose(
+    applyMiddleware(
+      thunk.withExtraArgument({ getFirestore})
+    ),
+    reduxFirestore(firebase)
   )
+  
 );
 
 const rrfConfig = {
