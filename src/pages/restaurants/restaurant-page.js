@@ -7,11 +7,8 @@ import { firestoreConnect} from 'react-redux-firebase';
 import { compose } from 'redux';
 
 class Restautant extends React.Component {
-  
   render() {
-    
     return(
-
         <Container>
           <ItemModal item={ {} } type={'add'}></ItemModal>
           {this.props.items ? (
@@ -35,7 +32,6 @@ const mapStateToProps = (state) => {
     items: state.firestore.ordered.restaurants
   }
 }
-
 
 export default compose(
   connect(mapStateToProps),

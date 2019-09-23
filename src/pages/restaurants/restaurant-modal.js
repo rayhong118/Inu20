@@ -94,11 +94,7 @@ class ItemModal extends React.Component{
     </Modal>
     )
   }
-}
-const mapStateToProps = (state, ownProps) => {
-  return{
-
-  }
+  
 }
 
 const mapDispatchToProps = (dispatch) => {

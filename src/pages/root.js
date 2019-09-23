@@ -2,7 +2,8 @@ import { BrowserRouter, Route, NavLink} from 'react-router-dom';
 import { Container, Sidebar, Segment, Menu, Icon } from 'semantic-ui-react'
 import AboutPage from './about/about';
 import Restaurant from './restaurants/restaurant-page';
-import HomePage from './home/home'
+import HomePage from './home/home';
+import JsonPlaceholder from './1909-json-placeholder/json-placeholder';
 
 import React from 'react';
 
@@ -65,6 +66,12 @@ export default class Root extends React.Component {
                 routerid='about'>
                 <span><Icon name='question circle outline' />About</span>
               </Menu.Item>
+
+              <Menu.Item as={NavLink} to='/1909-json-placeholder' onClick={()=> this.toggleSideBar()}
+                name='JsonPlaceholder'
+                routerid='1909-json-placeholder'>
+                <span><Icon name='table' />Json Placeholder</span>
+              </Menu.Item>
             </Sidebar>
 
             <Sidebar.Pusher dimmed={sideBarVisible}>
@@ -73,6 +80,7 @@ export default class Root extends React.Component {
                 <Route exact path='/' component={HomePage} />
                 <Route path='/about' component={AboutPage} />
                 <Route path='/restaurants' component={Restaurant} />
+                <Route path='/1909-json-placeholder' component={JsonPlaceholder} />
                 </Container>
               </Segment>
             </Sidebar.Pusher>
