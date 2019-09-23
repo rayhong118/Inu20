@@ -1,7 +1,12 @@
 export const deleteItem = (id) => {
-  return {
-    type: 'DELETE_ITEM',
-    id
+  return (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore();
+    firestore.collection('restaurants').doc(id).delete()
+    .then(()=> {
+      dispatch({ type: 'DELETE_ITEM' });
+    }).catch( (err) => {
+      dispatch({ type: 'DELETE_ITEM_ERROR', err });
+    })
   }
 }
 
