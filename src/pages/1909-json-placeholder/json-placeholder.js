@@ -5,7 +5,7 @@ class JsonPlaceholder extends Component {
     results: []
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getData();
   }
 

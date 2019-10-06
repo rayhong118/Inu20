@@ -14,29 +14,10 @@ const listOrder = [
 
 class Restautant extends React.Component {
   state = {
-    order: null
+    order: null,
   }
   handleChange = (e, {value}) => {
     this.setState({order:value});
-    switch(value){
-      case 'PL2H':
-        this.props.items.sort((a, b) => {
-          return a.price - b.price;
-        });
-        break;
-      case 'PH2L':
-        this.props.items.sort((a, b) => {
-          return b.price - a.price;
-        });
-        break;
-      default:
-        this.props.items.sort((a, b) => {
-          return a.name.localeCompare(b.name);
-        });
-        break;
-    }
-
-    
   }
   
   render() {
