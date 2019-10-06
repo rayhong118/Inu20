@@ -13,9 +13,32 @@ const listOrder = [
 ]
 
 class Restautant extends React.Component {
-  state = {order: null}
-  handleChange = (e) => {
-    this.setState({order:e.target.value});
+  state = {
+    order: null
+  }
+  handleChange = (e, {value}) => {
+    this.setState({order:value});
+    switch(value){
+      case 'PL2H':
+        this.props.items.sort((a, b) => {
+          return a.price - b.price;
+        });
+        break;
+      case 'PH2L':
+        this.props.items.sort((a, b) => {
+          return b.price - a.price;
+        });
+        break;
+      default:
+        this.props.items.sort((a, b) => {
+          if(a.name < b.name) { return -1; }
+          if(a.name > b.name) { return 1; }
+          return 0;
+        });
+        break;
+    }
+
+    
   }
   
   render() {
@@ -23,6 +46,7 @@ class Restautant extends React.Component {
       <Container>
         <ItemModal item={ {} } type={'add'}></ItemModal>
         <Select placeholder='Order items' options={listOrder} value={this.state.order} onChange={this.handleChange}/>
+        
         {this.props.items ? (
           <div>Total number of items: {this.props.items.length}
             <ItemsList items={this.props.items} order={this.state.order}/>
