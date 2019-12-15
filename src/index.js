@@ -14,6 +14,10 @@ import firebase from 'firebase/app';
 import firebaseConfig from './config/firebaseConfig'
 
 const initState = {}
+
+firebase.initializeApp(firebaseConfig);
+firebase.firestore();
+
 const store = createStore(
   rootReducer,
   initState,
