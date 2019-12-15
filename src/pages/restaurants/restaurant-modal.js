@@ -58,10 +58,12 @@ class ItemModal extends React.Component{
    
     return(
       <Modal 
-        trigger={<Button color={action[this.props.type].color} size='mini' onClick={this.openModal}> 
-          <Icon name={this.props.type}>
-          </Icon>{action[this.props.type].title}
-        </Button>}
+        trigger={
+          <Button color={action[this.props.type].color} size='mini' onClick={this.openModal}> 
+            <Icon name={this.props.type}>
+            </Icon>{action[this.props.type].title}
+          </Button>
+        }
         open={this.state.modalOpen}
         onClose={() => {this.closeModal()}}>
       <Modal.Header>{action[this.props.type].title} restaurant: {this.props.item.name}</Modal.Header>
@@ -72,7 +74,7 @@ class ItemModal extends React.Component{
               <label>Name</label>
               <Input defaultValue={this.props.item.name} 
               onBlur={this.handleChange} type="text" id="name"
-              readOnly={this.props.type === 'delete'}/>
+              readOnly={this.props.type === 'delete'} required/>
               </Form.Field>
               <Form.Field>
               <label>Address</label>
