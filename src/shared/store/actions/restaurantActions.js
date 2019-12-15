@@ -11,16 +11,6 @@ export const deleteItem = (id) => {
 }
 
 export const editItem = (item) => {
-  /*return (dispatch, getState, {getFireStore}) => {
-    const firestore = getFireStore();
-    firestore.collection('restaurants').add(
-      item
-    ).then( () => {
-      dispatch({type: 'EDIT_ITEM'});
-    }).catch( (err) => {
-      dispatch({ type: 'EDIT_ITEM_ERROR'});
-    })
-  }*/
   //==================================
   // NOT FIXED YET, UPDATE MIGHT NEED TO QUERY FIRST
   //==================================

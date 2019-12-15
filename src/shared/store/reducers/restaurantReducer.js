@@ -10,6 +10,8 @@ const restaurantReducer = (state = initState, action) => {
       return state;
     case 'EDIT_ITEM':
       return state;
+    case 'EDIT_ITEM_ERROR':
+      return state;
     case 'DELETE_ITEM':
       return state;
     case 'DELETE_ITEM_ERROR':
