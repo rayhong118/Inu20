@@ -35,7 +35,7 @@ export default class Root extends React.Component {
             <Icon id="SideBarToggle" name='bars'/>
           </Menu.Item>
           <Menu.Item header>
-            title
+            Doghead Protal
           </Menu.Item>
         </Menu>
 
