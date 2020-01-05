@@ -1,0 +1,23 @@
+.img-container{
+    display: flex;
+    width: 100%;
+}
+
+.img{
+    height: 300px;
+    flex-basis: 20%;
+    /*flex-shrink: 1;*/
+    transition: 0.5s;
+}
+.img:hover{
+    flex-basis: 80%;
+    transition: 0.5s;
+    background-color: azure;
+}
+.img-container :nth-child(even){
+    background-color: aqua;
+}
+.img-container :nth-child(odd){
+    background-color: hotpink;
+}
+
