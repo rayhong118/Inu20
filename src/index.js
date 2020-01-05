@@ -45,6 +45,6 @@ const rrfProps = {
 ReactDOM.render(
 <Provider store = {store}>
   <ReactReduxFirebaseProvider {...rrfProps}>
-      <Root />
+    <Root />
   </ReactReduxFirebaseProvider>
 </Provider>, document.getElementById('root'));
