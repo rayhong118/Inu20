@@ -5,19 +5,20 @@
 
 .img{
     height: 300px;
-    flex-basis: 20%;
-    /*flex-shrink: 1;*/
+    flex: 1;
     transition: 0.5s;
+    overflow: hidden;
+    display: flex;
 }
 .img:hover{
-    flex-basis: 80%;
+    flex: 5;
     transition: 0.5s;
     background-color: azure;
 }
-.img-container :nth-child(even){
+.img-container >:nth-child(even){
     background-color: aqua;
 }
-.img-container :nth-child(odd){
+.img-container >:nth-child(odd){
     background-color: hotpink;
 }
 
