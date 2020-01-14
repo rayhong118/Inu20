@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Message, Icon, Select} from 'semantic-ui-react'
+import {Container, Message, Icon, Select, Input} from 'semantic-ui-react'
 import ItemsList from './restaurant-list';
 import ItemModal from './restaurant-modal';
 import { connect } from 'react-redux';
@@ -15,20 +15,31 @@ const listOrder = [
 class Restautant extends React.Component {
   state = {
     order: null,
+    searchText:''
   }
   handleChange = (e, {value}) => {
     this.setState({order:value});
+  }
+  handleSearchInput = (e, {value}) => {
+    this.setState({searchText:value});
   }
   
   render() {
     return(
       <Container>
+        <Input value={this.state.searchText} type="text" id="search"
+        onChange={this.handleSearchInput} placeholder="Filter by name"/>
+        <br/>
         <ItemModal item={ {} } type={'add'}></ItemModal>
-        <Select placeholder='Order items' options={listOrder} value={this.state.order} onChange={this.handleChange}/>
+        <Select placeholder='Order items' options={listOrder} value={this.state.order}
+          onChange={this.handleChange}/>
         
         {this.props.items ? (
           <div>Total number of items: {this.props.items.length}
-            <ItemsList items={this.props.items} order={this.state.order}/>
+            <ItemsList
+              items={this.props.items} 
+              order={this.state.order} 
+              searchText={this.state.searchText}/>
           </div>
         ) : (
           <Message color='yellow'>

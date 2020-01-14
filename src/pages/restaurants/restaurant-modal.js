@@ -49,24 +49,30 @@ class ItemModal extends React.Component{
     let actionButton;
 
     if(this.props.type === 'add'){
-      actionButton = <Button type="button" color={action.add.color} onClick={() => this.addData()} >Add</Button>
+      actionButton = <Button type="button" color={action.add.color} 
+        onClick={() => this.addData()} >Add</Button>
     } else if (this.props.type === 'delete'){
-      actionButton = <Button type="button" color={action.delete.color} onClick={() => this.deleteData()} >Delete</Button>
+      actionButton = <Button type="button" color={action.delete.color} 
+        onClick={() => this.deleteData()} >Delete</Button>
     } else if (this.props.type === 'edit'){
-      actionButton = <Button type="button" color={action.edit.color} onClick={() => this.editData()} >Edit</Button>
+      actionButton = <Button type="button" color={action.edit.color} 
+        onClick={() => this.editData()} >Edit</Button>
     }
    
     return(
       <Modal 
         trigger={
-          <Button color={action[this.props.type].color} size='mini' onClick={this.openModal}> 
-            <Icon name={this.props.type}>
-            </Icon>{action[this.props.type].title}
+          <Button color={action[this.props.type].color} size='mini' 
+            onClick={this.openModal}> 
+            <Icon name={this.props.type}></Icon>
+            {action[this.props.type].title}
           </Button>
         }
         open={this.state.modalOpen}
         onClose={() => {this.closeModal()}}>
-      <Modal.Header>{action[this.props.type].title} restaurant: {this.props.item.name}</Modal.Header>
+        <Modal.Header>
+          {action[this.props.type].title} restaurant: {this.props.item.name}
+        </Modal.Header>
         <Modal.Content>
           <Form>
             <Form.Group widths='equal'>
