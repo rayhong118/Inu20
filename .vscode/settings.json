@@ -1,0 +1,8 @@
+{
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "prettier.quoteProps": "consistent",
+  "prettier.printWidth": 90,
+  "prettier.jsxSingleQuote": true,
+  "prettier.proseWrap": "always"
+}

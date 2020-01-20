@@ -1,24 +1,31 @@
 .img-container{
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .img{
-    height: 300px;
-    flex: 1;
-    transition: 0.5s;
-    overflow: hidden;
-    display: flex;
+  height: 300px;
+  flex: 1;
+  transition: 2s;
+  overflow: hidden;
 }
 .img:hover{
-    flex: 5;
-    transition: 0.5s;
-    background-color: azure;
+  flex: 5;
+  transition: 2s;
+  background-color: azure;
 }
 .img-container >:nth-child(even){
-    background-color: aqua;
+  background-color: aqua;
 }
 .img-container >:nth-child(odd){
-    background-color: hotpink;
+  background-color: hotpink;
 }
-
+.textbox{
+  margin: 1rem;
+}
+.img >.textbox{
+  display: none;
+}
+.display >.textbox{
+  display: block;
+}

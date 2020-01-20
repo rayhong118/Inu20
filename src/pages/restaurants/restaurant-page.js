@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Message, Icon, Select, Input} from 'semantic-ui-react'
+import {Container, Message, Icon, Dropdown, Input, Grid, Segment, GridColumn, Button} from 'semantic-ui-react'
 import ItemsList from './restaurant-list';
 import ItemModal from './restaurant-modal';
 import { connect } from 'react-redux';
@@ -27,26 +27,41 @@ class Restautant extends React.Component {
   render() {
     return(
       <Container>
-        <Input value={this.state.searchText} type="text" id="search"
-        onChange={this.handleSearchInput} placeholder="Filter by name"/>
-        <br/>
-        <ItemModal item={ {} } type={'add'}></ItemModal>
-        <Select placeholder='Order items' options={listOrder} value={this.state.order}
-          onChange={this.handleChange}/>
+      <Grid stackable columns='equal'>
+        <Grid.Column>
+          <Segment>
+            
+            <Input value={this.state.searchText} type="text" id="search" size="mini"
+              onChange={this.handleSearchInput} placeholder="Filter by name"/>
+            <br/>
+            <Button size="tiny"><Dropdown size="mini" placeholder='Order items' options={listOrder} value={this.state.order}
+              onChange={this.handleChange}/>  </Button>
+            
+          </Segment>
+          </Grid.Column>
         
-        {this.props.items ? (
-          <div>Total number of items: {this.props.items.length}
-            <ItemsList
-              items={this.props.items} 
-              order={this.state.order} 
-              searchText={this.state.searchText}/>
+        <Grid.Column width={10}>
+          <div>
+        <ItemModal item={ {} } type={'add'}></ItemModal>
+          {this.props.items ? (
+            <div>Total number of items: {this.props.items.length}
+              <ItemsList
+                items={this.props.items} 
+                order={this.state.order} 
+                searchText={this.state.searchText}/>
+            </div>
+          ) : (
+            <Message color='yellow'>
+              <Icon name='circle notch' loading={true}></Icon>
+              loading...
+            </Message>
+          )}
           </div>
-        ) : (
-          <Message color='yellow'>
-            <Icon name='circle notch' loading={true}></Icon>
-            loading...
-          </Message>
-        )}
+        </Grid.Column>
+        <GridColumn>
+
+        </GridColumn>
+      </Grid>
       </Container>
     )
   }
