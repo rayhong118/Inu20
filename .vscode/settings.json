@@ -4,5 +4,8 @@
   "prettier.quoteProps": "consistent",
   "prettier.printWidth": 90,
   "prettier.jsxSingleQuote": true,
-  "prettier.proseWrap": "always"
+  "prettier.proseWrap": "always",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.wordWrapColumn": 90
 }

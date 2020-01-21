@@ -1,9 +1,10 @@
-import { BrowserRouter, Route, NavLink} from 'react-router-dom';
-import { Container, Sidebar, Segment, Menu, Icon } from 'semantic-ui-react'
+import { BrowserRouter, Route, NavLink, Switch} from 'react-router-dom';
+import { Container, Sidebar, Segment, Menu, Icon, Header } from 'semantic-ui-react'
 import AboutPage from './about/about';
 import Restaurant from './restaurants/restaurant-page';
 import HomePage from './home/home';
 import JsonPlaceholder from './1909-json-placeholder/json-placeholder';
+import NoMatch from './404/404'
 
 import React from 'react';
 
@@ -35,7 +36,7 @@ export default class Root extends React.Component {
             <Icon id="SideBarToggle" name='bars'/>
           </Menu.Item>
           <Menu.Item header fitted='horizontally'>
-            Doghead Protal
+            Inu20
           </Menu.Item>
         </Menu>
 
@@ -46,8 +47,9 @@ export default class Root extends React.Component {
             direction='left'
             onHide={(e) => this.handleOutSideClick(e)}
             vertical
-            visible={sideBarVisible}>
-
+            visible={sideBarVisible}
+            className='side-bar'>
+            
             <Menu.Item
               as={NavLink}
               exact to='/'
@@ -83,17 +85,31 @@ export default class Root extends React.Component {
               onClick={()=> this.toggleSideBar()}>
               <span><Icon name='table' />Json Placeholder</span>
             </Menu.Item>
-
-            
+            <Menu.Item>Comics
+            <Menu.Menu text vertical>
+              
+              <Menu.Item
+                as={NavLink}
+                to='/1909-json-placeholder'
+                name='JsonPlaceholder'
+                routerid='1909-json-placeholder'
+                onClick={()=> this.toggleSideBar()}>
+                <span>Json Placeholder</span>
+              </Menu.Item>
+            </Menu.Menu>
+            </Menu.Item>
           </Sidebar>
 
           <Sidebar.Pusher dimmed={sideBarVisible}>
             <div className='content-panel'>
               <Container className='content-panel-container'>
-              <Route exact path='/' component={HomePage} />
-              <Route path='/about' component={AboutPage} />
-              <Route path='/restaurants' component={Restaurant} />
-              <Route path='/1909-json-placeholder' component={JsonPlaceholder} />
+              <Switch>
+                <Route exact path='/' component={HomePage} />
+                <Route path='/about' component={AboutPage} />
+                <Route path='/restaurants' component={Restaurant} />
+                <Route path='/1909-json-placeholder' component={JsonPlaceholder} />
+                <Route component={NoMatch} />
+              </Switch>
               </Container>
             </div>
           </Sidebar.Pusher>

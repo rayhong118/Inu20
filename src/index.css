@@ -1,7 +1,13 @@
 #SideBarToggle{
   margin: 0.25em;
 }
-
+#root{
+  height: '100vh';
+  display: 'flex';
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: 'sticky';
+}
 .top-bar{
   flex: 0 1 auto;
   margin-bottom: 0 !important;
