@@ -39,54 +39,66 @@ export default class Root extends React.Component {
           </Menu.Item>
         </Menu>
 
-        <BrowserRouter>
-          <Sidebar.Pushable className='main-panel'>
-            <Sidebar 
-              as={Menu}
-              animation='overlay'
-              direction='left'
-              inverted
-              onHide={(e) => this.handleOutSideClick(e)}
-              vertical
-              visible={sideBarVisible}>
-              <Menu.Item as={NavLink} exact to='/' onClick={()=> this.toggleSideBar()}
+        <BrowserRouter><Sidebar.Pushable className='main-panel'>
+          <Sidebar 
+            as={Menu}
+            animation='overlay'
+            direction='left'
+            onHide={(e) => this.handleOutSideClick(e)}
+            vertical
+            visible={sideBarVisible}>
+
+            <Menu.Item
+              as={NavLink}
+              exact to='/'
               name='Home'
-              routerid='home'>
-                <span><Icon name='home'/>Home</span>
-              </Menu.Item>
+              routerid='home'
+              onClick={()=> this.toggleSideBar()}>
+              <span><Icon name='home'/>Home</span>
+            </Menu.Item>
 
-              <Menu.Item as={NavLink} to='/restaurants' onClick={()=> this.toggleSideBar()}
-                name='Restaurants'
-                routerid='restaurants'>
-                <span><Icon name='food' />Restaurants</span>
-              </Menu.Item>
+            <Menu.Item
+              as={NavLink}
+              to='/restaurants'
+              name='Restaurants'
+              routerid='restaurants'
+              onClick={()=> this.toggleSideBar()}>
+              <span><Icon name='food' />Restaurants</span>
+            </Menu.Item>
 
-              <Menu.Item as={NavLink} to='/about' onClick={()=> this.toggleSideBar()}
-                name='About'
-                routerid='about'>
-                <span><Icon name='question circle outline' />About</span>
-              </Menu.Item>
+            <Menu.Item
+              as={NavLink}
+              to='/about'
+              name='About'
+              routerid='about'
+              onClick={()=> this.toggleSideBar()}>
+              <span><Icon name='question circle outline' />About</span>
+            </Menu.Item>
 
-              <Menu.Item as={NavLink} to='/1909-json-placeholder' onClick={()=> this.toggleSideBar()}
-                name='JsonPlaceholder'
-                routerid='1909-json-placeholder'>
-                <span><Icon name='table' />Json Placeholder</span>
-              </Menu.Item>
-            </Sidebar>
+            <Menu.Item
+              as={NavLink}
+              to='/1909-json-placeholder'
+              name='JsonPlaceholder'
+              routerid='1909-json-placeholder'
+              onClick={()=> this.toggleSideBar()}>
+              <span><Icon name='table' />Json Placeholder</span>
+            </Menu.Item>
 
-            <Sidebar.Pusher dimmed={sideBarVisible}>
-              <div className='content-panel'>
-                <Container className='content-panel-container'>
-                <Route exact path='/' component={HomePage} />
-                <Route path='/about' component={AboutPage} />
-                <Route path='/restaurants' component={Restaurant} />
-                <Route path='/1909-json-placeholder' component={JsonPlaceholder} />
-                </Container>
-              </div>
-            </Sidebar.Pusher>
+            
+          </Sidebar>
 
-          </Sidebar.Pushable>
-        </BrowserRouter>
+          <Sidebar.Pusher dimmed={sideBarVisible}>
+            <div className='content-panel'>
+              <Container className='content-panel-container'>
+              <Route exact path='/' component={HomePage} />
+              <Route path='/about' component={AboutPage} />
+              <Route path='/restaurants' component={Restaurant} />
+              <Route path='/1909-json-placeholder' component={JsonPlaceholder} />
+              </Container>
+            </div>
+          </Sidebar.Pusher>
+
+        </Sidebar.Pushable></BrowserRouter>
         
 			</div>
 		)

@@ -5,20 +5,20 @@ class AboutPage extends Component{
 	render() {
 		
 		return(
-			<div class="main-container">
-        <div class="section parallax" id="section-1">
+			<div className="main-container">
+        <div className="section parallax" id="section-1">
           this is test text
         </div>
 
-        <div class="section static">
+        <div className="section static">
           static section
         </div>
 
-        <div class="section parallax" id="section-2">
+        <div className="section parallax" id="section-2">
           this is test text
         </div>
 
-        <div class="section static">
+        <div className="section static">
           static section
         </div>
 
