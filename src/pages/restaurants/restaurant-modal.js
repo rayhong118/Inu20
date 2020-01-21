@@ -95,10 +95,12 @@ class ItemModal extends React.Component{
               readOnly={this.props.type === 'delete'}/>
               </Form.Field>
           </Form.Group>
-          {actionButton}
-          <Button type="button" onClick={() => this.closeModal()} >Cancel</Button>
         </Form>
       </Modal.Content>
+      <Modal.Actions>
+        {actionButton}
+        <Button type="button" onClick={() => this.closeModal()} >Cancel</Button>
+      </Modal.Actions>
     </Modal>
     )
   }

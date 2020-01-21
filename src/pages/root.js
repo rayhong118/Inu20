@@ -30,11 +30,11 @@ export default class Root extends React.Component {
     const { sideBarVisible } = this.state;
 		return(
 			<div style={{height: '100vh', display: 'flex', flexFlow: 'column nowrap', position: 'sticky'}}> 
-        <Menu secondary className='header'>
+        <Menu secondary className='top-bar'>
           <Menu.Item onClick={()=> this.toggleSideBar()}>
             <Icon id="SideBarToggle" name='bars'/>
           </Menu.Item>
-          <Menu.Item header>
+          <Menu.Item header fitted='horizontally'>
             Doghead Protal
           </Menu.Item>
         </Menu>
@@ -75,14 +75,14 @@ export default class Root extends React.Component {
             </Sidebar>
 
             <Sidebar.Pusher dimmed={sideBarVisible}>
-              <Segment className='content'>
-                <Container>
+              <div className='content-panel'>
+                <Container className='content-panel-container'>
                 <Route exact path='/' component={HomePage} />
                 <Route path='/about' component={AboutPage} />
                 <Route path='/restaurants' component={Restaurant} />
                 <Route path='/1909-json-placeholder' component={JsonPlaceholder} />
                 </Container>
-              </Segment>
+              </div>
             </Sidebar.Pusher>
 
           </Sidebar.Pushable>

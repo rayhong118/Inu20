@@ -2,9 +2,10 @@
   margin: 0.25em;
 }
 
-.header{
+.top-bar{
   flex: 0 1 auto;
   margin-bottom: 0 !important;
+  box-shadow: 2px 1px 1px #bbb !important;
 }
 
 .main-panel{
@@ -12,9 +13,13 @@
   flex: 1 1 auto;
 }
 
-.content{
+.content-panel{
   height: 100%;
   width: 100vw;
   overflow-y: auto;
   border-radius: 0 !important;
+}
+
+.content-panel-container{
+  padding: 1rem 0 0 0;
 }

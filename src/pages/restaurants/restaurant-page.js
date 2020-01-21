@@ -5,6 +5,7 @@ import ItemModal from './restaurant-modal';
 import { connect } from 'react-redux';
 import { firestoreConnect} from 'react-redux-firebase';
 import { compose } from 'redux';
+import './restaurant.css'
 
 const listOrder = [
   {key: 'Default', value: 'Default', text:'Default'},
@@ -26,43 +27,41 @@ class Restautant extends React.Component {
   
   render() {
     return(
-      <Container>
-      <Grid stackable columns='equal'>
-        <Grid.Column>
-          <Segment>
-            
-            <Input value={this.state.searchText} type="text" id="search" size="mini"
-              onChange={this.handleSearchInput} placeholder="Filter by name"/>
-            <br/>
-            <Button size="tiny"><Dropdown size="mini" placeholder='Order items' options={listOrder} value={this.state.order}
-              onChange={this.handleChange}/>  </Button>
-            
-          </Segment>
+      <Grid  stackable>
+        <Grid.Row>
+          <Grid.Column width={4}>
+            <Segment>
+              <label>Filter by name:</label>
+              <Input fluid value={this.state.searchText} type="text" id="search"
+                onChange={this.handleSearchInput} placeholder="Filter by name"/>
+              <br/>
+              <label>Order of items:</label>
+              <Dropdown fluid className='tiny' placeholder='Default' selection
+                options={listOrder} value={this.state.order}
+                onChange={this.handleChange}/>
+            </Segment>
           </Grid.Column>
-        
-        <Grid.Column width={10}>
-          <div>
-        <ItemModal item={ {} } type={'add'}></ItemModal>
-          {this.props.items ? (
-            <div>Total number of items: {this.props.items.length}
-              <ItemsList
-                items={this.props.items} 
-                order={this.state.order} 
-                searchText={this.state.searchText}/>
-            </div>
-          ) : (
-            <Message color='yellow'>
-              <Icon name='circle notch' loading={true}></Icon>
-              loading...
-            </Message>
-          )}
-          </div>
-        </Grid.Column>
-        <GridColumn>
 
-        </GridColumn>
+          <Grid.Column width={12}>
+            <ItemModal item={ {} } type={'add'}></ItemModal>
+            {this.props.items ? (
+              <div>Total number of items: {this.props.items.length}
+                <ItemsList
+                  items={this.props.items} 
+                  order={this.state.order} 
+                  searchText={this.state.searchText}/>
+              </div>
+            ) : (
+              <Message color='yellow'>
+                <Icon name='circle notch' loading={true}></Icon>
+                loading...
+              </Message>
+            )}
+          </Grid.Column>
+
+        </Grid.Row>
+
       </Grid>
-      </Container>
     )
   }
     
