@@ -1,4 +1,4 @@
-.main-container{
+.main-container {
   height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
@@ -16,32 +16,30 @@
   text-shadow: 0 0 5px #000;
 }
 
-#section-1::after{
+#section-1::after {
   background: linear-gradient(#000, #ddd);
-
 }
 
-#section-2::after{
+#section-2::after {
   background: linear-gradient(#ddd, #000);
-
 }
 
-.static{
+.static {
   background: white;
   position: relative;
   z-index: 1;
 }
-.parallax{
+.parallax {
   transform-style: preserve-3d;
 }
 .parallax::after {
-  content: " ";
+  content: ' ';
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  
+
   transform: translate3d(0, 0, -5px) scale(2);
   background-size: 100%;
   z-index: -1;

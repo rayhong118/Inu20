@@ -1,9 +1,9 @@
 const initState = {
-  items: []
-}
+  items: [],
+};
 
 const restaurantReducer = (state = initState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'ADD_ITEM':
       return state;
     case 'ADD_ITEM_ERROR':
@@ -19,6 +19,6 @@ const restaurantReducer = (state = initState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default restaurantReducer;

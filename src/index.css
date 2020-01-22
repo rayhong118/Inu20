@@ -1,31 +1,31 @@
-#SideBarToggle{
+#SideBarToggle {
   margin: 0.25em;
 }
-#root{
+#root {
   height: '100vh';
   display: 'flex';
   flex-direction: column;
   flex-wrap: nowrap;
   position: 'sticky';
 }
-.top-bar{
+.top-bar {
   flex: 0 1 auto;
   margin-bottom: 0 !important;
   box-shadow: 2px 1px 1px #bbb !important;
 }
 
-.main-panel{
+.main-panel {
   display: flex;
   flex: 1 1 auto;
 }
 
-.content-panel{
+.content-panel {
   height: 100%;
   width: 100vw;
   overflow-y: auto;
   border-radius: 0 !important;
 }
 
-.content-panel-container{
+.content-panel-container {
   padding: 1rem 0 0 0;
 }

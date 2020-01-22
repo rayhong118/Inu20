@@ -1,31 +1,31 @@
-.img-container{
+.img-container {
   display: flex;
   width: 100%;
 }
 
-.img{
+.img {
   height: 300px;
   flex: 1;
   transition: 2s;
   overflow: hidden;
 }
-.img:hover{
+.img:hover {
   flex: 5;
   transition: 2s;
   background-color: azure;
 }
-.img-container >:nth-child(even){
+.img-container > :nth-child(even) {
   background-color: aqua;
 }
-.img-container >:nth-child(odd){
+.img-container > :nth-child(odd) {
   background-color: hotpink;
 }
-.textbox{
+.textbox {
   margin: 1rem;
 }
-.img >.textbox{
+.img > .textbox {
   display: none;
 }
-.display >.textbox{
+.display > .textbox {
   display: block;
 }
