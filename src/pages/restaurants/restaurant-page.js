@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-  Container,
-  Message,
-  Icon,
-  Dropdown,
-  Input,
-  Grid,
-  Segment,
-  GridColumn,
-  Button,
-} from 'semantic-ui-react';
+import { Message, Icon, Dropdown, Input, Grid, Segment } from 'semantic-ui-react';
 import ItemsList from './restaurant-list';
 import ItemModal from './restaurant-modal';
 import { connect } from 'react-redux';
@@ -88,7 +78,7 @@ class Restautant extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     items: state.firestore.ordered.restaurants,
   };

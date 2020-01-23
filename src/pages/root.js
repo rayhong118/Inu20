@@ -5,6 +5,7 @@ import Restaurant from './restaurants/restaurant-page';
 import HomePage from './home/home';
 import JsonPlaceholder from './1909-json-placeholder/json-placeholder';
 import NoMatch from './404/404';
+import WIP from './404/WIP';
 
 import React from 'react';
 
@@ -52,7 +53,7 @@ export default class Root extends React.Component {
               as={Menu}
               animation='overlay'
               direction='left'
-              onHide={e => this.handleOutSideClick(e)}
+              onHide={(e) => this.handleOutSideClick(e)}
               vertical
               visible={sideBarVisible}
               className='side-bar'>
@@ -106,17 +107,18 @@ export default class Root extends React.Component {
               </Menu.Item>
               <Menu.Item>
                 Comics
-                <Menu.Menu text vertical>
+                <Menu.Menu>
                   <Menu.Item
                     as={NavLink}
-                    to='/doghead-comics-en'
+                    //to='/doghead-comics-en'
+                    to='/wip'
                     name='Doghead Comics'
                     routerid='doghead-comics-en'
                     onClick={() => this.toggleSideBar()}>
                     <span>
-                      Doghead Comics
+                      Doghead Comics{'   '}
                       <Label color='blue' size='tiny' horizontal>
-                        Candy
+                        EN
                       </Label>
                     </span>
                   </Menu.Item>
@@ -132,6 +134,7 @@ export default class Root extends React.Component {
                     <Route path='/about' component={AboutPage} />
                     <Route path='/restaurants' component={Restaurant} />
                     <Route path='/1909-json-placeholder' component={JsonPlaceholder} />
+                    <Route path='/wip' component={WIP} />
                     <Route component={NoMatch} />
                   </Switch>
                 </Container>

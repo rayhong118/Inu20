@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Image } from 'semantic-ui-react';
 
-export default class noMatch extends React.Component {
+export default class WIP extends React.Component {
   state = {
     imageUrls: [],
   };
@@ -10,7 +10,7 @@ export default class noMatch extends React.Component {
     return (
       <Container textAlign='center'>
         <Image fluid />
-        <h1>Not found</h1>
+        <h1>Work in progress</h1>
       </Container>
     );
   }
