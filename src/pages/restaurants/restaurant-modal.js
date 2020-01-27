@@ -13,6 +13,7 @@ class ItemModal extends React.Component {
     modalOpen: false,
     item: this.props.item,
   };
+  onComponentMount() {}
 
   handleChange = e => {
     this.setState({
@@ -23,7 +24,9 @@ class ItemModal extends React.Component {
     });
   };
 
-  openModal = () => this.setState({ modalOpen: true });
+  openModal() {
+    this.setState({ modalOpen: true });
+  }
   closeModal() {
     this.setState({ modalOpen: false });
   }
@@ -81,7 +84,7 @@ class ItemModal extends React.Component {
           <Button
             color={action[this.props.type].color}
             size='mini'
-            onClick={this.openModal}>
+            onClick={() => this.openModal()}>
             <Icon name={this.props.type}></Icon>
             {action[this.props.type].title}
           </Button>
@@ -131,10 +134,10 @@ class ItemModal extends React.Component {
           </Form>
         </Modal.Content>
         <Modal.Actions>
-          {actionButton}
           <Button type='button' onClick={() => this.closeModal()}>
             Cancel
           </Button>
+          {actionButton}
         </Modal.Actions>
       </Modal>
     );

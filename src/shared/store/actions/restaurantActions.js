@@ -15,9 +15,6 @@ export const deleteItem = id => {
 };
 
 export const editItem = item => {
-  //==================================
-  // NOT FIXED YET, UPDATE MIGHT NEED TO QUERY FIRST
-  //==================================
   console.log({ ...item });
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();

@@ -65,6 +65,8 @@ class Restautant extends React.Component {
                   searchText={this.state.searchText}
                 />
               </div>
+            ) : this.props.err ? (
+              <div>ERROR</div>
             ) : (
               <Message color='yellow'>
                 <Icon name='circle notch' loading={true}></Icon>
@@ -78,7 +80,7 @@ class Restautant extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     items: state.firestore.ordered.restaurants,
   };
