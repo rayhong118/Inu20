@@ -1,15 +1,17 @@
 import { BrowserRouter, Route, NavLink, Switch } from 'react-router-dom';
 import { Container, Sidebar, Segment, Menu, Icon, Label } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import AboutPage from './about/about';
 import Restaurant from './restaurants/restaurant-page';
 import HomePage from './home/home';
 import JsonPlaceholder from './1909-json-placeholder/json-placeholder';
 import NoMatch from './404/404';
 import WIP from './404/WIP';
+import SignIn from '../shared/components/sign-in';
 
 import React from 'react';
 
-export default class Root extends React.Component {
+class Root extends React.Component {
   state = {
     sideBarVisible: false,
   };
@@ -43,7 +45,12 @@ export default class Root extends React.Component {
             <Icon id='SideBarToggle' name='bars' />
           </Menu.Item>
           <Menu.Item header fitted='horizontally'>
-            Inu20
+            <a id='headerTitle' href='/'>
+              Inu20
+            </a>
+          </Menu.Item>
+          <Menu.Item>
+            <SignIn></SignIn>
           </Menu.Item>
         </Menu>
 
@@ -53,7 +60,7 @@ export default class Root extends React.Component {
               as={Menu}
               animation='overlay'
               direction='left'
-              onHide={(e) => this.handleOutSideClick(e)}
+              onHide={e => this.handleOutSideClick(e)}
               vertical
               visible={sideBarVisible}
               className='side-bar'>
@@ -146,3 +153,10 @@ export default class Root extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  console.log(state);
+  return {};
+};
+
+export default connect(mapStateToProps)(Root);
