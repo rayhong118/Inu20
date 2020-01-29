@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Image } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 
 export default class WIP extends React.Component {
   state = {
@@ -9,7 +9,7 @@ export default class WIP extends React.Component {
   render() {
     return (
       <Container textAlign='center'>
-        <img src='https://i.imgur.com/cQ3PAbv.jpg' />
+        <img src='https://i.imgur.com/cQ3PAbv.jpg' style={{ maxWidth: '100%' }} />
         <h1>WORK IN PROGRESS</h1>
       </Container>
     );
