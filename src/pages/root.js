@@ -5,7 +5,7 @@ import AboutPage from './about/about';
 import Restaurant from './restaurants/restaurant-page';
 import HomePage from './home/home';
 import JsonPlaceholder from './1909-json-placeholder/json-placeholder';
-import NoMatch from './404/404';
+import NoMatch from './404/NoMatch';
 import WIP from './404/WIP';
 import SignIn from '../shared/components/sign-in';
 
@@ -60,7 +60,7 @@ class Root extends React.Component {
               as={Menu}
               animation='overlay'
               direction='left'
-              onHide={e => this.handleOutSideClick(e)}
+              onHide={(e) => this.handleOutSideClick(e)}
               vertical
               visible={sideBarVisible}
               className='side-bar'>
@@ -154,7 +154,7 @@ class Root extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   console.log(state);
   return {};
 };
