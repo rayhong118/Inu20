@@ -9,8 +9,8 @@ export default class WIP extends React.Component {
   render() {
     return (
       <Container textAlign='center'>
-        <Image fluid />
-        <h1>Work in progress</h1>
+        <img src='https://i.imgur.com/cQ3PAbv.jpg' />
+        <h1>WORK IN PROGRESS</h1>
       </Container>
     );
   }

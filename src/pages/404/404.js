@@ -9,8 +9,8 @@ export default class noMatch extends React.Component {
   render() {
     return (
       <Container textAlign='center'>
-        <Image fluid />
-        <h1>Not found</h1>
+        <img src='https://i.imgur.com/1gqR2Xe.jpg' />
+        <h1>NOT FOUND</h1>
       </Container>
     );
   }
