@@ -58,7 +58,6 @@ class Restautant extends React.Component {
             <ItemModal item={{}} type={'add'}></ItemModal>
             {this.props.items ? (
               <div>
-                Total number of items: {this.props.items.length}
                 <ItemsList
                   items={this.props.items}
                   order={this.state.order}

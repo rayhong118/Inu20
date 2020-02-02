@@ -60,7 +60,7 @@ class Root extends React.Component {
               as={Menu}
               animation='overlay'
               direction='left'
-              onHide={(e) => this.handleOutSideClick(e)}
+              onHide={e => this.handleOutSideClick(e)}
               vertical
               visible={sideBarVisible}
               className='side-bar'>
@@ -144,6 +144,7 @@ class Root extends React.Component {
                     <Route path='/wip' component={WIP} />
                     <Route component={NoMatch} />
                   </Switch>
+                  this is test text for footer
                 </Container>
               </div>
             </Sidebar.Pusher>
@@ -154,7 +155,7 @@ class Root extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   console.log(state);
   return {};
 };

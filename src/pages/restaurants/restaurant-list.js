@@ -38,7 +38,12 @@ const ItemsList = ({ items, order, searchText }) => {
       </Segment>
     );
   });
-  return <div>{itemsList}</div>;
+  return (
+    <div>
+      <div>Number of results: {sortedItems.length}</div>
+      {itemsList}
+    </div>
+  );
 };
 
 export default ItemsList;
