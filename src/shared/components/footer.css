@@ -1,6 +1,15 @@
 .footer {
+  background-color: #dddddd;
+  padding: 1rem 0;
+}
+.footer-content {
   display: flex;
 }
+.footer-content a {
+  color: inherit;
+  text-decoration: none;
+}
 .footer-icon {
-  width: 100px;
+  width: 50px;
+  padding-right: 1rem;
 }

@@ -8,6 +8,7 @@ import JsonPlaceholder from './1909-json-placeholder/json-placeholder';
 import NoMatch from './404/NoMatch';
 import WIP from './404/WIP';
 import SignIn from '../shared/components/sign-in';
+import Footer from '../shared/components/footer';
 
 import React from 'react';
 
@@ -144,8 +145,8 @@ class Root extends React.Component {
                     <Route path='/wip' component={WIP} />
                     <Route component={NoMatch} />
                   </Switch>
-                  this is test text for footer
                 </Container>
+                <Footer></Footer>
               </div>
             </Sidebar.Pusher>
           </Sidebar.Pushable>
