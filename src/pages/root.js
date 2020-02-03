@@ -136,7 +136,7 @@ class Root extends React.Component {
 
             <Sidebar.Pusher dimmed={sideBarVisible}>
               <div className='content-panel'>
-                <Container className='content-panel-container'>
+                <div className='content-panel-container'>
                   <Switch>
                     <Route exact path='/' component={HomePage} />
                     <Route path='/about' component={AboutPage} />
@@ -145,7 +145,7 @@ class Root extends React.Component {
                     <Route path='/wip' component={WIP} />
                     <Route component={NoMatch} />
                   </Switch>
-                </Container>
+                </div>
                 <Footer></Footer>
               </div>
             </Sidebar.Pusher>

@@ -1,4 +1,4 @@
-.img-container {
+/*.img-container {
   display: flex;
   width: 100%;
 }
@@ -28,4 +28,20 @@
 }
 .display > .textbox {
   display: block;
+}
+*/
+
+#title-banner {
+  margin-top: -1rem;
+  padding: 6rem 0;
+  background-image: url('https://lh3.googleusercontent.com/qexHN0gvvhFvh-EVMBq__uJaBb44tVL6WUQAkb_bLZSozDv5rwBMxoQAFPe-9NzicoiTNGDhwxMa533a_yyRdVsIZZ7HnkTc-kMlJyySVZsAFPrz6anT0GmOCagaFXVEgwugzYTgGQ=w1920-h821-no');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-text-stroke-width: 0.2px;
+  -webkit-text-stroke-color: white;
+}
+
+#title-banner h1 {
+  font-size: 4rem;
 }

@@ -31,5 +31,6 @@
 }
 
 .content-panel-container {
+  min-height: 90vh;
   padding: 1rem 0;
 }

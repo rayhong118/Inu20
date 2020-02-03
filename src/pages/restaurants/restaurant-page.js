@@ -1,5 +1,13 @@
 import React from 'react';
-import { Message, Icon, Dropdown, Input, Grid, Segment } from 'semantic-ui-react';
+import {
+  Message,
+  Icon,
+  Dropdown,
+  Input,
+  Grid,
+  Segment,
+  Container,
+} from 'semantic-ui-react';
 import ItemsList from './restaurant-list';
 import ItemModal from './restaurant-modal';
 import { connect } from 'react-redux';
@@ -27,54 +35,56 @@ class Restautant extends React.Component {
 
   render() {
     return (
-      <Grid stackable>
-        <Grid.Row>
-          <Grid.Column width={4}>
-            <Segment>
-              <label>Filter by name:</label>
-              <Input
-                fluid
-                value={this.state.searchText}
-                type='text'
-                id='search'
-                onChange={this.handleSearchInput}
-                placeholder='Filter by name'
-              />
-              <br />
-              <label>Order of items:</label>
-              <Dropdown
-                fluid
-                className='tiny'
-                placeholder='Default'
-                selection
-                options={listOrder}
-                value={this.state.order}
-                onChange={this.handleChange}
-              />
-            </Segment>
-          </Grid.Column>
-
-          <Grid.Column width={12}>
-            <ItemModal item={{}} type={'add'}></ItemModal>
-            {this.props.items ? (
-              <div>
-                <ItemsList
-                  items={this.props.items}
-                  order={this.state.order}
-                  searchText={this.state.searchText}
+      <Container>
+        <Grid stackable>
+          <Grid.Row>
+            <Grid.Column width={4}>
+              <Segment>
+                <label>Filter by name:</label>
+                <Input
+                  fluid
+                  value={this.state.searchText}
+                  type='text'
+                  id='search'
+                  onChange={this.handleSearchInput}
+                  placeholder='Filter by name'
                 />
-              </div>
-            ) : this.props.err ? (
-              <div>ERROR</div>
-            ) : (
-              <Message color='yellow'>
-                <Icon name='circle notch' loading={true}></Icon>
-                loading...
-              </Message>
-            )}
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+                <br />
+                <label>Order of items:</label>
+                <Dropdown
+                  fluid
+                  className='tiny'
+                  placeholder='Default'
+                  selection
+                  options={listOrder}
+                  value={this.state.order}
+                  onChange={this.handleChange}
+                />
+              </Segment>
+            </Grid.Column>
+
+            <Grid.Column width={12}>
+              <ItemModal item={{}} type={'add'}></ItemModal>
+              {this.props.items ? (
+                <div>
+                  <ItemsList
+                    items={this.props.items}
+                    order={this.state.order}
+                    searchText={this.state.searchText}
+                  />
+                </div>
+              ) : this.props.err ? (
+                <div>ERROR</div>
+              ) : (
+                <Message color='yellow'>
+                  <Icon name='circle notch' loading={true}></Icon>
+                  loading...
+                </Message>
+              )}
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
     );
   }
 }
