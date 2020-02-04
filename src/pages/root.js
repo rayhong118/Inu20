@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, NavLink, Switch } from 'react-router-dom';
-import { Container, Sidebar, Segment, Menu, Icon, Label } from 'semantic-ui-react';
+import { Sidebar, Menu, Icon, Label } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import AboutPage from './about/about';
 import Restaurant from './restaurants/restaurant-page';
@@ -61,7 +61,7 @@ class Root extends React.Component {
               as={Menu}
               animation='overlay'
               direction='left'
-              onHide={e => this.handleOutSideClick(e)}
+              onHide={(e) => this.handleOutSideClick(e)}
               vertical
               visible={sideBarVisible}
               className='side-bar'>
@@ -156,7 +156,7 @@ class Root extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   console.log(state);
   return {};
 };
