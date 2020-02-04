@@ -14,7 +14,7 @@
 .top-bar {
   z-index: 10;
   flex: 0 1 auto;
-  margin-bottom: 0 !important;
+  margin: 0 !important;
   box-shadow: 2px 1px 1px #bbb !important;
 }
 
