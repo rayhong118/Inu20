@@ -11,7 +11,11 @@
   flex-wrap: nowrap;
   position: 'sticky';
 }
+
 .top-bar {
+  position: sticky;
+  top: 0;
+  background-color: white !important;
   z-index: 10;
   flex: 0 1 auto;
   margin: 0 !important;
@@ -24,7 +28,9 @@
 }
 
 .content-panel {
-  height: 100%;
+  top: 0;
+  z-index: 11;
+  height: 100vh;
   width: 100vw;
   overflow-y: auto;
   border-radius: 0 !important;

@@ -34,130 +34,120 @@ class Root extends React.Component {
   render() {
     const { sideBarVisible } = this.state;
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexFlow: 'column nowrap',
-          position: 'sticky',
-        }}>
-        <Menu secondary className='top-bar'>
-          <Menu.Item onClick={() => this.toggleSideBar()}>
-            <Icon id='SideBarToggle' name='bars' />
-          </Menu.Item>
-          <Menu.Item header fitted='horizontally'>
-            <a id='headerTitle' href='/'>
-              Inu20
-            </a>
-          </Menu.Item>
-          <Menu.Item>
-            <SignIn></SignIn>
-          </Menu.Item>
-        </Menu>
+      <BrowserRouter>
+        <Sidebar.Pushable className='main-panel'>
+          <Sidebar
+            as={Menu}
+            animation='overlay'
+            direction='left'
+            onHide={(e) => this.handleOutSideClick(e)}
+            vertical
+            visible={sideBarVisible}
+            className='side-bar'>
+            <Menu.Item
+              as={NavLink}
+              exact
+              to='/'
+              name='Home'
+              routerid='home'
+              onClick={() => this.toggleSideBar()}>
+              <span>
+                <Icon name='home' />
+                Home
+              </span>
+            </Menu.Item>
 
-        <BrowserRouter>
-          <Sidebar.Pushable className='main-panel'>
-            <Sidebar
-              as={Menu}
-              animation='overlay'
-              direction='left'
-              onHide={(e) => this.handleOutSideClick(e)}
-              vertical
-              visible={sideBarVisible}
-              className='side-bar'>
-              <Menu.Item
-                as={NavLink}
-                exact
-                to='/'
-                name='Home'
-                routerid='home'
-                onClick={() => this.toggleSideBar()}>
-                <span>
-                  <Icon name='home' />
-                  Home
-                </span>
-              </Menu.Item>
+            <Menu.Item
+              as={NavLink}
+              to='/restaurants'
+              name='Restaurants'
+              routerid='restaurants'
+              onClick={() => this.toggleSideBar()}>
+              <span>
+                <Icon name='food' />
+                Restaurants
+              </span>
+            </Menu.Item>
 
-              <Menu.Item
-                as={NavLink}
-                to='/restaurants'
-                name='Restaurants'
-                routerid='restaurants'
-                onClick={() => this.toggleSideBar()}>
-                <span>
-                  <Icon name='food' />
-                  Restaurants
-                </span>
-              </Menu.Item>
+            <Menu.Item
+              as={NavLink}
+              to='/about'
+              name='About'
+              routerid='about'
+              onClick={() => this.toggleSideBar()}>
+              <span>
+                <Icon name='question circle outline' />
+                About
+              </span>
+            </Menu.Item>
 
-              <Menu.Item
-                as={NavLink}
-                to='/about'
-                name='About'
-                routerid='about'
-                onClick={() => this.toggleSideBar()}>
-                <span>
-                  <Icon name='question circle outline' />
-                  About
-                </span>
-              </Menu.Item>
+            <Menu.Item
+              as={NavLink}
+              to='/1909-json-placeholder'
+              name='JsonPlaceholder'
+              routerid='1909-json-placeholder'
+              onClick={() => this.toggleSideBar()}>
+              <span>
+                <Icon name='table' />
+                Json Placeholder
+              </span>
+            </Menu.Item>
+            <Menu.Item>
+              Comics
+              <Menu.Menu>
+                <Menu.Item
+                  as={NavLink}
+                  //to='/doghead-comics-en'
+                  to='/wip'
+                  name='Doghead Comics'
+                  routerid='doghead-comics-en'
+                  onClick={() => this.toggleSideBar()}>
+                  <span>
+                    Doghead Comics{'   '}
+                    <Label color='blue' size='tiny' horizontal>
+                      EN
+                    </Label>
+                  </span>
+                </Menu.Item>
+              </Menu.Menu>
+            </Menu.Item>
+          </Sidebar>
 
-              <Menu.Item
-                as={NavLink}
-                to='/1909-json-placeholder'
-                name='JsonPlaceholder'
-                routerid='1909-json-placeholder'
-                onClick={() => this.toggleSideBar()}>
-                <span>
-                  <Icon name='table' />
-                  Json Placeholder
-                </span>
-              </Menu.Item>
-              <Menu.Item>
-                Comics
-                <Menu.Menu>
-                  <Menu.Item
-                    as={NavLink}
-                    //to='/doghead-comics-en'
-                    to='/wip'
-                    name='Doghead Comics'
-                    routerid='doghead-comics-en'
-                    onClick={() => this.toggleSideBar()}>
-                    <span>
-                      Doghead Comics{'   '}
-                      <Label color='blue' size='tiny' horizontal>
-                        EN
-                      </Label>
-                    </span>
-                  </Menu.Item>
-                </Menu.Menu>
-              </Menu.Item>
-            </Sidebar>
-
-            <Sidebar.Pusher dimmed={sideBarVisible}>
-              <div className='content-panel'>
-                <div className='content-panel-container'>
-                  <Switch>
-                    <Route exact path='/' component={HomePage} />
-                    <Route path='/about' component={AboutPage} />
-                    <Route path='/restaurants' component={Restaurant} />
-                    <Route path='/1909-json-placeholder' component={JsonPlaceholder} />
-                    <Route path='/wip' component={WIP} />
-                    <Route component={NoMatch} />
-                  </Switch>
-                </div>
-                <Footer></Footer>
+          <Sidebar.Pusher dimmed={sideBarVisible}>
+            <div className='content-panel'>
+              <Menu secondary className='top-bar'>
+                <Menu.Item onClick={() => this.toggleSideBar()}>
+                  <Icon id='SideBarToggle' name='bars' />
+                </Menu.Item>
+                <Menu.Item header fitted='horizontally'>
+                  <a id='headerTitle' href='/'>
+                    Inu20
+                  </a>
+                </Menu.Item>
+                <Menu.Item>
+                  <SignIn></SignIn>
+                </Menu.Item>
+              </Menu>
+              <div className='content-panel-container'>
+                <Switch>
+                  <Route exact path='/' component={HomePage} />
+                  <Route path='/about' component={AboutPage} />
+                  <Route path='/restaurants' component={Restaurant} />
+                  <Route path='/1909-json-placeholder' component={JsonPlaceholder} />
+                  <Route path='/wip' component={WIP} />
+                  <Route component={NoMatch} />
+                </Switch>
               </div>
-            </Sidebar.Pusher>
-          </Sidebar.Pushable>
-        </BrowserRouter>
-      </div>
+              <Footer></Footer>
+            </div>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
+      </BrowserRouter>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {};
 };
 
