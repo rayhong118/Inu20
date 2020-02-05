@@ -34,27 +34,7 @@ class Root extends React.Component {
   render() {
     const { sideBarVisible } = this.state;
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexFlow: 'column nowrap',
-          position: 'sticky',
-        }}>
-        <Menu secondary className='top-bar'>
-          <Menu.Item onClick={() => this.toggleSideBar()}>
-            <Icon id='SideBarToggle' name='bars' />
-          </Menu.Item>
-          <Menu.Item header fitted='horizontally'>
-            <a id='headerTitle' href='/'>
-              Inu20
-            </a>
-          </Menu.Item>
-          <Menu.Item>
-            <SignIn></SignIn>
-          </Menu.Item>
-        </Menu>
-
+      <div>
         <BrowserRouter>
           <Sidebar.Pushable className='main-panel'>
             <Sidebar
@@ -136,6 +116,19 @@ class Root extends React.Component {
 
             <Sidebar.Pusher dimmed={sideBarVisible}>
               <div className='content-panel'>
+                <Menu secondary className='top-bar'>
+                  <Menu.Item onClick={() => this.toggleSideBar()}>
+                    <Icon id='SideBarToggle' name='bars' />
+                  </Menu.Item>
+                  <Menu.Item header fitted='horizontally'>
+                    <a id='headerTitle' href='/'>
+                      Inu20
+                    </a>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <SignIn></SignIn>
+                  </Menu.Item>
+                </Menu>
                 <div className='content-panel-container'>
                   <Switch>
                     <Route exact path='/' component={HomePage} />
