@@ -13,7 +13,7 @@ class JsonPlaceholder extends Component {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('load', () => {
       this.setState({
-        results: JSON.parse(xhr.responseText).map(item => {
+        results: JSON.parse(xhr.responseText).map((item) => {
           return {
             //key: item.id,
             ...item,
@@ -27,7 +27,7 @@ class JsonPlaceholder extends Component {
   }
 
   render() {
-    let table = this.state.results.map(item => {
+    let table = this.state.results.map((item) => {
       return (
         <tr key={item.id}>
           <td>{item.uesrId}</td>

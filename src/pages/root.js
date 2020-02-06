@@ -124,7 +124,7 @@ class Root extends React.Component {
                     Inu20
                   </a>
                 </Menu.Item>
-                <Menu.Item>
+                <Menu.Item position='right'>
                   <SignIn></SignIn>
                 </Menu.Item>
               </Menu>
