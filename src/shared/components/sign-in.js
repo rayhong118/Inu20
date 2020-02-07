@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from 'semantic-ui-react';
+import { Modal, Button, Input, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { signIn } from '../store/actions/authActions';
 
@@ -15,10 +15,17 @@ class SignIn extends React.Component {
   }
 
   signIn() {
-    console.log('sign in action');
+    console.log('sign in action', this.state.email, this.state.password);
 
-    this.props.signIn({ email: 'test@inu20.com', password: 'password' });
+    //this.props.signIn({ email: 'test@inu20.com', password: 'password' });
   }
+
+  handleInput = (e) => {
+    console.log(e);
+    this.setState({
+      [e.target.id]: e.target.value,
+    });
+  };
 
   render() {
     return (
@@ -33,7 +40,24 @@ class SignIn extends React.Component {
           open={this.state.isModalOpen}
           onClose={() => this.closeModal()}>
           <Modal.Header>Sign in</Modal.Header>
-          <Modal.Content>modalContent</Modal.Content>
+          <Modal.Content>
+            <Form>
+              <Form.Field
+                label='Email:'
+                control='input'
+                onBlur={this.handleInput}
+                type='text'
+                id='email'
+              />
+              <Form.Field
+                label='Password:'
+                control='input'
+                onBlur={this.handleInput}
+                type='password'
+                id='password'
+              />
+            </Form>
+          </Modal.Content>
           <Modal.Actions>
             <Button onClick={() => this.closeModal()}>Cancel</Button>
             <Button color='blue' onClick={() => this.signIn()}>
@@ -45,14 +69,14 @@ class SignIn extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     authError: state.auth.authError,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: creds => dispatch(signIn(creds)),
+    signIn: (creds) => dispatch(signIn(creds)),
   };
 };
 
