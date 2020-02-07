@@ -1,5 +1,6 @@
 const initState = {
   items: [],
+  error: '',
 };
 
 const restaurantReducer = (state = initState, action) => {
@@ -15,7 +16,10 @@ const restaurantReducer = (state = initState, action) => {
     case 'DELETE_ITEM':
       return state;
     case 'DELETE_ITEM_ERROR':
-      return state;
+      console.log(action);
+      console.log(action.payload.message);
+
+      return { ...state, error: action.payload.message };
     default:
       return state;
   }

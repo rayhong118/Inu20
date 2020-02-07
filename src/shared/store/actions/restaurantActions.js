@@ -10,7 +10,7 @@ export const deleteItem = id => {
       })
       .catch(err => {
         console.log(err);
-        dispatch({ type: 'DELETE_ITEM_ERROR', err });
+        dispatch({ type: 'DELETE_ITEM_ERROR', payload: err });
       });
   };
 };

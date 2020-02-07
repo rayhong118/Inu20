@@ -3,8 +3,8 @@ import { Segment, Header } from 'semantic-ui-react';
 import ItemModal from './restaurant-modal';
 
 const ItemsList = ({ items, order, searchText }) => {
-  console.log(order);
-  console.log(searchText);
+  // console.log(order);
+  // console.log(searchText);
   let filteredItems = searchText
     ? [...items].filter(item => item.name.includes(searchText))
     : [...items];

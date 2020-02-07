@@ -32,6 +32,10 @@ class Restautant extends React.Component {
   handleSearchInput = (e, { value }) => {
     this.setState({ searchText: value });
   };
+  logState = () => {
+    console.log(this.props);
+    console.log(this.state);
+  };
 
   render() {
     return (
@@ -64,6 +68,10 @@ class Restautant extends React.Component {
             </Grid.Column>
 
             <Grid.Column width={12}>
+              {this.props.error}
+              {
+                //<button onClick={this.logState}>logstate</button>
+              }
               <ItemModal item={{}} type={'add'}></ItemModal>
               {this.props.items ? (
                 <div>
@@ -92,6 +100,8 @@ class Restautant extends React.Component {
 const mapStateToProps = state => {
   return {
     items: state.firestore.ordered.restaurants,
+    auth: state.firebase.auth,
+    error: state.firebase.error,
   };
 };
 
