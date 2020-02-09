@@ -40,10 +40,9 @@ class Root extends React.Component {
             as={Menu}
             animation='overlay'
             direction='left'
-            onHide={(e) => this.handleOutSideClick(e)}
+            onHide={e => this.handleOutSideClick(e)}
             vertical
-            visible={sideBarVisible}
-            className='side-bar'>
+            visible={sideBarVisible}>
             <Menu.Item
               as={NavLink}
               exact
@@ -97,7 +96,6 @@ class Root extends React.Component {
               <Menu.Menu>
                 <Menu.Item
                   as={NavLink}
-                  //to='/doghead-comics-en'
                   to='/wip'
                   name='Doghead Comics'
                   routerid='doghead-comics-en'
@@ -125,7 +123,9 @@ class Root extends React.Component {
                   </a>
                 </Menu.Item>
                 <Menu.Item position='right'>
-                  <SignIn></SignIn>
+                  <div>
+                    <SignIn auth={this.state.auth}></SignIn>
+                  </div>
                 </Menu.Item>
               </Menu>
               <div className='content-panel-container'>
@@ -147,7 +147,7 @@ class Root extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {};
 };
 

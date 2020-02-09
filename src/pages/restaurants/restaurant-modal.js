@@ -1,6 +1,6 @@
 // not being used
 import React from 'react';
-import { Button, Icon, Modal, Form, Input } from 'semantic-ui-react';
+import { Button, Icon, Modal, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {
   deleteItem,
@@ -15,7 +15,7 @@ class ItemModal extends React.Component {
   };
   onComponentMount() {}
 
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({
       item: {
         ...this.state.item,
@@ -141,15 +141,15 @@ class ItemModal extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    deleteItem: (id) => {
+    deleteItem: id => {
       dispatch(deleteItem(id));
     },
-    editItem: (item) => {
+    editItem: item => {
       dispatch(editItem(item));
     },
-    addItem: (item) => {
+    addItem: item => {
       dispatch(addItem(item));
     },
   };

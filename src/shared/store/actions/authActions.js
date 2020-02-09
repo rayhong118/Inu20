@@ -8,3 +8,14 @@ export const signIn = credential => {
       .catch(err => dispatch({ type: 'LOGIN_ERROR', err }));
   };
 };
+
+export const signOut = () => {
+  return (dispatch, getState) => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        dispatch({ type: 'SIGNOUT_SUCCESS' });
+      });
+  };
+};

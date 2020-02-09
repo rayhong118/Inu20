@@ -1,12 +1,13 @@
 import React from 'react';
 import { Modal, Button, Input, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { signIn } from '../store/actions/authActions';
+import { signIn, signOut } from '../store/actions/authActions';
 
 class SignIn extends React.Component {
   state = { modalOpen: false };
 
   openModal() {
+    console.log(this.props.auth);
     this.setState({ isModalOpen: true });
   }
 
@@ -14,22 +15,33 @@ class SignIn extends React.Component {
     this.setState({ isModalOpen: false });
   }
 
-  signIn() {
-    console.log('sign in action', this.state.email, this.state.password);
+  signIn = () => {
+    //console.log('sign in action', this.state.email, this.state.password);
+    //console.log(this.state);
+    //console.log(this.props);
+    this.props.signIn({ email: this.state.email, password: 'password' });
+  };
+  signOut = () => {
+    console.log('signout');
+    this.props.signOut();
+  };
 
-    //this.props.signIn({ email: 'test@inu20.com', password: 'password' });
-  }
-
-  handleInput = (e) => {
+  handleInput = e => {
     console.log(e);
     this.setState({
       [e.target.id]: e.target.value,
     });
   };
 
+  log = () => {
+    console.log(this.props);
+    console.log(this.state);
+  };
+
   render() {
-    return (
-      <div>
+    const { auth, authError } = this.props;
+    if (!auth.uid)
+      return (
         <Modal
           trigger={
             <Button size='mini' onClick={() => this.openModal()}>
@@ -41,6 +53,8 @@ class SignIn extends React.Component {
           onClose={() => this.closeModal()}>
           <Modal.Header>Sign in</Modal.Header>
           <Modal.Content>
+            <button onClick={this.log}>log</button>
+            {authError ? <span>{authError}</span> : null}
             <Form>
               <Form.Field
                 label='Email:'
@@ -55,29 +69,52 @@ class SignIn extends React.Component {
                 onBlur={this.handleInput}
                 type='password'
                 id='password'
+                disabled
               />
             </Form>
           </Modal.Content>
           <Modal.Actions>
             <Button onClick={() => this.closeModal()}>Cancel</Button>
-            <Button color='blue' onClick={() => this.signIn()}>
+            <Button color='blue' onClick={this.signIn}>
               Sign in
             </Button>
           </Modal.Actions>
         </Modal>
-      </div>
-    );
+      );
+    else
+      return (
+        <Modal
+          trigger={
+            <Button size='mini' onClick={() => this.openModal()}>
+              Settings
+            </Button>
+          }
+          size='tiny'
+          open={this.state.isModalOpen}
+          onClose={() => this.closeModal()}>
+          <Modal.Header>Settings</Modal.Header>
+          <Modal.Content></Modal.Content>
+          <Modal.Actions>
+            <Button onClick={() => this.closeModal()}>Cancel</Button>
+            <Button color='blue' onClick={this.signOut}>
+              Sign out
+            </Button>
+          </Modal.Actions>
+        </Modal>
+      );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
+    auth: state.firebase.auth,
     authError: state.auth.authError,
   };
 };
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    signIn: (creds) => dispatch(signIn(creds)),
+    signIn: creds => dispatch(signIn(creds)),
+    signOut: () => dispatch(signOut()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
