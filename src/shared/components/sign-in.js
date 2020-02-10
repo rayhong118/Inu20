@@ -1,5 +1,5 @@
-import React from 'react';
-import { Modal, Button, Input, Form } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { Modal, Button, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { signIn, signOut } from '../store/actions/authActions';
 
@@ -16,14 +16,13 @@ class SignIn extends React.Component {
   }
 
   signIn = () => {
-    //console.log('sign in action', this.state.email, this.state.password);
-    //console.log(this.state);
-    //console.log(this.props);
     this.props.signIn({ email: this.state.email, password: 'password' });
   };
+
   signOut = () => {
     console.log('signout');
     this.props.signOut();
+    this.closeModal();
   };
 
   handleInput = e => {
@@ -34,9 +33,13 @@ class SignIn extends React.Component {
   };
 
   log = () => {
-    console.log(this.props);
-    console.log(this.state);
+    console.log('props', this.props);
+    console.log('state', this.state);
   };
+
+  componentWillReceiveProps(nextProp) {
+    if (nextProp.auth.uid) this.closeModal();
+  }
 
   render() {
     const { auth, authError } = this.props;
@@ -53,7 +56,6 @@ class SignIn extends React.Component {
           onClose={() => this.closeModal()}>
           <Modal.Header>Sign in</Modal.Header>
           <Modal.Content>
-            <button onClick={this.log}>log</button>
             {authError ? <span>{authError}</span> : null}
             <Form>
               <Form.Field
@@ -96,7 +98,7 @@ class SignIn extends React.Component {
           <Modal.Content></Modal.Content>
           <Modal.Actions>
             <Button onClick={() => this.closeModal()}>Cancel</Button>
-            <Button color='blue' onClick={this.signOut}>
+            <Button color='red' onClick={this.signOut}>
               Sign out
             </Button>
           </Modal.Actions>

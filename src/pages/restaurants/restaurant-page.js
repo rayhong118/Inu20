@@ -25,6 +25,7 @@ class Restautant extends React.Component {
   state = {
     order: null,
     searchText: '',
+    filterText: '',
   };
   handleChange = (e, { value }) => {
     this.setState({ order: value });
@@ -37,61 +38,86 @@ class Restautant extends React.Component {
     console.log(this.state);
   };
 
+  filterList(list) {
+    return this.state.filterText
+      ? [...list].filter(item => item.name.includes(this.state.filterText))
+      : list;
+  }
+  sortList(list) {
+    switch (this.state.order) {
+      case 'ascendingPrice':
+      case 'decendingPrice':
+      default:
+    }
+  }
+
   render() {
     return (
       <Container>
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={4}>
-              <Segment>
-                <label>Filter by name:</label>
-                <Input
-                  fluid
-                  value={this.state.searchText}
-                  type='text'
-                  id='search'
-                  onChange={this.handleSearchInput}
-                  placeholder='Filter by name'
-                />
-                <br />
-                <label>Order of items:</label>
-                <Dropdown
-                  fluid
-                  className='tiny'
-                  placeholder='Default'
-                  selection
-                  options={listOrder}
-                  value={this.state.order}
-                  onChange={this.handleChange}
-                />
-              </Segment>
-            </Grid.Column>
-
-            <Grid.Column width={12}>
-              {this.props.error}
-              {
-                //<button onClick={this.logState}>logstate</button>
-              }
-              <ItemModal item={{}} type={'add'}></ItemModal>
-              {this.props.items ? (
-                <div>
-                  <ItemsList
-                    items={this.props.items}
-                    order={this.state.order}
-                    searchText={this.state.searchText}
+        {!this.props.auth.uid ? (
+          <Message color='red'>
+            <Icon name='warning circle'></Icon>
+            In order to access the content on this page, you need to sign in first.
+          </Message>
+        ) : (
+          <Grid stackable>
+            <Grid.Row>
+              <Grid.Column width={4}>
+                <Segment>
+                  <label>Filter by name:</label>
+                  <Input
+                    fluid
+                    value={this.state.searchText}
+                    type='text'
+                    id='search'
+                    onChange={this.handleSearchInput}
+                    placeholder='Filter by name'
                   />
-                </div>
-              ) : this.props.err ? (
-                <div>ERROR</div>
-              ) : (
-                <Message color='yellow'>
-                  <Icon name='circle notch' loading={true}></Icon>
-                  loading...
-                </Message>
-              )}
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+                  <br />
+                  <label>Order of items:</label>
+                  <Dropdown
+                    fluid
+                    className='tiny'
+                    placeholder='Default'
+                    selection
+                    options={listOrder}
+                    value={this.state.order}
+                    onChange={this.handleChange}
+                  />
+                </Segment>
+              </Grid.Column>
+
+              <Grid.Column width={12}>
+                {this.props.error}
+                {
+                  //<button onClick={this.logState}>logstate</button>
+                }
+
+                <ItemModal
+                  item={{}}
+                  type={'add'}
+                  disabled={!this.props.auth.uid}></ItemModal>
+
+                {this.props.items ? (
+                  <div>
+                    <ItemsList
+                      items={this.props.items}
+                      order={this.state.order}
+                      searchText={this.state.searchText}
+                    />
+                  </div>
+                ) : this.props.err ? (
+                  <div>ERROR</div>
+                ) : (
+                  <Message color='yellow'>
+                    <Icon name='circle notch' loading={true}></Icon>
+                    loading...
+                  </Message>
+                )}
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        )}
       </Container>
     );
   }
@@ -101,6 +127,7 @@ const mapStateToProps = state => {
   return {
     items: state.firestore.ordered.restaurants,
     auth: state.firebase.auth,
+    authError: state.auth.authError,
     error: state.firebase.error,
   };
 };

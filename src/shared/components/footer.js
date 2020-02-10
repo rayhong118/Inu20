@@ -8,7 +8,11 @@ export default class Footer extends React.Component {
       <div className='footer'>
         <Container>
           <div className='footer-content'>
-            <img className='footer-icon' src='https://i.imgur.com/1o29Oyu.jpg' />
+            <img
+              className='footer-icon'
+              alt='doghead-icon'
+              src='https://i.imgur.com/1o29Oyu.jpg'
+            />
             <span>
               <Icon name='mail' />
               rayhong118@gmail.com <br />

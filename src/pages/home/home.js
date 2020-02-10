@@ -19,7 +19,7 @@ export default class HomePage extends Component {
           </div>
         </div>
         <Container textAlign='center'>
-          <h2>Word</h2>
+          <h2>Word.</h2>
           <h4>
             <i>-A word from doghead.</i>
           </h4>
