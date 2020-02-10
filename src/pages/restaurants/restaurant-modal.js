@@ -15,7 +15,7 @@ class ItemModal extends React.Component {
   };
   onComponentMount() {}
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
       item: {
         ...this.state.item,
@@ -121,7 +121,7 @@ class ItemModal extends React.Component {
               <Form.Field
                 label='Price'
                 control='input'
-                defaultValue={this.props.item.name}
+                defaultValue={this.props.item.price}
                 onBlur={this.handleChange}
                 type='number'
                 id='price'
@@ -141,15 +141,15 @@ class ItemModal extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    deleteItem: id => {
+    deleteItem: (id) => {
       dispatch(deleteItem(id));
     },
-    editItem: item => {
+    editItem: (item) => {
       dispatch(editItem(item));
     },
-    addItem: item => {
+    addItem: (item) => {
       dispatch(addItem(item));
     },
   };
