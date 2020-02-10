@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form } from 'semantic-ui-react';
+import React from 'react';
+import { Modal, Button, Form, Message, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { signIn, signOut } from '../store/actions/authActions';
 
 class SignIn extends React.Component {
-  state = { modalOpen: false };
+  state = { modalOpen: false, authError: '' };
 
   openModal() {
     console.log(this.props.auth);
@@ -12,7 +12,7 @@ class SignIn extends React.Component {
   }
 
   closeModal() {
-    this.setState({ isModalOpen: false });
+    this.setState({ isModalOpen: false, authError: '' });
   }
 
   signIn = () => {
@@ -39,10 +39,11 @@ class SignIn extends React.Component {
 
   componentWillReceiveProps(nextProp) {
     if (nextProp.auth.uid) this.closeModal();
+    if (nextProp.authError) this.setState({ authError: nextProp.authError });
   }
 
   render() {
-    const { auth, authError } = this.props;
+    const { auth } = this.props;
     if (!auth.uid)
       return (
         <Modal
@@ -56,7 +57,11 @@ class SignIn extends React.Component {
           onClose={() => this.closeModal()}>
           <Modal.Header>Sign in</Modal.Header>
           <Modal.Content>
-            {authError ? <span>{authError}</span> : null}
+            {this.state.authError ? (
+              <Message color='red'>
+                <span>{this.state.authError}</span>
+              </Message>
+            ) : null}
             <Form>
               <Form.Field
                 label='Email:'
