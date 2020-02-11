@@ -6,7 +6,7 @@ const ItemsList = ({ items, order, searchText }) => {
   // console.log(order);
   // console.log(searchText);
   let filteredItems = searchText
-    ? [...items].filter(item => item.name.includes(searchText))
+    ? [...items].filter((item) => item.name.includes(searchText))
     : [...items];
 
   let sortedItems = [];
@@ -27,12 +27,13 @@ const ItemsList = ({ items, order, searchText }) => {
       });
       break;
   }
-  const itemsList = sortedItems.map(item => {
+  const itemsList = sortedItems.map((item) => {
     return (
       <Segment key={item.id} color='teal'>
         <Header>{item.name}</Header>
-        <div>address: {item.address}</div>
-        <div>price: {item.price}</div>
+        <div>Address: {item.address}</div>
+        <div>Price: {item.price}</div>
+        {item.comments ? <div>Comments: {item.comments}</div> : ''}
         <ItemModal item={item} type={'edit'}></ItemModal>
         <ItemModal item={item} type={'delete'}></ItemModal>
       </Segment>

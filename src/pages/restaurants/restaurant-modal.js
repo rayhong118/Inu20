@@ -16,6 +16,8 @@ class ItemModal extends React.Component {
   onComponentMount() {}
 
   handleChange = (e) => {
+    let elem = e.target;
+    if (elem.id === 'price' && elem.value <= 0) elem.value = 0;
     this.setState({
       item: {
         ...this.state.item,
@@ -24,22 +26,22 @@ class ItemModal extends React.Component {
     });
   };
 
-  openModal() {
+  openModal = () => {
     this.setState({ modalOpen: true });
-  }
-  closeModal() {
+  };
+  closeModal = () => {
     this.setState({ modalOpen: false });
-  }
+  };
 
-  addData() {
+  addData = () => {
     this.props.addItem(this.state.item);
     this.closeModal();
-  }
+  };
 
-  editData() {
+  editData = () => {
     this.props.editItem(this.state.item);
     this.closeModal();
-  }
+  };
 
   deleteData = () => {
     this.props.deleteItem(this.props.item.id);
@@ -57,22 +59,19 @@ class ItemModal extends React.Component {
 
     if (this.props.type === 'add') {
       actionButton = (
-        <Button type='button' color={action.add.color} onClick={() => this.addData()}>
+        <Button type='button' color={action.add.color} onClick={this.addData}>
           Add
         </Button>
       );
     } else if (this.props.type === 'delete') {
       actionButton = (
-        <Button
-          type='button'
-          color={action.delete.color}
-          onClick={() => this.deleteData()}>
+        <Button type='button' color={action.delete.color} onClick={this.deleteData}>
           Delete
         </Button>
       );
     } else if (this.props.type === 'edit') {
       actionButton = (
-        <Button type='button' color={action.edit.color} onClick={() => this.editData()}>
+        <Button type='button' color={action.edit.color} onClick={this.editData}>
           Edit
         </Button>
       );
@@ -98,7 +97,20 @@ class ItemModal extends React.Component {
         </Modal.Header>
         <Modal.Content>
           <Form>
-            <Form.Group widths='equal'>
+            <Form.Group>
+              <Form.Field
+                label='Google Map Link'
+                control='input'
+                defaultValue={this.props.item.mapLink}
+                onBlur={this.handleChange}
+                type='text'
+                id='mapLink'
+                readOnly={this.props.type === 'delete'}
+                width={6}
+                disabled
+              />
+            </Form.Group>
+            <Form.Group>
               <Form.Field
                 label='Name'
                 control='input'
@@ -107,6 +119,7 @@ class ItemModal extends React.Component {
                 type='text'
                 id='name'
                 readOnly={this.props.type === 'delete'}
+                width={6}
                 required
               />
               <Form.Field
@@ -117,6 +130,8 @@ class ItemModal extends React.Component {
                 type='text'
                 id='address'
                 readOnly={this.props.type === 'delete'}
+                width={8}
+                required
               />
               <Form.Field
                 label='Price'
@@ -126,12 +141,20 @@ class ItemModal extends React.Component {
                 type='number'
                 id='price'
                 readOnly={this.props.type === 'delete'}
+                width={2}
               />
             </Form.Group>
+            <Form.TextArea
+              label='Comments ( additional info )'
+              defaultValue={this.props.item.comments}
+              onBlur={this.handleChange}
+              id='comments'
+              readOnly={this.props.type === 'delete'}
+            />
           </Form>
         </Modal.Content>
         <Modal.Actions>
-          <Button type='button' onClick={() => this.closeModal()}>
+          <Button type='button' onClick={this.closeModal}>
             Cancel
           </Button>
           {actionButton}
