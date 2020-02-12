@@ -16,9 +16,6 @@ const restaurantReducer = (state = initState, action) => {
     case 'DELETE_ITEM':
       return state;
     case 'DELETE_ITEM_ERROR':
-      console.log(action);
-      console.log(action.payload.message);
-
       return { ...state, error: action.payload.message };
     default:
       return state;
