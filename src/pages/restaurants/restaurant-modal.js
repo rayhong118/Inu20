@@ -1,6 +1,6 @@
 // not being used
 import React from 'react';
-import { Button, Icon, Modal, Form } from 'semantic-ui-react';
+import { Button, Icon, Modal, Form, Input } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {
   deleteItem,
@@ -48,6 +48,9 @@ class ItemModal extends React.Component {
     this.closeModal();
   };
 
+  log = () => {
+    console.log('search');
+  };
   render() {
     let action = {
       edit: { title: 'Edit', color: 'blue' },
@@ -98,18 +101,19 @@ class ItemModal extends React.Component {
         <Modal.Content>
           <Form>
             <Form.Group>
-              <Form.Field
-                label='Google Map Link'
-                control='input'
-                defaultValue={this.props.item.mapLink}
-                onBlur={this.handleChange}
-                type='text'
-                id='mapLink'
-                readOnly={this.props.type === 'delete'}
-                width={6}
-                disabled
-              />
+              <Form.Field width={16}>
+                <label>Google Map Link</label>
+                <Input
+                  defaultValue={this.props.item.mapLink}
+                  onBlur={this.handleChange}
+                  type='text'
+                  id='mapLink'
+                  readOnly={this.props.type === 'delete'}
+                  action={<Button onClick={this.log}>Apply Map Link</Button>}
+                />
+              </Form.Field>
             </Form.Group>
+
             <Form.Group>
               <Form.Field
                 label='Name'
