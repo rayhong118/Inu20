@@ -15,7 +15,7 @@ class ItemModal extends React.Component {
   };
   onComponentMount() {}
 
-  handleChange = (e) => {
+  handleChange = e => {
     let elem = e.target;
     if (elem.id === 'price' && elem.value <= 0) elem.value = 0;
     this.setState({
@@ -101,7 +101,7 @@ class ItemModal extends React.Component {
         <Modal.Content>
           <Form>
             <Form.Group>
-              <Form.Field width={16}>
+              <Form.Field width={16} disabled>
                 <label>Google Map Link</label>
                 <Input
                   defaultValue={this.props.item.mapLink}
@@ -168,15 +168,15 @@ class ItemModal extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    deleteItem: (id) => {
+    deleteItem: id => {
       dispatch(deleteItem(id));
     },
-    editItem: (item) => {
+    editItem: item => {
       dispatch(editItem(item));
     },
-    addItem: (item) => {
+    addItem: item => {
       dispatch(addItem(item));
     },
   };
