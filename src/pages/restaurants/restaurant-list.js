@@ -1,33 +1,19 @@
 import React from 'react';
-import { Segment, Header } from 'semantic-ui-react';
+import { Segment, Header, Message, Icon } from 'semantic-ui-react';
 import ItemModal from './restaurant-modal';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 
-const ItemsList = ({ items, order, searchText }) => {
-  // console.log(order);
-  // console.log(searchText);
-  let filteredItems = searchText
-    ? [...items].filter((item) => item.name.includes(searchText))
-    : [...items];
+class ItemsList extends React.Component {
+  //{ items, order, searchText } = this.props;
+  filteredItems = this.props.searchText
+    ? [...this.props.items].filter((item) => item.name.includes(this.props.searchText))
+    : [...this.props.items];
 
-  let sortedItems = [];
-  switch (order) {
-    case 'PL2H':
-      sortedItems = filteredItems.sort((a, b) => {
-        return a.price - b.price;
-      });
-      break;
-    case 'PH2L':
-      sortedItems = filteredItems.sort((a, b) => {
-        return b.price - a.price;
-      });
-      break;
-    default:
-      sortedItems = filteredItems.sort((a, b) => {
-        return a.name.localeCompare(b.name);
-      });
-      break;
-  }
-  const itemsList = sortedItems.map((item) => {
+  sortedItems = [];
+
+  itemsList = this.props.sortedItems.map((item) => {
     return (
       <Segment key={item.id} color='teal'>
         <Header>{item.name}</Header>
@@ -39,12 +25,31 @@ const ItemsList = ({ items, order, searchText }) => {
       </Segment>
     );
   });
-  return (
-    <div>
-      <div>Number of results: {sortedItems.length}</div>
-      {itemsList}
-    </div>
-  );
+  render() {
+    if (!this.props.auth.uid)
+      return (
+        <Message color='red'>
+          <Icon name='warning circle'></Icon>
+          In order to access the content on this page, you need to sign in first.
+        </Message>
+      );
+    else
+      return (
+        <div>
+          <div>Number of results: {this.sortedItems.length}</div>
+          {this.itemsList}
+        </div>
+      );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    items: state.firestore.ordered.restaurant,
+  };
 };
 
-export default ItemsList;
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: 'restaurant' }])
+)(ItemsList);
