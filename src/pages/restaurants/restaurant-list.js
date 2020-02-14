@@ -7,24 +7,49 @@ import { compose } from 'redux';
 
 class ItemsList extends React.Component {
   //{ items, order, searchText } = this.props;
-  filteredItems = this.props.searchText
-    ? [...this.props.items].filter((item) => item.name.includes(this.props.searchText))
-    : [...this.props.items];
+  state = { items: [], authId: '' };
+  log = () => {
+    console.log('props', this.props);
+    console.log('state', this.state);
+  };
 
-  sortedItems = [];
+  filterItems = items => {
+    console.log(this.props);
+    console.log(this.state);
+    return this.props.searchText
+      ? [...items].filter(item => item.name.includes(this.props.searchText))
+      : [...items];
+  };
 
-  itemsList = this.props.sortedItems.map((item) => {
-    return (
-      <Segment key={item.id} color='teal'>
-        <Header>{item.name}</Header>
-        <div>Address: {item.address}</div>
-        <div>Price: {item.price}</div>
-        {item.comments ? <div>Comments: {item.comments}</div> : ''}
-        <ItemModal item={item} type={'edit'}></ItemModal>
-        <ItemModal item={item} type={'delete'}></ItemModal>
-      </Segment>
-    );
-  });
+  sortItems = filteredItems => {
+    console.log(this.props);
+    console.log(this.state);
+    switch (this.props.order) {
+      case 'PL2H':
+        return filteredItems.sort((a, b) => {
+          return a.price - b.price;
+        });
+      case 'PH2L':
+        return filteredItems.sort((a, b) => {
+          return b.price - a.price;
+        });
+
+      default:
+        return filteredItems.sort((a, b) => {
+          return a.name.localeCompare(b.name);
+        });
+    }
+  };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    let rawItems = nextProps.items;
+
+    return {
+      items: rawItems,
+      authId: nextProps.auth.uid,
+    };
+  }
+
   render() {
     if (!this.props.auth.uid)
       return (
@@ -36,20 +61,39 @@ class ItemsList extends React.Component {
     else
       return (
         <div>
-          <div>Number of results: {this.sortedItems.length}</div>
-          {this.itemsList}
+          <button onClick={this.log}>log</button>
+
+          <div>Number of results: {this.state.items ? this.state.items.length : 0}</div>
+
+          {this.state.items ? (
+            this.state.items.map(item => {
+              return (
+                <Segment key={item.id} color='teal'>
+                  <Header>{item.name}</Header>
+                  <div>Address: {item.address}</div>
+                  <div>Price: {item.price}</div>
+                  {item.comments ? <div>Comments: {item.comments}</div> : ''}
+                  <ItemModal item={item} type={'edit'}></ItemModal>
+                  <ItemModal item={item} type={'delete'}></ItemModal>
+                </Segment>
+              );
+            })
+          ) : (
+            <div>shit</div>
+          )}
         </div>
       );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    items: state.firestore.ordered.restaurant,
+    items: state.firestore.ordered.restaurants,
+    auth: state.firebase.auth,
   };
 };
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: 'restaurant' }])
+  firestoreConnect([{ collection: 'restaurants' }])
 )(ItemsList);
