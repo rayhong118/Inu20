@@ -11,8 +11,6 @@ import {
 import ItemsList from './restaurant-list';
 import ItemModal from './restaurant-modal';
 import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
 import './restaurant.css';
 
 const listOrder = [
@@ -27,97 +25,75 @@ class Restautant extends React.Component {
     searchText: '',
     filterText: '',
   };
+
   handleChange = (e, { value }) => {
     this.setState({ order: value });
   };
+
   handleSearchInput = (e, { value }) => {
     this.setState({ searchText: value });
   };
-  logState = () => {
-    console.log(this.props);
-    console.log(this.state);
-  };
-
-  filterList(list) {
-    return this.state.filterText
-      ? [...list].filter(item => item.name.includes(this.state.filterText))
-      : list;
-  }
-  sortList(list) {
-    switch (this.state.order) {
-      case 'ascendingPrice':
-      case 'decendingPrice':
-      default:
-    }
-  }
 
   render() {
     return (
       <Container>
-        {!this.props.auth.uid ? (
-          <Message color='red'>
-            <Icon name='warning circle'></Icon>
-            In order to access the content on this page, you need to sign in first.
-          </Message>
-        ) : (
-          <Grid stackable>
-            <Grid.Row>
-              <Grid.Column width={4}>
-                <Segment>
-                  <label>Filter by name:</label>
-                  <Input
-                    fluid
-                    value={this.state.searchText}
-                    type='text'
-                    id='search'
-                    onChange={this.handleSearchInput}
-                    placeholder='Filter by name'
+        <Grid stackable>
+          <Grid.Row>
+            <Grid.Column width={4}>
+              <Segment>
+                <label>Filter by name:</label>
+                <Input
+                  fluid
+                  value={this.state.searchText}
+                  type='text'
+                  id='search'
+                  onChange={this.handleSearchInput}
+                  placeholder='Filter by name'
+                />
+                <br />
+                <label>Order of items:</label>
+                <Dropdown
+                  fluid
+                  className='tiny'
+                  placeholder='Default'
+                  selection
+                  options={listOrder}
+                  value={this.state.order}
+                  onChange={this.handleChange}
+                />
+              </Segment>
+            </Grid.Column>
+
+            <Grid.Column width={12}>
+              {this.props.error}
+              {
+                //<button onClick={this.logState}>logstate</button>
+              }
+
+              <ItemModal
+                item={{}}
+                type={'add'}
+                disabled={!this.props.auth.uid}></ItemModal>
+
+              {true ? (
+                <div>
+                  <ItemsList
+                    order={this.state.order}
+                    searchText={this.state.searchText}
+                    auth={this.state.auth}
                   />
-                  <br />
-                  <label>Order of items:</label>
-                  <Dropdown
-                    fluid
-                    className='tiny'
-                    placeholder='Default'
-                    selection
-                    options={listOrder}
-                    value={this.state.order}
-                    onChange={this.handleChange}
-                  />
-                </Segment>
-              </Grid.Column>
-
-              <Grid.Column width={12}>
-                {this.props.error}
-                {
-                  //<button onClick={this.logState}>logstate</button>
-                }
-
-                <ItemModal
-                  item={{}}
-                  type={'add'}
-                  disabled={!this.props.auth.uid}></ItemModal>
-
-                {this.props.items ? (
-                  <div>
-                    <ItemsList
-                      items={this.props.items}
-                      order={this.state.order}
-                      searchText={this.state.searchText}
-                    />
-                  </div>
-                ) : this.props.err ? (
-                  <div>ERROR</div>
-                ) : (
-                  <Message color='yellow'>
-                    <Icon name='circle notch' loading={true}></Icon>
-                    loading...
-                  </Message>
-                )}
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        )}
+                </div>
+              ) : this.props.err ? (
+                <div>ERROR</div>
+              ) : (
+                <Message color='yellow'>
+                  <Icon name='circle notch' loading={true}></Icon>
+                  loading...
+                </Message>
+              )}
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Container>
     );
   }
@@ -125,14 +101,10 @@ class Restautant extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.firestore.ordered.restaurants,
     auth: state.firebase.auth,
     authError: state.auth.authError,
     error: state.firebase.error,
   };
 };
 
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([{ collection: 'restaurants' }])
-)(Restautant);
+export default connect(mapStateToProps)(Restautant);
