@@ -61,12 +61,10 @@ class ItemsList extends React.Component {
     else
       return (
         <div>
-          <button onClick={this.log}>log</button>
-
           <div>Number of results: {this.state.items ? this.state.items.length : 0}</div>
 
           {this.state.items ? (
-            this.state.items.map(item => {
+            this.sortItems(this.filterItems(this.state.items)).map(item => {
               return (
                 <Segment key={item.id} color='teal'>
                   <Header>{item.name}</Header>
@@ -79,7 +77,10 @@ class ItemsList extends React.Component {
               );
             })
           ) : (
-            <div>shit</div>
+            <Message color='yellow'>
+              <Icon name='circle notch' loading={true}></Icon>
+              loading...
+            </Message>
           )}
         </div>
       );
