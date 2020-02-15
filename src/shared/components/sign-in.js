@@ -1,10 +1,10 @@
 import React from 'react';
-import { Modal, Button, Form, Message, Icon } from 'semantic-ui-react';
+import { Modal, Button, Form, Message, Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { signIn, signOut } from '../store/actions/authActions';
 
 class SignIn extends React.Component {
-  state = { modalOpen: false, authError: '' };
+  state = { modalOpen: false, authError: '', loading: false };
 
   openModal() {
     this.setState({ isModalOpen: true });
@@ -16,6 +16,8 @@ class SignIn extends React.Component {
 
   signIn = () => {
     this.props.signIn({ email: this.state.email, password: 'password' });
+    this.setState({ loading: false });
+    console.log('signin');
   };
 
   signOut = () => {
@@ -40,7 +42,10 @@ class SignIn extends React.Component {
     if (nextProp.auth.uid) {
       this.closeModal();
     }
-    if (nextProp.authError) this.setState({ authError: nextProp.authError });
+    if (nextProp.authError) {
+      console.log('auth error');
+      this.setState({ authError: nextProp.authError, loading: false });
+    }
   }
 
   render() {
@@ -83,7 +88,7 @@ class SignIn extends React.Component {
           </Modal.Content>
           <Modal.Actions>
             <Button onClick={() => this.closeModal()}>Cancel</Button>
-            <Button color='blue' onClick={this.signIn}>
+            <Button loading={this.state.loading} color='blue' onClick={this.signIn}>
               Sign in
             </Button>
           </Modal.Actions>
