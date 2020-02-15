@@ -24,7 +24,7 @@ class SignIn extends React.Component {
     this.closeModal();
   };
 
-  handleInput = e => {
+  handleInput = (e) => {
     console.log(e);
     this.setState({
       [e.target.id]: e.target.value,
@@ -37,7 +37,9 @@ class SignIn extends React.Component {
   };
 
   componentWillReceiveProps(nextProp) {
-    if (nextProp.auth.uid) this.closeModal();
+    if (nextProp.auth.uid) {
+      this.closeModal();
+    }
     if (nextProp.authError) this.setState({ authError: nextProp.authError });
   }
 
@@ -110,15 +112,15 @@ class SignIn extends React.Component {
       );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     authError: state.auth.authError,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: creds => dispatch(signIn(creds)),
+    signIn: (creds) => dispatch(signIn(creds)),
     signOut: () => dispatch(signOut()),
   };
 };

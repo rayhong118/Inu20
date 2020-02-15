@@ -35,71 +35,68 @@ class Restautant extends React.Component {
   };
 
   render() {
-    return (
-      <Container>
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={4}>
-              <Segment>
-                <label>Filter by name:</label>
-                <Input
-                  fluid
-                  value={this.state.searchText}
-                  type='text'
-                  id='search'
-                  onChange={this.handleSearchInput}
-                  placeholder='Filter by name'
-                />
-                <br />
-                <label>Order of items:</label>
-                <Dropdown
-                  fluid
-                  className='tiny'
-                  placeholder='Default'
-                  selection
-                  options={listOrder}
-                  value={this.state.order}
-                  onChange={this.handleChange}
-                />
-              </Segment>
-            </Grid.Column>
-
-            <Grid.Column width={12}>
-              {this.props.error}
-              {
-                //<button onClick={this.logState}>logstate</button>
-              }
-
-              <ItemModal
-                item={{}}
-                type={'add'}
-                disabled={!this.props.auth.uid}></ItemModal>
-
-              {true ? (
-                <div>
-                  <ItemsList
-                    order={this.state.order}
-                    searchText={this.state.searchText}
-                    auth={this.state.auth}
+    if (this.props.auth.uid)
+      return (
+        <Container>
+          <Grid stackable>
+            <Grid.Row>
+              <Grid.Column width={4}>
+                <Segment>
+                  <label>Filter by name:</label>
+                  <Input
+                    fluid
+                    value={this.state.searchText}
+                    type='text'
+                    id='search'
+                    onChange={this.handleSearchInput}
+                    placeholder='Filter by name'
                   />
-                </div>
-              ) : this.props.err ? (
-                <div>ERROR</div>
-              ) : (
-                <Message color='yellow'>
-                  <Icon name='circle notch' loading={true}></Icon>
-                  loading...
-                </Message>
-              )}
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
-    );
+                  <br />
+                  <label>Order of items:</label>
+                  <Dropdown
+                    fluid
+                    className='tiny'
+                    placeholder='Default'
+                    selection
+                    options={listOrder}
+                    value={this.state.order}
+                    onChange={this.handleChange}
+                  />
+                </Segment>
+              </Grid.Column>
+
+              <Grid.Column width={12}>
+                {
+                  //<button onClick={this.logState}>logstate</button>
+                }
+                <ItemModal
+                  item={{}}
+                  type={'add'}
+                  disabled={!this.props.auth.uid}></ItemModal>
+
+                <ItemsList
+                  order={this.state.order}
+                  searchText={this.state.searchText}
+                  auth={this.props.auth}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Container>
+      );
+    else
+      return (
+        <Container>
+          <Message color='red'>
+            <Icon name='warning circle'></Icon>
+            In order to access the content on this page, you need to sign in first.
+          </Message>
+        </Container>
+      );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     authError: state.auth.authError,
