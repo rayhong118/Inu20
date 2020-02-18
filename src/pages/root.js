@@ -98,7 +98,7 @@ class Root extends React.Component {
                 </Menu.Item>
                 <Menu.Item
                   as={NavLink}
-                  to='/doghead-zh/0'
+                  to='/doghead-zh'
                   name='狗头漫画'
                   routerid='doghead-comics-zh'
                   onClick={() => this.toggleSideBar()}>
@@ -136,7 +136,7 @@ class Root extends React.Component {
                   <Route path='/about' component={AboutPage} />
                   <Route path='/restaurants' component={Restaurant} />
                   <Route path='/wip' component={WIP} />
-                  <Route path='/doghead-zh/:epid' component={DogheadZh} />
+                  <Route path='/doghead-zh' component={DogheadZh} />
                   <Route component={NoMatch} />
                 </Switch>
               </div>
