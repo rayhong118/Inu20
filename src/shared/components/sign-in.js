@@ -43,8 +43,8 @@ class SignIn extends React.Component {
       this.closeModal();
       return prevState;
     }
-    if (nextProp.authError) {
-      return { authError: nextProp.authError, loading: false };
+    if (nextProps.authError) {
+      return { authError: nextProps.authError, loading: false };
     }
     return prevState;
   }
