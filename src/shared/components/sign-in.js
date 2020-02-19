@@ -38,14 +38,15 @@ class SignIn extends React.Component {
     console.log('state', this.state);
   };
 
-  componentWillReceiveProps(nextProp) {
-    if (nextProp.auth.uid) {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.auth.uid) {
       this.closeModal();
+      return prevState;
     }
-    if (nextProp.authError) {
-      console.log('auth error');
-      this.setState({ authError: nextProp.authError, loading: false });
+    if (nextProps.authError) {
+      return { authError: nextProps.authError, loading: false };
     }
+    return prevState;
   }
 
   render() {
