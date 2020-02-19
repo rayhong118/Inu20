@@ -52,44 +52,51 @@ export default class DogheadZh extends React.Component {
   render() {
     let episode = this.data[this.state.epid];
     let id = this.state.epid;
+
+    let nav = (
+      <div>
+        <Button as={Link} color='grey' compact size='small' to='/doghead-zh/0'>
+          {'|<'}
+        </Button>
+        <Button
+          as={Link}
+          color='grey'
+          compact
+          size='small'
+          disabled={id == 0}
+          to={`/doghead-zh/${id - 1}`}>
+          {'<<'}PREV
+        </Button>
+        <Button
+          as={Link}
+          color='grey'
+          compact
+          size='small'
+          disabled={id == this.data.length - 1}
+          to={`/doghead-zh/${parseInt(id + 1)}`}>
+          NEXT>>
+        </Button>
+        <Button
+          as={Link}
+          color='grey'
+          compact
+          size='small'
+          to={`/doghead-zh/${this.data.length - 1}`}>
+          {'>|'}
+        </Button>
+      </div>
+    );
     if (this.checkEpidValidity(this.state.epid))
       return (
         <Container textAlign='center'>
           <h2 className='comics-title'>{episode.title}</h2>
-          <Button as={Link} color='grey' compact size='small' to='/doghead-zh/0'>
-            {'|<'}
-          </Button>
-          <Button
-            as={Link}
-            color='grey'
-            compact
-            size='small'
-            disabled={id == 0}
-            to={`/doghead-zh/${id - 1}`}>
-            {'<<'}PREV
-          </Button>
-          <Button
-            as={Link}
-            color='grey'
-            compact
-            size='small'
-            disabled={id == this.data.length - 1}
-            to={`/doghead-zh/${parseInt(id + 1)}`}>
-            NEXT>>
-          </Button>
-          <Button
-            as={Link}
-            color='grey'
-            compact
-            size='small'
-            to={`/doghead-zh/${this.data.length - 1}`}>
-            {'>|'}
-          </Button>
+          {nav}
 
           <div className='comics'>
             <img src='https://i.imgur.com/IR42UdO.jpg' />
             <img src={episode.url} />
           </div>
+          {nav}
         </Container>
       );
     else return <div>Invalid request</div>;
