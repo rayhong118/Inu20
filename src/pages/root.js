@@ -40,7 +40,7 @@ class Root extends React.Component {
             as={Menu}
             animation='overlay'
             direction='left'
-            onHide={(e) => this.handleOutSideClick(e)}
+            onHide={e => this.handleOutSideClick(e)}
             vertical
             visible={sideBarVisible}>
             <Menu.Item
@@ -149,7 +149,7 @@ class Root extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {};
 };
 

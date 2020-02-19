@@ -11,6 +11,7 @@ export default class DogheadZh extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const id = nextProps.match.params.epid;
     console.log(id);
+
     return {
       epid: id,
     };
@@ -63,7 +64,7 @@ export default class DogheadZh extends React.Component {
           color='grey'
           compact
           size='small'
-          disabled={id == 0}
+          disabled={id === 0}
           to={`/doghead-zh/${id - 1}`}>
           {'<<'}PREV
         </Button>
@@ -72,7 +73,7 @@ export default class DogheadZh extends React.Component {
           color='grey'
           compact
           size='small'
-          disabled={id == this.data.length - 1}
+          disabled={id === this.data.length - 1}
           to={`/doghead-zh/${parseInt(id + 1)}`}>
           NEXT>>
         </Button>
@@ -93,8 +94,8 @@ export default class DogheadZh extends React.Component {
           {nav}
 
           <div className='comics'>
-            <img src='https://i.imgur.com/IR42UdO.jpg' />
-            <img src={episode.url} />
+            <img alt='title banner' src='https://i.imgur.com/IR42UdO.jpg' />
+            <img alt='main comics' src={episode.url} />
           </div>
           {nav}
         </Container>
