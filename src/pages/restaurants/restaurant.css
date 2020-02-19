@@ -1,0 +1,23 @@
+.item-title {
+  margin-bottom: 0.25rem;
+}
+
+.address-row {
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.address-row > .price {
+  padding-left: 1rem;
+  color: grey;
+}
+
+.comments > span {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.comments > div {
+  margin-top: -0.25rem;
+  font-size: 0.95rem;
+}
