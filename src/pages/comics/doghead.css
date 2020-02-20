@@ -2,8 +2,7 @@
   width: auto;
 }
 .comics-title {
-  font-family: Tahoma, Helvetica, Arial, 'Microsoft Yahei', '微软雅黑', STXihei,
-    '华文细黑', sans-serif;
+  font-family: 'Noto Sans SC', sans-serif !important;
 }
 .comics > img {
   max-width: 100%;

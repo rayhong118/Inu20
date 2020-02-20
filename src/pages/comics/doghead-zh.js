@@ -6,6 +6,19 @@ import './doghead.css';
 export default class DogheadZh extends React.Component {
   // epid: smaller value means older episode
   // will default to latest one
+
+  data = [
+    {
+      url: 'https://i.imgur.com/ECa8jB6.jpg',
+      date: '2020/02/19',
+      title: '照片',
+    },
+    {
+      url: 'https://i.imgur.com/vAk0eTn.jpg',
+      date: '2019/12/26',
+      title: 'Boxing Day',
+    },
+  ];
   state = { epid: 0 };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -32,19 +45,6 @@ export default class DogheadZh extends React.Component {
     console.log(this.state.epid);
   };
 
-  data = [
-    {
-      url: 'https://i.imgur.com/ECa8jB6.jpg',
-      date: '2020/02/19',
-      title: '女朋友的照片',
-    },
-    {
-      url: 'https://i.imgur.com/vAk0eTn.jpg',
-      date: '2019/12/26',
-      title: 'Boxing Day',
-    },
-  ];
-
   checkEpidValidity(id) {
     if (id >= 0 && id < this.data.length) return true;
     return false;
@@ -52,7 +52,7 @@ export default class DogheadZh extends React.Component {
 
   render() {
     let episode = this.data[this.state.epid];
-    let id = this.state.epid;
+    let id = parseInt(this.state.epid);
 
     let nav = (
       <div>
@@ -64,7 +64,7 @@ export default class DogheadZh extends React.Component {
           color='grey'
           compact
           size='small'
-          disabled={id === 0}
+          disabled={!id}
           to={`/doghead-zh/${id - 1}`}>
           {'<<'}PREV
         </Button>
@@ -97,7 +97,6 @@ export default class DogheadZh extends React.Component {
             <img alt='title banner' src='https://i.imgur.com/IR42UdO.jpg' />
             <img alt='main comics' src={episode.url} />
           </div>
-          {nav}
         </Container>
       );
     else return <div>Invalid request</div>;
