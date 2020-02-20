@@ -51,8 +51,11 @@ export default class DogheadZh extends React.Component {
   }
 
   render() {
-    let episode = this.data[this.state.epid];
-    let id = parseInt(this.state.epid);
+    let id =
+      parseInt(this.state.epid) === 0
+        ? 0
+        : parseInt(this.state.epid) || this.data.length - 1;
+    let episode = this.data[id];
 
     let nav = (
       <div>
@@ -77,17 +80,12 @@ export default class DogheadZh extends React.Component {
           to={`/doghead-zh/${parseInt(id + 1)}`}>
           NEXT>>
         </Button>
-        <Button
-          as={Link}
-          color='grey'
-          compact
-          size='small'
-          to={`/doghead-zh/${this.data.length - 1}`}>
+        <Button as={Link} color='grey' compact size='small' to={`/doghead-zh/`}>
           {'>|'}
         </Button>
       </div>
     );
-    if (this.checkEpidValidity(this.state.epid))
+    if (this.checkEpidValidity(id) || !id)
       return (
         <Container textAlign='center'>
           <h2 className='comics-title'>{episode.title}</h2>
