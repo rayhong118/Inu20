@@ -4,30 +4,28 @@ import { connect } from 'react-redux';
 import { signIn, signOut } from '../store/actions/authActions';
 
 class SignIn extends React.Component {
-  state = { modalOpen: false, authError: '', loading: false };
+  state = { isModalOpen: false, authError: '', loading: false };
 
-  openModal() {
+  openModal = () => {
     this.setState({ isModalOpen: true });
-  }
+  };
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ isModalOpen: false, authError: '' });
-  }
+  };
 
   signIn = () => {
+    this.setState({ loading: true });
     this.props.signIn({ email: this.state.email, password: 'password' });
-    this.setState({ loading: false });
-    console.log('signin');
   };
 
   signOut = () => {
-    console.log('signout');
+    this.setState({ authUid: null });
     this.props.signOut();
     this.closeModal();
   };
 
-  handleInput = (e) => {
-    console.log(e);
+  handleInput = e => {
     this.setState({
       [e.target.id]: e.target.value,
     });
@@ -39,14 +37,27 @@ class SignIn extends React.Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.auth.uid) {
-      this.closeModal();
-      return prevState;
-    }
-    if (nextProps.authError) {
-      return { authError: nextProps.authError, loading: false };
-    }
-    return prevState;
+    console.log(prevState);
+    if (nextProps.auth.uid && !prevState.authUid) {
+      return {
+        ...prevState,
+        authUid: nextProps.auth.uid,
+        isModalOpen: false,
+        loading: false,
+      };
+    } else if (!nextProps.auth.uid && prevState.authUid) {
+      return {
+        ...prevState,
+        authUid: null,
+        isModalOpen: false,
+        loading: false,
+      };
+    } else if (nextProps.authError) {
+      return {
+        authError: prevState.loading ? nextProps.authError : null,
+        loading: false,
+      };
+    } else return prevState;
   }
 
   render() {
@@ -55,13 +66,13 @@ class SignIn extends React.Component {
       return (
         <Modal
           trigger={
-            <Button size='mini' onClick={() => this.openModal()}>
+            <Button size='mini' onClick={this.openModal}>
               Sign in
             </Button>
           }
           size='tiny'
           open={this.state.isModalOpen}
-          onClose={() => this.closeModal()}>
+          onClose={this.closeModal}>
           <Modal.Header>Sign in</Modal.Header>
           <Modal.Content>
             {this.state.authError ? (
@@ -88,7 +99,7 @@ class SignIn extends React.Component {
             </Form>
           </Modal.Content>
           <Modal.Actions>
-            <Button onClick={() => this.closeModal()}>Cancel</Button>
+            <Button onClick={this.closeModal}>Cancel</Button>
             <Button loading={this.state.loading} color='blue' onClick={this.signIn}>
               Sign in
             </Button>
@@ -99,17 +110,17 @@ class SignIn extends React.Component {
       return (
         <Modal
           trigger={
-            <Button size='mini' onClick={() => this.openModal()}>
+            <Button size='mini' onClick={this.openModal}>
               Settings
             </Button>
           }
           size='tiny'
           open={this.state.isModalOpen}
-          onClose={() => this.closeModal()}>
+          onClose={this.closeModal}>
           <Modal.Header>Settings</Modal.Header>
           <Modal.Content></Modal.Content>
           <Modal.Actions>
-            <Button onClick={() => this.closeModal()}>Cancel</Button>
+            <Button onClick={this.closeModal}>Cancel</Button>
             <Button color='red' onClick={this.signOut}>
               Sign out
             </Button>
@@ -118,15 +129,15 @@ class SignIn extends React.Component {
       );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     authError: state.auth.authError,
   };
 };
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    signIn: (creds) => dispatch(signIn(creds)),
+    signIn: creds => dispatch(signIn(creds)),
     signOut: () => dispatch(signOut()),
   };
 };
