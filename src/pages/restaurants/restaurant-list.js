@@ -1,9 +1,10 @@
 import React from 'react';
-import { Segment, Header, Message, Icon } from 'semantic-ui-react';
+import { Segment, Message, Icon } from 'semantic-ui-react';
 import ItemModal from './restaurant-modal';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import './restaurant.css';
 
 class ItemsList extends React.Component {
   //{ items, order, searchText } = this.props;
@@ -13,13 +14,13 @@ class ItemsList extends React.Component {
     console.log('state', this.state);
   };
 
-  filterItems = (items) => {
+  filterItems = items => {
     return this.props.searchText
-      ? [...items].filter((item) => item.name.includes(this.props.searchText))
+      ? [...items].filter(item => item.name.includes(this.props.searchText))
       : [...items];
   };
 
-  sortItems = (filteredItems) => {
+  sortItems = filteredItems => {
     switch (this.props.order) {
       case 'PL2H':
         return filteredItems.sort((a, b) => {
@@ -60,19 +61,27 @@ class ItemsList extends React.Component {
           <div>Number of results: {this.state.items ? this.state.items.length : 0}</div>
 
           {this.state.items ? (
-            this.sortItems(this.filterItems(this.state.items)).map((item) => {
+            this.sortItems(this.filterItems(this.state.items)).map(item => {
               return (
                 <Segment key={item.id} color='blue'>
-                  <Header>{item.name}</Header>
-                  <div>Address: {item.address}</div>
-                  <div>Price: {item.price}</div>
+                  <h3 className='item-title'>{item.name}</h3>
+                  <div className='address-row'>
+                    <span>
+                      <Icon name='map marker alternate' color='grey' />
+                      {item.address}
+                    </span>
+                    <span className='price'> ${item.price}</span>
+                  </div>
+
                   {item.comments ? (
-                    <div>
-                      Comments: <div>{item.comments}</div>
+                    <div className='comments'>
+                      <span>Comments:</span>
+                      <div>{item.comments}</div>
                     </div>
                   ) : (
                     ''
                   )}
+
                   <ItemModal item={item} type={'edit'}></ItemModal>
                   <ItemModal item={item} type={'delete'}></ItemModal>
                 </Segment>
@@ -89,7 +98,7 @@ class ItemsList extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     items: state.firestore.ordered.restaurants,
   };

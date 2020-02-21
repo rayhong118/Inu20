@@ -1,33 +1,31 @@
 import React from 'react';
 import { Modal, Button, Form, Message, Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { signIn, signOut } from '../store/actions/authActions';
+import { signIn, signOut, clearAuthError } from '../store/actions/authActions';
 
 class SignIn extends React.Component {
-  state = { modalOpen: false, authError: '', loading: false };
+  state = { isModalOpen: false, authError: '', loading: false };
 
-  openModal() {
-    this.setState({ isModalOpen: true });
-  }
+  openModal = () => {
+    this.setState({ ...this.state, isModalOpen: true });
+  };
 
-  closeModal() {
-    this.setState({ isModalOpen: false, authError: '' });
-  }
+  closeModal = () => {
+    this.setState({ isModalOpen: false, loading: false });
+    this.props.clearAuthError();
+  };
 
   signIn = () => {
+    this.setState({ loading: true });
     this.props.signIn({ email: this.state.email, password: 'password' });
-    this.setState({ loading: false });
-    console.log('signin');
   };
 
   signOut = () => {
-    console.log('signout');
     this.props.signOut();
     this.closeModal();
   };
 
   handleInput = (e) => {
-    console.log(e);
     this.setState({
       [e.target.id]: e.target.value,
     });
@@ -38,13 +36,32 @@ class SignIn extends React.Component {
     console.log('state', this.state);
   };
 
-  componentWillReceiveProps(nextProp) {
-    if (nextProp.auth.uid) {
-      this.closeModal();
-    }
-    if (nextProp.authError) {
-      console.log('auth error');
-      this.setState({ authError: nextProp.authError, loading: false });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log(prevState);
+    // new sign in
+    if (!prevState.authUid) {
+      // sign in success
+      if (nextProps.auth.uid) {
+        return {
+          authUid: nextProps.auth.uid,
+          isModalOpen: false,
+          loading: false,
+          authError: null,
+        };
+      } else {
+        return {
+          showAuthError: true,
+          authError: nextProps.authError,
+          loading: false,
+        };
+      }
+    } else if (!nextProps.auth.uid) {
+      return {
+        authUid: null,
+        isModalOpen: false,
+        loading: false,
+        authError: null,
+      };
     }
   }
 
@@ -54,13 +71,13 @@ class SignIn extends React.Component {
       return (
         <Modal
           trigger={
-            <Button size='mini' onClick={() => this.openModal()}>
+            <Button size='mini' onClick={this.openModal}>
               Sign in
             </Button>
           }
           size='tiny'
           open={this.state.isModalOpen}
-          onClose={() => this.closeModal()}>
+          onClose={this.closeModal}>
           <Modal.Header>Sign in</Modal.Header>
           <Modal.Content>
             {this.state.authError ? (
@@ -87,7 +104,7 @@ class SignIn extends React.Component {
             </Form>
           </Modal.Content>
           <Modal.Actions>
-            <Button onClick={() => this.closeModal()}>Cancel</Button>
+            <Button onClick={this.closeModal}>Cancel</Button>
             <Button loading={this.state.loading} color='blue' onClick={this.signIn}>
               Sign in
             </Button>
@@ -98,17 +115,17 @@ class SignIn extends React.Component {
       return (
         <Modal
           trigger={
-            <Button size='mini' onClick={() => this.openModal()}>
+            <Button size='mini' onClick={this.openModal}>
               Settings
             </Button>
           }
           size='tiny'
           open={this.state.isModalOpen}
-          onClose={() => this.closeModal()}>
+          onClose={this.closeModal}>
           <Modal.Header>Settings</Modal.Header>
           <Modal.Content></Modal.Content>
           <Modal.Actions>
-            <Button onClick={() => this.closeModal()}>Cancel</Button>
+            <Button onClick={this.closeModal}>Cancel</Button>
             <Button color='red' onClick={this.signOut}>
               Sign out
             </Button>
@@ -125,6 +142,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    clearAuthError: () => dispatch(clearAuthError()),
     signIn: (creds) => dispatch(signIn(creds)),
     signOut: () => dispatch(signOut()),
   };
