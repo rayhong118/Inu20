@@ -95,6 +95,7 @@ export default class DogheadZh extends React.Component {
             <img alt='title banner' src='https://i.imgur.com/IR42UdO.jpg' />
             <img alt='main comics' src={episode.url} />
           </div>
+          {nav}
         </Container>
       );
     else return <div>Invalid request</div>;
