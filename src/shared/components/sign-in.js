@@ -7,11 +7,11 @@ class SignIn extends React.Component {
   state = { isModalOpen: false, authError: '', loading: false };
 
   openModal = () => {
-    this.setState({ isModalOpen: true });
+    this.setState({ ...this.state, isModalOpen: true });
   };
 
   closeModal = () => {
-    this.setState({ isModalOpen: false });
+    this.setState({ isModalOpen: false, loading: false });
     this.props.clearAuthError();
   };
 
@@ -21,7 +21,6 @@ class SignIn extends React.Component {
   };
 
   signOut = () => {
-    this.setState({ authUid: null });
     this.props.signOut();
     this.closeModal();
   };
@@ -40,7 +39,7 @@ class SignIn extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     console.log(prevState);
     // new sign in
-    if (!prevState.uid) {
+    if (!prevState.authUid) {
       // sign in success
       if (nextProps.auth.uid) {
         return {
@@ -56,7 +55,14 @@ class SignIn extends React.Component {
           loading: false,
         };
       }
-    } else return null;
+    } else if (!nextProps.auth.uid) {
+      return {
+        authUid: null,
+        isModalOpen: false,
+        loading: false,
+        authError: null,
+      };
+    }
   }
 
   render() {
