@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import AboutPage from './about/about';
 import Restaurant from './restaurants/restaurant-page';
 import HomePage from './home/home';
-import JsonPlaceholder from './1909-json-placeholder/json-placeholder';
 import NoMatch from './404/NoMatch';
 import WIP from './404/WIP';
+import DogheadZh from './comics/doghead-zh';
 import SignIn from '../shared/components/sign-in';
 import Footer from '../shared/components/footer';
 
@@ -40,7 +40,7 @@ class Root extends React.Component {
             as={Menu}
             animation='overlay'
             direction='left'
-            onHide={e => this.handleOutSideClick(e)}
+            onHide={(e) => this.handleOutSideClick(e)}
             vertical
             visible={sideBarVisible}>
             <Menu.Item
@@ -80,17 +80,6 @@ class Root extends React.Component {
               </span>
             </Menu.Item>
 
-            <Menu.Item
-              as={NavLink}
-              to='/1909-json-placeholder'
-              name='JsonPlaceholder'
-              routerid='1909-json-placeholder'
-              onClick={() => this.toggleSideBar()}>
-              <span>
-                <Icon name='table' />
-                Json Placeholder
-              </span>
-            </Menu.Item>
             <Menu.Item>
               Comics
               <Menu.Menu>
@@ -103,7 +92,20 @@ class Root extends React.Component {
                   <span>
                     Doghead Comics{'   '}
                     <Label color='blue' size='tiny' horizontal>
-                      EN
+                      WIP
+                    </Label>
+                  </span>
+                </Menu.Item>
+                <Menu.Item
+                  as={NavLink}
+                  to='/doghead-zh/'
+                  name='狗头漫画'
+                  routerid='doghead-comics-zh'
+                  onClick={() => this.toggleSideBar()}>
+                  <span>
+                    狗头漫画{'   '}
+                    <Label color='blue' size='tiny' horizontal>
+                      WIP
                     </Label>
                   </span>
                 </Menu.Item>
@@ -133,8 +135,8 @@ class Root extends React.Component {
                   <Route exact path='/' component={HomePage} />
                   <Route path='/about' component={AboutPage} />
                   <Route path='/restaurants' component={Restaurant} />
-                  <Route path='/1909-json-placeholder' component={JsonPlaceholder} />
                   <Route path='/wip' component={WIP} />
+                  <Route path='/doghead-zh/:epid?' component={DogheadZh} />
                   <Route component={NoMatch} />
                 </Switch>
               </div>
@@ -147,7 +149,7 @@ class Root extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 
