@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button, Form, Message, Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { signIn, signOut } from '../store/actions/authActions';
+import { signIn, signOut, clearAuthError } from '../store/actions/authActions';
 
 class SignIn extends React.Component {
   state = { isModalOpen: false, authError: '', loading: false };
@@ -11,7 +11,8 @@ class SignIn extends React.Component {
   };
 
   closeModal = () => {
-    this.setState({ isModalOpen: false, authError: '' });
+    this.setState({ isModalOpen: false });
+    this.props.clearAuthError();
   };
 
   signIn = () => {
@@ -25,7 +26,7 @@ class SignIn extends React.Component {
     this.closeModal();
   };
 
-  handleInput = e => {
+  handleInput = (e) => {
     this.setState({
       [e.target.id]: e.target.value,
     });
@@ -38,26 +39,24 @@ class SignIn extends React.Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     console.log(prevState);
-    if (nextProps.auth.uid && !prevState.authUid) {
-      return {
-        ...prevState,
-        authUid: nextProps.auth.uid,
-        isModalOpen: false,
-        loading: false,
-      };
-    } else if (!nextProps.auth.uid && prevState.authUid) {
-      return {
-        ...prevState,
-        authUid: null,
-        isModalOpen: false,
-        loading: false,
-      };
-    } else if (nextProps.authError) {
-      return {
-        authError: prevState.loading ? nextProps.authError : null,
-        loading: false,
-      };
-    } else return prevState;
+    // new sign in
+    if (!prevState.uid) {
+      // sign in success
+      if (nextProps.auth.uid) {
+        return {
+          authUid: nextProps.auth.uid,
+          isModalOpen: false,
+          loading: false,
+          authError: null,
+        };
+      } else {
+        return {
+          showAuthError: true,
+          authError: nextProps.authError,
+          loading: false,
+        };
+      }
+    } else return null;
   }
 
   render() {
@@ -129,15 +128,16 @@ class SignIn extends React.Component {
       );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     authError: state.auth.authError,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: creds => dispatch(signIn(creds)),
+    clearAuthError: () => dispatch(clearAuthError()),
+    signIn: (creds) => dispatch(signIn(creds)),
     signOut: () => dispatch(signOut()),
   };
 };
