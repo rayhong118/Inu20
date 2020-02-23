@@ -40,7 +40,7 @@ class Root extends React.Component {
             as={Menu}
             animation='overlay'
             direction='left'
-            onHide={(e) => this.handleOutSideClick(e)}
+            onHide={e => this.handleOutSideClick(e)}
             vertical
             visible={sideBarVisible}>
             <Menu.Item
@@ -102,12 +102,7 @@ class Root extends React.Component {
                   name='狗头漫画'
                   routerid='doghead-comics-zh'
                   onClick={() => this.toggleSideBar()}>
-                  <span>
-                    狗头漫画{'   '}
-                    <Label color='blue' size='tiny' horizontal>
-                      WIP
-                    </Label>
-                  </span>
+                  <span>狗头漫画{'   '}</span>
                 </Menu.Item>
               </Menu.Menu>
             </Menu.Item>
@@ -149,7 +144,7 @@ class Root extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {};
 };
 

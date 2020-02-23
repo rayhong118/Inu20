@@ -11,7 +11,7 @@ export default class Footer extends React.Component {
             <img
               className='footer-icon'
               alt='doghead-icon'
-              src='https://i.imgur.com/1o29Oyu.jpg'
+              src='https://i.imgur.com/bK67LfF.png'
             />
             <span>
               <Icon name='mail' />
