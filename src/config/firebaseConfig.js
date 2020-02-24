@@ -1,8 +1,10 @@
 import 'firebase/firestore';
 import 'firebase/auth';
 
+import { firebaseApiKey } from './apikeys';
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyDnNt0NLRWbkrSNrErYaGS-cObrENQgPsM',
+  apiKey: firebaseApiKey,
   authDomain: 'dogheadportal.firebaseapp.com',
   databaseURL: 'https://dogheadportal.firebaseio.com',
   projectId: 'dogheadportal',
