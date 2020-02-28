@@ -17,13 +17,19 @@
   top: 0;
   background-color: white !important;
   z-index: 1;
-  flex: 0 1 auto;
   margin: 0 !important;
   box-shadow: 2px 1px 1px #bbb !important;
 }
 
-.side-bar {
-  z-index: 2;
+.menu-icon {
+  padding: 0.5rem;
+}
+
+.dropdown-menu {
+  min-width: 200px !important;
+  margin-left: -1.25rem !important;
+  margin-top: 0.8rem !important;
+  border-radius: 0 !important;
 }
 /*
 .main-panel {

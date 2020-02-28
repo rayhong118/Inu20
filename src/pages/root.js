@@ -36,54 +36,56 @@ class Root extends React.Component {
     return (
       <BrowserRouter>
         <Menu secondary className='top-bar'>
-          <Menu.Item as={Dropdown} icon='bars'>
-            <Dropdown.Menu>
-              <Dropdown.Item
-                as={NavLink}
-                exact
-                to='/'
-                name='Home'
-                routerid='home'
-                onClick={() => this.toggleSideBar()}>
-                <span>
-                  <Icon name='home' />
-                  Home
-                </span>
-              </Dropdown.Item>
+          <Menu.Item header>
+            <Dropdown icon='bars' className='menu-icon'>
+              <Dropdown.Menu className='dropdown-menu'>
+                <Dropdown.Item
+                  as={NavLink}
+                  exact
+                  to='/'
+                  name='Home'
+                  routerid='home'
+                  onClick={() => this.toggleSideBar()}>
+                  <span>
+                    <Icon name='home' />
+                    Home
+                  </span>
+                </Dropdown.Item>
 
-              <Dropdown.Item
-                as={NavLink}
-                to='/restaurants'
-                name='Restaurants'
-                routerid='restaurants'
-                onClick={() => this.toggleSideBar()}>
-                <span>
-                  <Icon name='food' />
-                  Restaurants
-                </span>
-              </Dropdown.Item>
+                <Dropdown.Item
+                  as={NavLink}
+                  to='/restaurants'
+                  name='Restaurants'
+                  routerid='restaurants'
+                  onClick={() => this.toggleSideBar()}>
+                  <span>
+                    <Icon name='food' />
+                    Restaurants
+                  </span>
+                </Dropdown.Item>
 
-              <Dropdown.Item
-                as={NavLink}
-                to='/about'
-                name='About'
-                routerid='about'
-                onClick={() => this.toggleSideBar()}>
-                <span>
-                  <Icon name='question circle outline' />
-                  About
-                </span>
-              </Dropdown.Item>
+                <Dropdown.Item
+                  as={NavLink}
+                  to='/about'
+                  name='About'
+                  routerid='about'
+                  onClick={() => this.toggleSideBar()}>
+                  <span>
+                    <Icon name='question circle outline' />
+                    About
+                  </span>
+                </Dropdown.Item>
 
-              <Dropdown.Item
-                as={NavLink}
-                to='/doghead-zh/'
-                name='狗头漫画'
-                routerid='doghead-comics-zh'
-                onClick={() => this.toggleSideBar()}>
-                <span>狗头漫画{'   '}</span>
-              </Dropdown.Item>
-            </Dropdown.Menu>
+                <Dropdown.Item
+                  as={NavLink}
+                  to='/doghead-zh/'
+                  name='狗头漫画'
+                  routerid='doghead-comics-zh'
+                  onClick={() => this.toggleSideBar()}>
+                  <span>狗头漫画{'   '}</span>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Menu.Item>
           <Menu.Item header fitted='horizontally'>
             <a id='headerTitle' href='/'>
