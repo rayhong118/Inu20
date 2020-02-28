@@ -219,6 +219,7 @@ export default class DogheadZh extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const id = nextProps.match.params.epid;
     console.log(id);
+    window.scrollTo(0, 0);
 
     return {
       epid: id,
@@ -230,14 +231,15 @@ export default class DogheadZh extends React.Component {
     if (true) {
       this.setState({ epid: curr + 1 });
     }
-    console.log(this.state.epid);
+    //console.log(this.state.epid);
   };
   goPrev = () => {
     const curr = this.state.epid;
     if (true) {
       this.setState({ epid: curr - 1 });
     }
-    console.log(this.state.epid);
+
+    //console.log(this.state.epid);
   };
 
   checkEpidValidity(id) {

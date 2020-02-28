@@ -16,12 +16,16 @@
   position: sticky;
   top: 0;
   background-color: white !important;
-  z-index: 10;
+  z-index: 1;
   flex: 0 1 auto;
   margin: 0 !important;
   box-shadow: 2px 1px 1px #bbb !important;
 }
 
+.side-bar {
+  z-index: 2;
+}
+/*
 .main-panel {
   display: flex;
   flex: 1 1 auto;
@@ -34,7 +38,7 @@
   width: 100vw;
   overflow-y: auto;
   border-radius: 0 !important;
-}
+}*/
 
 .content-panel-container {
   min-height: 90vh;
