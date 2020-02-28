@@ -8,11 +8,11 @@ class SignIn extends React.Component {
 
   openModal = () => {
     this.setState({ ...this.state, isModalOpen: true });
+    this.props.clearAuthError();
   };
 
   closeModal = () => {
     this.setState({ isModalOpen: false, loading: false });
-    this.props.clearAuthError();
   };
 
   signIn = () => {
