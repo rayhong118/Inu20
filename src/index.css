@@ -30,6 +30,8 @@
   margin-left: -1.25rem !important;
   margin-top: 0.8rem !important;
   border-radius: 0 !important;
+  max-height: calc(100vh - 50px);
+  overflow-y: auto;
 }
 /*
 .main-panel {
