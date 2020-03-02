@@ -31,7 +31,7 @@
   margin-top: 0.8rem !important;
   border-radius: 0 !important;
   max-height: calc(100vh - 50px);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 /*
 .main-panel {

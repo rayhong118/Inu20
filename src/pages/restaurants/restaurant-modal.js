@@ -13,7 +13,6 @@ class ItemModal extends React.Component {
     modalOpen: false,
     item: this.props.item,
   };
-  onComponentMount() {}
 
   handleChange = e => {
     let elem = e.target;
@@ -48,9 +47,6 @@ class ItemModal extends React.Component {
     this.closeModal();
   };
 
-  log = () => {
-    console.log('search');
-  };
   render() {
     let action = {
       edit: { title: 'Edit', color: 'blue' },
@@ -100,20 +96,6 @@ class ItemModal extends React.Component {
         </Modal.Header>
         <Modal.Content>
           <Form>
-            <Form.Group>
-              <Form.Field width={16} disabled>
-                <label>Google Map Link</label>
-                <Input
-                  defaultValue={this.props.item.mapLink}
-                  onBlur={this.handleChange}
-                  type='text'
-                  id='mapLink'
-                  readOnly={this.props.type === 'delete'}
-                  action={<Button onClick={this.log}>Apply Map Link</Button>}
-                />
-              </Form.Field>
-            </Form.Group>
-
             <Form.Group>
               <Form.Field
                 label='Name'
