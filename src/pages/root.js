@@ -76,6 +76,7 @@ class Root extends React.Component {
                   </span>
                 </Dropdown.Item>
 
+                <Dropdown.Divider />
                 <Dropdown.Item
                   as={NavLink}
                   to='/doghead-zh/'
