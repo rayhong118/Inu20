@@ -14,13 +14,13 @@ class ItemsList extends React.Component {
     console.log('state', this.state);
   };
 
-  filterItems = (items) => {
+  filterItems = items => {
     return this.props.searchText
-      ? [...items].filter((item) => item.name.includes(this.props.searchText))
+      ? [...items].filter(item => item.name.includes(this.props.searchText))
       : [...items];
   };
 
-  sortItems = (filteredItems) => {
+  sortItems = filteredItems => {
     switch (this.props.order) {
       case 'PL2H':
         return filteredItems.sort((a, b) => {
@@ -39,8 +39,7 @@ class ItemsList extends React.Component {
   };
 
   handlePortalOpen = () => {
-    let randomItem = this.state.items[Math.random(this.state.items.length - 1)];
-    this.setState({ portalOpen: true, randomItem });
+    this.setState({ portalOpen: true });
   };
 
   handlePortalClose = () => {
@@ -48,8 +47,10 @@ class ItemsList extends React.Component {
   };
 
   displayRandom = () => {
-    console.log(this.state);
-    console.log(this.props);
+    let filteredList = this.sortItems(this.filterItems(this.state.items));
+    let index = Math.floor(Math.random() * filteredList.length);
+    let randomItem = filteredList[index];
+    this.setState({ randomItem });
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -88,12 +89,25 @@ class ItemsList extends React.Component {
               style={{
                 left: '40%',
                 position: 'fixed',
-                top: '50%',
+                top: '40%',
                 zIndex: 10,
               }}>
               <h2>
                 {this.state.randomItem ? (
-                  <a href=''>{this.state.randomItem.name}</a>
+                  <div>
+                    <a href=''>
+                      <h2>{this.state.randomItem.name}</h2>
+                    </a>
+                    <div className='address-row'>
+                      <span>
+                        <Icon name='map marker alternate' color='grey' />
+                        {this.state.randomItem.address}
+                      </span>
+                      <span className='price'>${this.state.randomItem.price}</span>
+                    </div>
+
+                    <h4>{this.state.randomItem.comments}</h4>
+                  </div>
                 ) : (
                   'Error'
                 )}
@@ -102,7 +116,7 @@ class ItemsList extends React.Component {
           </Portal>
           <div>Number of results: {this.state.items ? this.state.items.length : 0}</div>
           {this.state.items ? (
-            this.sortItems(this.filterItems(this.state.items)).map((item) => (
+            this.sortItems(this.filterItems(this.state.items)).map(item => (
               <Segment key={item.id} color='blue'>
                 <h3 className='item-title'>{item.name}</h3>
                 <div className='address-row'>
@@ -137,7 +151,7 @@ class ItemsList extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     items: state.firestore.ordered.restaurants,
   };
