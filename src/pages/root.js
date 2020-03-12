@@ -11,6 +11,7 @@ import SignIn from '../shared/components/sign-in';
 import Footer from '../shared/components/footer';
 
 import React from 'react';
+import Clock from './clock/clock';
 
 class Root extends React.Component {
   state = {
@@ -32,7 +33,6 @@ class Root extends React.Component {
   }
 
   render() {
-    const { sideBarVisible } = this.state;
     return (
       <BrowserRouter>
         <Menu secondary className='top-bar'>
@@ -85,6 +85,15 @@ class Root extends React.Component {
                   onClick={() => this.toggleSideBar()}>
                   <span>狗头漫画{'   '}</span>
                 </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item
+                  as={NavLink}
+                  to='/clock/'
+                  name='Clock'
+                  routerid='clock'
+                  onClick={() => this.toggleSideBar()}>
+                  <span>Clock{'   '}</span>
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Item>
@@ -107,6 +116,7 @@ class Root extends React.Component {
             <Route path='/restaurants' component={Restaurant} />
             <Route path='/wip' component={WIP} />
             <Route path='/doghead-zh/:epid?' component={DogheadZh} />
+            <Route path='/clock' component={Clock} />
             <Route component={NoMatch} />
           </Switch>
         </div>
@@ -116,7 +126,7 @@ class Root extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 
