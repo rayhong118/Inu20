@@ -92,7 +92,10 @@ class Root extends React.Component {
                   name='Clock'
                   routerid='clock'
                   onClick={() => this.toggleSideBar()}>
-                  <span>Clock{'   '}</span>
+                  <span>
+                    <Icon name='clock outline' />
+                    Clock{'   '}
+                  </span>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -126,7 +129,7 @@ class Root extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {};
 };
 

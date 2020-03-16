@@ -1,0 +1,30 @@
+.evaClockContainer {
+  position: relative;
+  background-color: black;
+  padding: 2rem;
+  align-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.evaClock {
+  position: absolute;
+  top: 0;
+  font-family: 'digital';
+  z-index: 0;
+  color: rgb(255, 187, 0);
+}
+
+.evaClockPlaceholder {
+  position: absolute;
+  top: 0;
+  font-family: 'digital';
+  margin-top: 0;
+  color: #666;
+  z-index: -1;
+}
+
+@font-face {
+  font-family: 'digital';
+  src: url('../../shared/resources/digital-7.ttf');
+}
