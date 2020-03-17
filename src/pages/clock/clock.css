@@ -8,6 +8,7 @@
 
   text-align: center;
   width: 100%;
+  color: var(--eva-orange);
 }
 
 .evaClock {
@@ -17,7 +18,7 @@
   z-index: 0;
   margin-top: 0;
   color: var(--eva-orange);
-  font-size: 2.5rem;
+  font-size: 5rem;
 }
 
 .evaClockPlaceholder {
@@ -27,7 +28,7 @@
   margin-top: 0;
   color: #222;
   z-index: 0;
-  font-size: 2.5rem;
+  font-size: 5rem;
 }
 .clockStatusContainer {
   display: inline;
@@ -38,7 +39,7 @@
   width: max-content;
 }
 .clockStatusTitle {
-  height: 0.25rem;
+  height: 0.5rem;
   background: repeating-linear-gradient(
     135deg,
     black,
@@ -49,8 +50,29 @@
 }
 .clockStatusContent {
   margin: 0.25rem;
-  color: var(--eva-orange);
+  font-size: 1rem;
+  font-family: 'Noto Serif JP', serif;
+}
+.eva-input {
+  width: 2rem;
+  background-color: #222;
+  border: none;
+}
+.eva-input :focus {
+  background-color: #222;
+  border: 2px var(--eva-orange);
+}
+.eva-label {
+  font-family: 'Noto Serif JP', serif;
+  display: flex;
+  flex-direction: column;
   font-size: 0.5rem;
+  line-height: 0.5rem;
+}
+
+.eva-button {
+  background-color: var(--eva-orange);
+  font-family: 'Noto Serif JP', serif;
 }
 
 @font-face {
