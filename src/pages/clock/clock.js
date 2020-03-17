@@ -37,10 +37,20 @@ export default class Clock extends React.Component {
   render() {
     return (
       <div>
-        clock
         <div className='evaClockContainer'>
-          <h1 className='evaClock'>{this.state.time}</h1>
-          <h1 className='evaClockPlaceholder'>88:88:88:88</h1>
+          <div>
+            <h1 className='evaClockPlaceholder'>88:88:88:88</h1>
+            <h1 className='evaClock'>{this.state.time}</h1>
+          </div>
+          <div className='clockStatusSelect'>
+            <div className='clockStatusTitle'></div>
+            <h4 className='clockStatusContent'>测试</h4>
+          </div>
+
+          <div className='clockStatusSelect'>
+            <div className='clockStatusTitle'></div>
+            <h4 className='clockStatusContent'>计时</h4>
+          </div>
         </div>
       </div>
     );

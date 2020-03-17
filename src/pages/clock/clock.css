@@ -1,8 +1,11 @@
+:root {
+  --eva-orange: rgb(255, 185, 81);
+}
 .evaClockContainer {
   position: relative;
   background-color: black;
   padding: 2rem;
-  align-content: center;
+
   text-align: center;
   width: 100%;
 }
@@ -12,7 +15,9 @@
   top: 0;
   font-family: 'digital';
   z-index: 0;
-  color: rgb(255, 187, 0);
+  margin-top: 0;
+  color: var(--eva-orange);
+  font-size: 2.5rem;
 }
 
 .evaClockPlaceholder {
@@ -20,8 +25,32 @@
   top: 0;
   font-family: 'digital';
   margin-top: 0;
-  color: #666;
-  z-index: -1;
+  color: #222;
+  z-index: 0;
+  font-size: 2.5rem;
+}
+.clockStatusContainer {
+  display: inline;
+}
+.clockStatusSelect {
+  margin-top: 0.5rem;
+  border: 1px solid var(--eva-orange);
+  width: max-content;
+}
+.clockStatusTitle {
+  height: 0.25rem;
+  background: repeating-linear-gradient(
+    135deg,
+    black,
+    black 2px,
+    var(--eva-orange) 2px,
+    var(--eva-orange) 4px
+  );
+}
+.clockStatusContent {
+  margin: 0.25rem;
+  color: var(--eva-orange);
+  font-size: 0.5rem;
 }
 
 @font-face {

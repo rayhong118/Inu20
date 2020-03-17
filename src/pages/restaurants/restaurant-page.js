@@ -37,7 +37,7 @@ class Restautant extends React.Component {
   render() {
     if (this.props.auth.uid)
       return (
-        <Container>
+        <Container className='restaurant-page'>
           <Grid stackable>
             <Grid.Row>
               <Grid.Column width={4}>
@@ -86,7 +86,7 @@ class Restautant extends React.Component {
       );
     else
       return (
-        <Container>
+        <Container className='restaurant-page'>
           <Message color='red'>
             <Icon name='warning circle'></Icon>
             In order to access the content on this page, you need to sign in first.
@@ -96,7 +96,7 @@ class Restautant extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     authError: state.auth.authError,
