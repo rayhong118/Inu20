@@ -73,6 +73,7 @@ class ItemsList extends React.Component {
     else
       return (
         <div>
+          <ItemModal item={{}} type={'add'} disabled={!this.props.auth.uid}></ItemModal>
           <Portal
             openOnTriggerClick
             trigger={
@@ -114,6 +115,7 @@ class ItemsList extends React.Component {
               </h2>
             </Segment>
           </Portal>
+
           <div>Number of results: {this.state.items ? this.state.items.length : 0}</div>
           {this.state.items ? (
             this.sortItems(this.filterItems(this.state.items)).map(item => (

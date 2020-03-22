@@ -9,7 +9,6 @@ import {
   Container,
 } from 'semantic-ui-react';
 import ItemsList from './restaurant-list';
-import ItemModal from './restaurant-modal';
 import { connect } from 'react-redux';
 import './restaurant.css';
 
@@ -69,10 +68,6 @@ class Restautant extends React.Component {
                 {
                   //<button onClick={this.logState}>logstate</button>
                 }
-                <ItemModal
-                  item={{}}
-                  type={'add'}
-                  disabled={!this.props.auth.uid}></ItemModal>
 
                 <ItemsList
                   order={this.state.order}
