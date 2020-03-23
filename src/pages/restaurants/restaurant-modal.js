@@ -1,4 +1,3 @@
-// not being used
 import React from 'react';
 import { Button, Icon, Modal, Form, Input } from 'semantic-ui-react';
 import { connect } from 'react-redux';
@@ -30,6 +29,7 @@ class ItemModal extends React.Component {
   };
   closeModal = () => {
     this.setState({ modalOpen: false });
+    this.setState({ item: this.props.item });
   };
 
   addData = () => {
@@ -45,6 +45,30 @@ class ItemModal extends React.Component {
   deleteData = () => {
     this.props.deleteItem(this.props.item.id);
     this.closeModal();
+  };
+
+  getPlaceDetails = () => {
+    console.log(this.state);
+    if (!this.state.item.placeId) {
+      console.log('no place id');
+      return;
+    }
+    console.log('place id exist');
+    const map = new window.google.maps.Map(document.getElementById('map'), {
+      center: { lat: -33.866, lng: 151.196 },
+      zoom: 15,
+    });
+    const request = {
+      placeId: this.state.item.placeId,
+      fields: ['name', 'formatted_address'],
+    };
+    const service = new window.google.maps.places.PlacesService(map);
+    service.getDetails(request, (place, status) => {
+      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+        console.log(place.name, place.formatted_address);
+        this.setState({ item: { name: place.name, address: place.formatted_address } });
+      }
+    });
   };
 
   render() {
@@ -97,28 +121,30 @@ class ItemModal extends React.Component {
         <Modal.Content>
           <Form>
             <Form.Group>
-              <Form.Field
-                label='Name'
-                control='input'
-                defaultValue={this.props.item.name}
-                onBlur={this.handleChange}
-                type='text'
-                id='name'
-                readOnly={this.props.type === 'delete'}
-                width={6}
-                required
-              />
-              <Form.Field
-                label='Address'
-                control='input'
-                defaultValue={this.props.item.address}
-                onBlur={this.handleChange}
-                type='text'
-                id='address'
-                readOnly={this.props.type === 'delete'}
-                width={8}
-                required
-              />
+              <Form.Field width={16}>
+                <label>Add Place by Google Map Link</label>
+                <Input
+                  defaultValue={this.props.item.mapLink}
+                  onBlur={this.handleChange}
+                  type='text'
+                  id='placeId'
+                  readOnly={this.props.type === 'delete'}
+                  action={
+                    <Button type='button' onClick={this.getPlaceDetails}>
+                      Add Map Link
+                    </Button>
+                  }
+                />
+              </Form.Field>
+              <Form.Field width={8}>
+                <label>Name:</label>
+                <Input value={this.state.item.name || ''} />
+              </Form.Field>
+              <Form.Field width={8}>
+                <label>Address:</label>
+                <Input value={this.state.item.address || ''} />
+              </Form.Field>
+
               <Form.Field
                 label='Price'
                 control='input'

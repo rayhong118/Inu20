@@ -96,7 +96,7 @@ class ItemsList extends React.Component {
               <h2>
                 {this.state.randomItem ? (
                   <div>
-                    <a href=''>
+                    <a href='#A'>
                       <h2>{this.state.randomItem.name}</h2>
                     </a>
                     <div className='address-row'>
