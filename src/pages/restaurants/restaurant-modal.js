@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Modal, Form, Input } from 'semantic-ui-react';
+import { Button, Icon, Modal, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {
   deleteItem,
@@ -48,61 +48,6 @@ class ItemModal extends React.Component {
     this.props.deleteItem(this.props.item.id);
     this.closeModal();
   };
-
-  getPlaceDetails = () => {
-    console.log(this.state);
-    if (!this.state.item.placeId) {
-      console.log('no place id');
-      return;
-    }
-    console.log('place id exist');
-    this.getCurrentGeoLocation();
-    const map = new window.google.maps.Map(document.getElementById('map'), {
-      center: { lat: -33.866, lng: 151.196 },
-      zoom: 15,
-    });
-    const request = {
-      placeId: this.state.item.placeId,
-      fields: ['name', 'formatted_address'],
-    };
-    const service = new window.google.maps.places.PlacesService(map);
-    service.getDetails(request, (place, status) => {
-      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-        console.log(place.name, place.formatted_address);
-        let item = { name: place.name, address: place.formatted_address };
-        this.validateForm(item);
-      }
-    });
-  };
-
-  getCurrentGeoLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function(position) {
-          let pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          return pos;
-        },
-        function() {
-          this.handleLocationError(true);
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      this.handleLocationError(false);
-    }
-    return null;
-  }
-
-  handleGeoLocationError(browserHasGeolocation) {
-    console.log(
-      browserHasGeolocation
-        ? 'Error: The Geolocation service failed.'
-        : "Error: Your browser doesn't support geolocation."
-    );
-  }
 
   validateForm = item => {
     const isValid = item.name && item.address && !!parseInt(item.price);
@@ -170,18 +115,7 @@ class ItemModal extends React.Component {
             <Form.Group>
               <Form.Field width={16} required readOnly={this.props.type === 'delete'}>
                 <label>Add Place by Google Map Link</label>
-                <Input
-                  defaultValue={this.props.item.mapLink}
-                  onBlur={this.handleChange}
-                  type='text'
-                  id='placeId'
-                  readOnly={this.props.type === 'delete'}
-                  action={
-                    <Button type='button' onClick={this.getPlaceDetails}>
-                      Add Map Link
-                    </Button>
-                  }
-                />
+                <input id='pac-input' type='text' placeholder='Enter a location' />
               </Form.Field>
 
               <Form.Field
