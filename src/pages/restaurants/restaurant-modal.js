@@ -56,6 +56,7 @@ class ItemModal extends React.Component {
       return;
     }
     console.log('place id exist');
+    this.getCurrentGeoLocation();
     const map = new window.google.maps.Map(document.getElementById('map'), {
       center: { lat: -33.866, lng: 151.196 },
       zoom: 15,
@@ -73,6 +74,35 @@ class ItemModal extends React.Component {
       }
     });
   };
+
+  getCurrentGeoLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function(position) {
+          let pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          return pos;
+        },
+        function() {
+          this.handleLocationError(true);
+        }
+      );
+    } else {
+      // Browser doesn't support Geolocation
+      this.handleLocationError(false);
+    }
+    return null;
+  }
+
+  handleGeoLocationError(browserHasGeolocation) {
+    console.log(
+      browserHasGeolocation
+        ? 'Error: The Geolocation service failed.'
+        : "Error: Your browser doesn't support geolocation."
+    );
+  }
 
   validateForm = item => {
     const isValid = item.name && item.address && !!parseInt(item.price);

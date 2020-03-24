@@ -11,7 +11,6 @@ import {
 import ItemsList from './restaurant-list';
 import { connect } from 'react-redux';
 import './restaurant.css';
-import { googleMapsApiKey } from '../../config/apikeys';
 
 const listOrder = [
   { key: 'Default', value: 'Default', text: 'Default' },
@@ -25,23 +24,6 @@ class Restautant extends React.Component {
     searchText: '',
     filterText: '',
   };
-
-  componentDidMount() {
-    if (!window.google) {
-      let s = document.createElement('script');
-      s.type = 'text/javascript';
-      s.src = `https://maps.google.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`;
-      let x = document.getElementsByTagName('script')[0];
-      x.parentNode.insertBefore(s, x);
-      s.addEventListener('load', e => {
-        this.onScriptLoad();
-      });
-    } else {
-      this.onScriptLoad();
-    }
-  }
-
-  onScriptLoad() {}
 
   handleChange = (e, { value }) => {
     this.setState({ order: value });

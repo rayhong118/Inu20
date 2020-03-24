@@ -5,10 +5,28 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import './restaurant.css';
+import { googleMapsApiKey } from '../../config/apikeys';
 
 class ItemsList extends React.Component {
   //{ items, order, searchText } = this.props;
   state = { items: [], authId: '', portalOpen: false, randomItem: null };
+
+  componentDidMount() {
+    if (!window.google) {
+      let s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.src = `https://maps.google.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`;
+      let x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+      s.addEventListener('load', e => {
+        this.onScriptLoad();
+      });
+    } else {
+      this.onScriptLoad();
+    }
+  }
+
+  onScriptLoad() {}
   log = () => {
     console.log('props', this.props);
     console.log('state', this.state);

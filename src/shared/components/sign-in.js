@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Form, Message, Loader } from 'semantic-ui-react';
+import { Modal, Button, Form, Message } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { signIn, signOut, clearAuthError } from '../store/actions/authActions';
 
