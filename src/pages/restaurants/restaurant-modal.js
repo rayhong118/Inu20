@@ -6,8 +6,52 @@ import {
   editItem,
   addItem,
 } from '../../shared/store/actions/restaurantActions';
+import { googleMapsApiKey } from '../../config/apikeys';
+import Script from 'react-load-script';
 
 class ItemModal extends React.Component {
+  constructor(props) {
+    super(props);
+
+    // Declare State
+    this.state = {
+      item: {},
+      city: '',
+      query: '',
+    };
+  }
+
+  handleScriptLoad = () => {
+    // Declare Options For Autocomplete
+    const options = {
+      /*types: ['(cities)']*/
+    };
+
+    // Initialize Google Autocomplete
+    /*global google*/
+    this.autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autocomplete'),
+      options
+    );
+    this.autocomplete.setFields(['address_components', 'formatted_address']);
+    // Fire Event when a suggested name is selected
+    this.autocomplete.addListener('autocomplete', this.handlePlaceSelect);
+  };
+
+  handlePlaceSelect = () => {
+    // Extract City From Address Object
+    const addressObject = this.autocomplete.getPlace();
+    const address = addressObject.address_components;
+
+    // Check if address is valid
+    if (address) {
+      // Set State
+      this.setState({
+        city: address[0].long_name,
+        query: addressObject.formatted_address,
+      });
+    }
+  };
   state = {
     modalOpen: false,
     item: this.props.item,
@@ -115,7 +159,7 @@ class ItemModal extends React.Component {
             <Form.Group>
               <Form.Field width={16} required readOnly={this.props.type === 'delete'}>
                 <label>Add Place by Google Map Link</label>
-                <input id='pac-input' type='text' placeholder='Enter a location' />
+                <input id='autocomplete' type='text' placeholder='Enter a location' />
               </Form.Field>
 
               <Form.Field
@@ -163,6 +207,11 @@ class ItemModal extends React.Component {
           </Button>
           {actionButton}
         </Modal.Actions>
+
+        <Script
+          url={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`}
+          onLoad={this.handleScriptLoad}
+        />
       </Modal>
     );
   }
