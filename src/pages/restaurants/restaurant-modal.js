@@ -15,9 +15,7 @@ class ItemModal extends React.Component {
 
     // Declare State
     this.state = {
-      item: {},
-      city: '',
-      query: '',
+      item: { address: '', name: '' },
     };
   }
 
@@ -33,22 +31,31 @@ class ItemModal extends React.Component {
       document.getElementById('autocomplete'),
       options
     );
-    this.autocomplete.setFields(['address_components', 'formatted_address']);
+    this.autocomplete.setFields([
+      'address_components',
+      'formatted_address',
+      'name',
+      'url',
+    ]);
     // Fire Event when a suggested name is selected
-    this.autocomplete.addListener('autocomplete', this.handlePlaceSelect);
+    this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
   };
 
   handlePlaceSelect = () => {
     // Extract City From Address Object
     const addressObject = this.autocomplete.getPlace();
     const address = addressObject.address_components;
+    console.log('address', address);
 
     // Check if address is valid
     if (address) {
       // Set State
       this.setState({
-        city: address[0].long_name,
-        query: addressObject.formatted_address,
+        item: {
+          address: addressObject.formatted_address,
+          name: addressObject.name,
+          url: addressObject.url,
+        },
       });
     }
   };
@@ -74,8 +81,10 @@ class ItemModal extends React.Component {
     this.setState({ modalOpen: true });
   };
   closeModal = () => {
-    this.setState({ modalOpen: false });
-    this.setState({ item: this.props.item });
+    this.setState({
+      modalOpen: false,
+      item: this.props.item || { name: '', address: '', comments: '' },
+    });
   };
 
   addData = () => {
@@ -155,17 +164,20 @@ class ItemModal extends React.Component {
           {action[this.props.type].title} restaurant: {this.props.item.name}
         </Modal.Header>
         <Modal.Content>
+          {JSON.stringify(this.state)}
           <Form>
             <Form.Group>
               <Form.Field width={16} required readOnly={this.props.type === 'delete'}>
-                <label>Add Place by Google Map Link</label>
+                <label>Search Place:</label>
                 <input id='autocomplete' type='text' placeholder='Enter a location' />
               </Form.Field>
+            </Form.Group>
 
+            <Form.Group>
               <Form.Field
                 label='Name:'
                 control='input'
-                value={this.state.item.name || ''}
+                value={this.props.item.name || this.state.item.name}
                 type='text'
                 id='name'
                 readOnly
@@ -175,7 +187,7 @@ class ItemModal extends React.Component {
               <Form.Field
                 label='Address:'
                 control='input'
-                value={this.state.item.address || ''}
+                value={this.props.item.address || this.state.item.address}
                 type='text'
                 id='address'
                 readOnly
@@ -232,3 +244,13 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(null, mapDispatchToProps)(ItemModal);
+
+/*
+place interface: {
+  name: string;
+  address: string;
+  url: string;
+  comments: string (needs to be updated into {user: string, content: string}[])
+  tags: string[] (proposed)
+}
+*/

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import './restaurant.css';
-import { googleMapsApiKey } from '../../config/apikeys';
 
 class ItemsList extends React.Component {
   //{ items, order, searchText } = this.props;
