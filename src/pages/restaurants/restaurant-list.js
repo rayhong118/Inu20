@@ -17,7 +17,9 @@ class ItemsList extends React.Component {
 
   filterItems = items => {
     return this.props.searchText
-      ? [...items].filter(item => item.name.includes(this.props.searchText))
+      ? [...items].filter(item =>
+          item.name.toUpperCase().includes(this.props.searchText.toUpperCase())
+        )
       : [...items];
   };
 

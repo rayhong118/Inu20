@@ -15,7 +15,9 @@ class ItemModal extends React.Component {
 
     // Declare State
     this.state = {
-      item: { address: '', name: '' },
+      item: this.props.item.name
+        ? this.props.item
+        : { address: '', name: '', url: '', comments: '' },
     };
   }
 
@@ -52,6 +54,7 @@ class ItemModal extends React.Component {
       // Set State
       this.setState({
         item: {
+          ...this.state.item,
           address: addressObject.formatted_address,
           name: addressObject.name,
           url: addressObject.url,
@@ -166,18 +169,22 @@ class ItemModal extends React.Component {
         <Modal.Content>
           {JSON.stringify(this.state)}
           <Form>
-            <Form.Group>
-              <Form.Field width={16} required readOnly={this.props.type === 'delete'}>
-                <label>Search Place:</label>
-                <input id='autocomplete' type='text' placeholder='Enter a location' />
-              </Form.Field>
-            </Form.Group>
+            {this.props.type !== 'delete' ? (
+              <Form.Group>
+                <Form.Field width={16} required readOnly={this.props.type === 'delete'}>
+                  <label>Search Place:</label>
+                  <input id='autocomplete' type='text' placeholder='Enter a location' />
+                </Form.Field>
+              </Form.Group>
+            ) : (
+              ''
+            )}
 
             <Form.Group>
               <Form.Field
                 label='Name:'
                 control='input'
-                value={this.props.item.name || this.state.item.name}
+                value={this.state.item.name}
                 type='text'
                 id='name'
                 readOnly
@@ -187,7 +194,7 @@ class ItemModal extends React.Component {
               <Form.Field
                 label='Address:'
                 control='input'
-                value={this.props.item.address || this.state.item.address}
+                value={this.state.item.address}
                 type='text'
                 id='address'
                 readOnly
@@ -220,10 +227,14 @@ class ItemModal extends React.Component {
           {actionButton}
         </Modal.Actions>
 
-        <Script
-          url={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`}
-          onLoad={this.handleScriptLoad}
-        />
+        {this.props.type !== 'delete' ? (
+          <Script
+            url={`https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`}
+            onLoad={this.handleScriptLoad}
+          />
+        ) : (
+          ''
+        )}
       </Modal>
     );
   }
