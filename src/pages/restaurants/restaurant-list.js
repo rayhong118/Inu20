@@ -41,14 +41,6 @@ class ItemsList extends React.Component {
     }
   };
 
-  handlePortalOpen = () => {
-    this.setState({ portalOpen: true });
-  };
-
-  handlePortalClose = () => {
-    this.setState({ portalOpen: false });
-  };
-
   displayRandom = () => {
     let filteredList = this.sortItems(this.filterItems(this.state.items));
     let index = Math.floor(Math.random() * filteredList.length);
@@ -73,59 +65,60 @@ class ItemsList extends React.Component {
           In order to access the content on this page, you need to sign in first.
         </Message>
       );
-    else
+    else {
+      let processedList = this.state.items
+        ? this.sortItems(this.filterItems(this.state.items))
+        : [];
       return (
         <div>
+          {this.state.randomItem ? (
+            <Segment className='random-select-container'>
+              {this.state.randomItem ? (
+                <div>
+                  <h2>{this.state.randomItem.name}</h2>
+
+                  <a href={this.state.randomItem.url}>
+                    <Icon name='map marker alternate' color='grey' />
+                    {this.state.randomItem.address}
+                  </a>
+                  <p>${this.state.randomItem.price}</p>
+
+                  <p>{this.state.randomItem.comments}</p>
+                </div>
+              ) : (
+                'Random Select'
+              )}
+              <Button
+                basic
+                onClick={() => {
+                  this.setState({ randomItem: null });
+                }}
+                size='mini'
+                content='Close'
+                icon='close'
+                color='red'
+              />
+            </Segment>
+          ) : (
+            ''
+          )}
+
           <ItemModal
             map={this.state.map}
             item={{}}
             type={'add'}
             disabled={!this.props.auth.uid}></ItemModal>
-          <Portal
-            openOnTriggerClick
-            trigger={
-              <Button
-                size='mini'
-                disabled={!this.state.items || !this.state.items.length}
-                onClick={this.displayRandom}
-                content={'Random Select'}
-              />
-            }
-            onOpen={this.handlePortalOpen}
-            onClose={this.handlePortalClose}>
-            <Segment
-              style={{
-                left: '40%',
-                position: 'fixed',
-                top: '40%',
-                zIndex: 10,
-              }}>
-              <h2>
-                {this.state.randomItem ? (
-                  <div>
-                    <a href='#A'>
-                      <h2>{this.state.randomItem.name}</h2>
-                    </a>
-                    <div className='address-row'>
-                      <a href={this.state.randomItem.url}>
-                        <Icon name='map marker alternate' color='grey' />
-                        {this.state.randomItem.address}
-                      </a>
-                      <span className='price'>${this.state.randomItem.price}</span>
-                    </div>
+          <Button
+            size='mini'
+            disabled={!this.state.items || !this.state.items.length}
+            onClick={this.displayRandom}
+            content={'Random Select'}
+            icon='random'
+          />
 
-                    <h4>{this.state.randomItem.comments}</h4>
-                  </div>
-                ) : (
-                  'Error'
-                )}
-              </h2>
-            </Segment>
-          </Portal>
-
-          <div>Number of results: {this.state.items ? this.state.items.length : 0}</div>
+          <p>Number of results: {processedList ? processedList.length : 0}</p>
           {this.state.items ? (
-            this.sortItems(this.filterItems(this.state.items)).map(item => (
+            processedList.map(item => (
               <Segment key={item.id} color='blue'>
                 <h3 className='item-title'>{item.name}</h3>
                 <div className='address-row'>
@@ -157,6 +150,7 @@ class ItemsList extends React.Component {
           )}
         </div>
       );
+    }
   }
 }
 

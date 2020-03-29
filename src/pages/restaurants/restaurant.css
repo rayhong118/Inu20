@@ -4,16 +4,17 @@
 .item-title {
   margin-bottom: 0.25rem;
 }
+.random-select-container {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 .address-row {
   font-size: 1rem;
   display: flex;
   justify-content: space-between;
-}
-
-.address-row > .price {
-  padding-left: 1rem;
-  color: grey;
 }
 
 .comments > span {
