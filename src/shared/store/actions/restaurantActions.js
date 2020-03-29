@@ -22,7 +22,12 @@ export const editItem = item => {
     firestore
       .collection('restaurants')
       .doc(item.id)
-      .update({ ...item })
+      .update({
+        name: item.name,
+        address: item.address,
+        url: item.url,
+        comments: item.comments || '',
+      })
       .then(() => {
         dispatch({ type: 'EDIT_ITEM' });
       })

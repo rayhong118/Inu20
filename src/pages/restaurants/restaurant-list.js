@@ -107,10 +107,10 @@ class ItemsList extends React.Component {
                       <h2>{this.state.randomItem.name}</h2>
                     </a>
                     <div className='address-row'>
-                      <span>
+                      <a href={this.state.randomItem.url}>
                         <Icon name='map marker alternate' color='grey' />
                         {this.state.randomItem.address}
-                      </span>
+                      </a>
                       <span className='price'>${this.state.randomItem.price}</span>
                     </div>
 
@@ -129,10 +129,10 @@ class ItemsList extends React.Component {
               <Segment key={item.id} color='blue'>
                 <h3 className='item-title'>{item.name}</h3>
                 <div className='address-row'>
-                  <span>
+                  <a href={item.url}>
                     <Icon name='map marker alternate' color='grey' />
                     {item.address}
-                  </span>
+                  </a>
                   <span className='price'> ${item.price}</span>
                 </div>
 

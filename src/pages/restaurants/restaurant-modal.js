@@ -12,22 +12,18 @@ import Script from 'react-load-script';
 class ItemModal extends React.Component {
   constructor(props) {
     super(props);
-
     // Declare State
     this.state = {
       item: this.props.item.name
-        ? this.props.item
+        ? { ...this.props.item }
         : { address: '', name: '', url: '', comments: '' },
     };
   }
 
   handleScriptLoad = () => {
-    // Declare Options For Autocomplete
     const options = {
-      /*types: ['(cities)']*/
+      types: ['establishment'],
     };
-
-    // Initialize Google Autocomplete
     /*global google*/
     this.autocomplete = new google.maps.places.Autocomplete(
       document.getElementById('autocomplete'),
@@ -108,7 +104,6 @@ class ItemModal extends React.Component {
   validateForm = item => {
     const isValid = item.name && item.address && !!parseInt(item.price);
     this.setState({ isFormValid: isValid, item });
-    console.log(this.state);
   };
 
   render() {
@@ -167,13 +162,17 @@ class ItemModal extends React.Component {
           {action[this.props.type].title} restaurant: {this.props.item.name}
         </Modal.Header>
         <Modal.Content>
-          {JSON.stringify(this.state)}
           <Form>
             {this.props.type !== 'delete' ? (
               <Form.Group>
                 <Form.Field width={16} required readOnly={this.props.type === 'delete'}>
                   <label>Search Place:</label>
-                  <input id='autocomplete' type='text' placeholder='Enter a location' />
+                  <input
+                    id='autocomplete'
+                    type='text'
+                    placeholder='Enter a location'
+                    onChange={this.handleChange}
+                  />
                 </Form.Field>
               </Form.Group>
             ) : (
