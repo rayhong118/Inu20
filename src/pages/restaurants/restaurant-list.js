@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Message, Icon, Portal, Button } from 'semantic-ui-react';
+import { Segment, Message, Icon, Button } from 'semantic-ui-react';
 import ItemModal from './restaurant-modal';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';

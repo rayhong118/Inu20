@@ -26,6 +26,7 @@ export const editItem = item => {
         name: item.name,
         address: item.address,
         url: item.url,
+        price: item.price,
         comments: item.comments || '',
       })
       .then(() => {

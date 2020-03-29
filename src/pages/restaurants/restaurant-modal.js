@@ -66,7 +66,9 @@ class ItemModal extends React.Component {
 
   handleChange = e => {
     let elem = e.target;
-    if (elem.id === 'price' && elem.value <= 0) elem.value = 0;
+    if (elem.id === 'price') {
+      elem.value = Math.max(parseInt(elem.value), 0);
+    }
 
     let item = {
       ...this.state.item,
