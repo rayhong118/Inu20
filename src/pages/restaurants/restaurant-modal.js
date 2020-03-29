@@ -167,12 +167,12 @@ class ItemModal extends React.Component {
           <Form>
             {this.props.type !== 'delete' ? (
               <Form.Group>
-                <Form.Field width={16} required readOnly={this.props.type === 'delete'}>
+                <Form.Field width={16} required>
                   <label>Search Place:</label>
                   <input
                     id='autocomplete'
                     type='text'
-                    placeholder='Enter a location'
+                    placeholder='Enter restaurant name'
                     onChange={this.handleChange}
                   />
                 </Form.Field>
@@ -209,6 +209,7 @@ class ItemModal extends React.Component {
                 type='number'
                 id='price'
                 readOnly={this.props.type === 'delete'}
+                required={this.props.type !== 'delete'}
                 width={2}
               />
             </Form.Group>
