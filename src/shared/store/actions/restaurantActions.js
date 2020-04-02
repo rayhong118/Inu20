@@ -44,7 +44,13 @@ export const addItem = item => {
     const firestore = getFirestore();
     firestore
       .collection('restaurants')
-      .add(item)
+      .add({
+        name: item.name,
+        address: item.address,
+        url: item.url,
+        price: item.price,
+        comments: item.comments || '',
+      })
       .then(() => {
         dispatch({ type: 'ADD_ITEM' });
       })
