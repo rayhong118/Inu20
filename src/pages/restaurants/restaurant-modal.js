@@ -172,7 +172,7 @@ class ItemModal extends React.Component {
                   <input
                     id='autocomplete'
                     type='text'
-                    placeholder='Enter restaurant name'
+                    placeholder='Enter restaurant name or address'
                     onChange={this.handleChange}
                   />
                 </Form.Field>
@@ -186,6 +186,7 @@ class ItemModal extends React.Component {
                 label='Name:'
                 control='input'
                 value={this.state.item.name}
+                placeholder='Populated by place search'
                 type='text'
                 id='name'
                 readOnly
@@ -196,6 +197,7 @@ class ItemModal extends React.Component {
                 label='Address:'
                 control='input'
                 value={this.state.item.address}
+                placeholder='Populated by place search'
                 type='text'
                 id='address'
                 readOnly
