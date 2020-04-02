@@ -150,8 +150,9 @@ class ItemModal extends React.Component {
         trigger={
           <Button
             color={action[this.props.type].color}
-            size='mini'
-            onClick={() => this.openModal()}>
+            size='tiny'
+            onClick={() => this.openModal()}
+            className='restaurant-modal-button'>
             <Icon name={this.props.type}></Icon>
             {action[this.props.type].title}
           </Button>

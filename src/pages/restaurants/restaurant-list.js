@@ -75,7 +75,7 @@ class ItemsList extends React.Component {
             <Segment className='random-select-container'>
               {this.state.randomItem ? (
                 <div>
-                  <h2>{this.state.randomItem.name}</h2>
+                  <h3>{this.state.randomItem.name}</h3>
 
                   <a href={this.state.randomItem.url}>
                     <Icon name='map marker alternate' color='grey' />
@@ -109,7 +109,7 @@ class ItemsList extends React.Component {
             type={'add'}
             disabled={!this.props.auth.uid}></ItemModal>
           <Button
-            size='mini'
+            size='tiny'
             disabled={!this.state.items || !this.state.items.length}
             onClick={this.displayRandom}
             content={'Random Select'}
@@ -121,12 +121,16 @@ class ItemsList extends React.Component {
             processedList.map(item => (
               <Segment key={item.id} color='blue'>
                 <h3 className='item-title'>{item.name}</h3>
-                <div className='address-row'>
-                  <a href={item.url}>
-                    <Icon name='map marker alternate' color='grey' />
-                    {item.address}
-                  </a>
-                  <span className='price'> ${item.price}</span>
+
+                <a href={item.url}>
+                  <Icon name='map marker alternate' color='grey' />
+                  {item.address}
+                </a>
+
+                <div className='price'>
+                  {' '}
+                  <Icon name='dollar sign' color='grey' />
+                  {item.price}
                 </div>
 
                 {item.comments ? (

@@ -1,16 +1,14 @@
 .item-title {
   margin-bottom: 0.25rem;
 }
+.price {
+  color: #767676;
+  padding-bottom: 0.25rem;
+}
 .random-select-container {
   height: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-.address-row {
-  font-size: 1rem;
-  display: flex;
   justify-content: space-between;
 }
 
@@ -21,4 +19,8 @@
 .comments > div {
   margin-top: -0.25rem;
   font-size: 0.95rem;
+}
+
+.restaurant-modal-button {
+  margin-right: 0.5rem !important;
 }
