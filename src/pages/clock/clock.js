@@ -2,6 +2,7 @@ import React from 'react';
 import './clock.css';
 
 export default class Clock extends React.Component {
+  timeUpdate;
   state = {
     isCountdownEnded: true,
   };
@@ -15,7 +16,7 @@ export default class Clock extends React.Component {
   };
 
   componentDidMount() {
-    setInterval(() => {
+    this.timeUpdate = setInterval(() => {
       let date = new Date();
       let h = date.getHours();
       let m = date.getMinutes();
@@ -24,6 +25,10 @@ export default class Clock extends React.Component {
 
       this.setState({ time: this.formatTime(h, m, s, cs) });
     }, 43);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timeUpdate);
   }
 
   formatTime(h, m, s, cs) {
