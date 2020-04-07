@@ -57,6 +57,8 @@
   width: 2rem;
   background-color: #222;
   border: none;
+  color: var(--eva-orange);
+  text-align: center;
 }
 .eva-input :focus {
   background-color: #222;
