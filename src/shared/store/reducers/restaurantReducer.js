@@ -1,6 +1,12 @@
 const initState = {
   items: [],
   error: '',
+  filter: {
+    order: '',
+    maxPrice: 0,
+    minPrice: 0,
+    name: '',
+  },
 };
 
 const restaurantReducer = (state = initState, action) => {
@@ -17,6 +23,8 @@ const restaurantReducer = (state = initState, action) => {
       return state;
     case 'DELETE_ITEM_ERROR':
       return { ...state, error: action.payload.message };
+    case 'UPDATE_FILTER':
+      return { ...state, filter: action.payload };
     default:
       return state;
   }

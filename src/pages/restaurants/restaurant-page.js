@@ -22,15 +22,21 @@ class Restautant extends React.Component {
   state = {
     order: null,
     searchText: '',
-    filterText: '',
-  };
-
-  handleChange = (e, { value }) => {
-    this.setState({ order: value });
+    minPrice: 0,
+    maxPrice: 0,
+    filterFields: {
+      priceMax: 0,
+      priceMin: 0,
+      text: '',
+      tags: [],
+    },
   };
 
   handleSearchInput = (e, { value }) => {
-    this.setState({ searchText: value });
+    console.log(e, value);
+    if (e.target.id.includes('Price'))
+      this.setState({ [e.target.id]: Math.max(parseInt(value), 0) });
+    else this.setState({ [e.target.id]: value });
   };
 
   render() {
@@ -46,7 +52,7 @@ class Restautant extends React.Component {
                     fluid
                     value={this.state.searchText}
                     type='text'
-                    id='search'
+                    id='searchText'
                     onChange={this.handleSearchInput}
                     placeholder='Filter by name'
                   />
@@ -59,7 +65,25 @@ class Restautant extends React.Component {
                     selection
                     options={listOrder}
                     value={this.state.order}
-                    onChange={this.handleChange}
+                    id='order'
+                    onChange={this.handleSearchInput}
+                  />
+                  <br />
+                  <label>Price Range</label>
+                  <Input
+                    value={this.state.minPrice || 0}
+                    type='number'
+                    id='minPrice'
+                    onChange={this.handleSearchInput}
+                    placeholder='Min Price'
+                  />
+                  -
+                  <Input
+                    value={this.state.maxPrice || 0}
+                    type='number'
+                    id='maxPrice'
+                    onChange={this.handleSearchInput}
+                    placeholder='Max Price'
                   />
                 </Segment>
               </Grid.Column>
@@ -91,7 +115,7 @@ class Restautant extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     authError: state.auth.authError,
