@@ -38,11 +38,11 @@ class ItemsList extends React.Component {
   };
 
   filterItemsByPrice = (items) => {
-    if (this.state.filter.maxPrice) {
-      items = items.filter((item) => item.price <= this.state.filter.maxPrice);
-    }
     if (this.state.filter.minPrice) {
       items = items.filter((item) => item.price >= this.state.filter.minPrice);
+    }
+    if (this.state.filter.maxPrice) {
+      items = items.filter((item) => item.price <= this.state.filter.maxPrice);
     }
     return items;
   };

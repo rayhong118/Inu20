@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Segment, Input, Dropdown } from 'semantic-ui-react';
+import { Segment, Input, Dropdown, List } from 'semantic-ui-react';
 import { updateFilter } from '../../shared/store/actions/restaurantActions';
 
 const listOrder = [
@@ -79,9 +79,21 @@ class RestaurantFilter extends React.Component {
               placeholder='Max'
             />
           </div>
-          <a onClick={() => this.setPriceRange(0, 20)}>Less than $20</a>
-          <a onClick={() => this.setPriceRange(0, 20)}>$20 - $30</a>
-          <a onClick={() => this.setPriceRange(0, 20)}>$30 - $30</a>
+
+          <List link>
+            <List.Item as='a' onClick={() => this.setPriceRange(0, 0)}>
+              Clear Min {'&'} Max
+            </List.Item>
+            <List.Item as='a' onClick={() => this.setPriceRange(0, 19)}>
+              Less than $20
+            </List.Item>
+            <List.Item as='a' onClick={() => this.setPriceRange(20, 39)}>
+              $20 - $39
+            </List.Item>
+            <List.Item as='a' onClick={() => this.setPriceRange(40, 0)}>
+              More than $40
+            </List.Item>
+          </List>
         </Segment>
       </Segment.Group>
     );
