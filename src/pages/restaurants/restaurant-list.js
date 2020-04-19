@@ -21,7 +21,6 @@ class ItemsList extends React.Component {
   };
 
   processItems(items) {
-    this.log();
     if (!this.state.filter) return items;
     let filteredItems = this.filterItems(items);
     let sortedItems = this.sortItems(filteredItems);

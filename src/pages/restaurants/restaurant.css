@@ -24,3 +24,13 @@
 .restaurant-modal-button {
   margin-right: 0.5rem !important;
 }
+.price-range {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.price-range > .input {
+  /*flex-basis: 40%;*/
+  width: min(72px, 60%);
+}

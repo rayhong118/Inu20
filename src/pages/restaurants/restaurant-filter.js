@@ -22,7 +22,6 @@ class RestaurantFilter extends React.Component {
 
   handleSearchInput = (e, { value }) => {
     let fieldName = e.target.id;
-    //console.log(fieldName, value);
     if (fieldName.includes('Price')) value = Math.max(parseInt(value), 0);
     this.setState({ [fieldName]: value });
   };
@@ -59,21 +58,23 @@ class RestaurantFilter extends React.Component {
           />
           <br />
           <label>Price Range</label>
-          <Input
-            value={this.state.minPrice || 0}
-            type='number'
-            id='minPrice'
-            onChange={this.handleSearchInput}
-            placeholder='Min Price'
-          />
-          -
-          <Input
-            value={this.state.maxPrice || 0}
-            type='number'
-            id='maxPrice'
-            onChange={this.handleSearchInput}
-            placeholder='Max Price'
-          />
+          <div className='price-range'>
+            <Input
+              value={this.state.minPrice || ''}
+              type='number'
+              id='minPrice'
+              onChange={this.handleSearchInput}
+              placeholder='Min'
+            />
+            <span style={{ padding: '0.5rem' }}>-</span>
+            <Input
+              value={this.state.maxPrice || ''}
+              type='number'
+              id='maxPrice'
+              onChange={this.handleSearchInput}
+              placeholder='Max'
+            />
+          </div>
         </Segment>
       </Segment.Group>
     );
