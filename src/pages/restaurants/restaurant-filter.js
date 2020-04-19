@@ -31,6 +31,10 @@ class RestaurantFilter extends React.Component {
     this.handleSearchInput(e, { value });
   };
 
+  setPriceRange(min, max) {
+    this.setState({ minPrice: min, maxPrice: max });
+  }
+
   render() {
     return (
       <Segment.Group>
@@ -75,6 +79,9 @@ class RestaurantFilter extends React.Component {
               placeholder='Max'
             />
           </div>
+          <a onClick={() => this.setPriceRange(0, 20)}>Less than $20</a>
+          <a onClick={() => this.setPriceRange(0, 20)}>$20 - $30</a>
+          <a onClick={() => this.setPriceRange(0, 20)}>$30 - $30</a>
         </Segment>
       </Segment.Group>
     );

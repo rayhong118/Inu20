@@ -22,18 +22,29 @@ class ItemsList extends React.Component {
 
   processItems(items) {
     if (!this.state.filter) return items;
-    let filteredItems = this.filterItems(items);
-    let sortedItems = this.sortItems(filteredItems);
+    let filteredNameItems = this.filterItemsByName(items);
+    let filteredPriceItems = this.filterItemsByPrice(filteredNameItems);
+    let sortedItems = this.sortItems(filteredPriceItems);
     return sortedItems;
   }
 
-  filterItems = (items) => {
+  filterItemsByName = (items) => {
     let searchText = this.state.filter.searchText;
     return searchText
       ? [...items].filter((item) =>
           item.name.toUpperCase().includes(searchText.toUpperCase())
         )
       : [...items];
+  };
+
+  filterItemsByPrice = (items) => {
+    if (this.state.filter.maxPrice) {
+      items = items.filter((item) => item.price <= this.state.filter.maxPrice);
+    }
+    if (this.state.filter.minPrice) {
+      items = items.filter((item) => item.price >= this.state.filter.minPrice);
+    }
+    return items;
   };
 
   sortItems = (filteredItems) => {
