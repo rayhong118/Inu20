@@ -7,8 +7,13 @@ import { compose } from 'redux';
 import './restaurant.css';
 
 class ItemsList extends React.Component {
-  //{ items, order, searchText } = this.props;
-  state = { items: [], authId: '', portalOpen: false, randomItem: null, map: null };
+  state = {
+    items: [],
+    authId: '',
+    portalOpen: false,
+    randomItem: null,
+    map: null,
+  };
 
   log = () => {
     console.log('props', this.props);
@@ -16,21 +21,25 @@ class ItemsList extends React.Component {
   };
 
   processItems(items) {
+    this.log();
+    if (!this.state.filter) return items;
     let filteredItems = this.filterItems(items);
     let sortedItems = this.sortItems(filteredItems);
     return sortedItems;
   }
 
   filterItems = (items) => {
-    return this.props.searchText
+    let searchText = this.state.filter.searchText;
+    return searchText
       ? [...items].filter((item) =>
-          item.name.toUpperCase().includes(this.props.searchText.toUpperCase())
+          item.name.toUpperCase().includes(searchText.toUpperCase())
         )
       : [...items];
   };
 
   sortItems = (filteredItems) => {
-    switch (this.props.order) {
+    let order = this.state.filter.order;
+    switch (order) {
       case 'PL2H':
         return filteredItems.sort((a, b) => {
           return a.price - b.price;
@@ -48,7 +57,7 @@ class ItemsList extends React.Component {
   };
 
   displayRandom = () => {
-    let filteredList = this.sortItems(this.filterItems(this.state.items));
+    let filteredList = this.processItems(this.state.items);
     let index = Math.floor(Math.random() * filteredList.length);
     let randomItem = filteredList[index];
     this.setState({ randomItem });
@@ -59,7 +68,7 @@ class ItemsList extends React.Component {
 
     return {
       items: rawItems,
-      //authId: nextProps.auth.uid,
+      filter: nextProps.filter,
     };
   }
 
@@ -153,7 +162,7 @@ class ItemsList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     items: state.firestore.ordered.restaurants,
-    filter: state.filter,
+    filter: state.restaurant.filter,
   };
 };
 

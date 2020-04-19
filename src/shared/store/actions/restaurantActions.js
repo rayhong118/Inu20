@@ -61,7 +61,6 @@ export const addItem = (item) => {
   };
 };
 
-export const updateFilterCriteria = (criteriaObj) => {
-  console.log(criteriaObj);
-  return { type: 'UPDATE_FILTER', payload: criteriaObj };
+export const updateFilter = (filter) => {
+  return { type: 'UPDATE_FILTER', filter };
 };
