@@ -15,15 +15,21 @@ class ItemsList extends React.Component {
     console.log('state', this.state);
   };
 
-  filterItems = items => {
+  processItems(items) {
+    let filteredItems = this.filterItems(items);
+    let sortedItems = this.sortItems(filteredItems);
+    return sortedItems;
+  }
+
+  filterItems = (items) => {
     return this.props.searchText
-      ? [...items].filter(item =>
+      ? [...items].filter((item) =>
           item.name.toUpperCase().includes(this.props.searchText.toUpperCase())
         )
       : [...items];
   };
 
-  sortItems = filteredItems => {
+  sortItems = (filteredItems) => {
     switch (this.props.order) {
       case 'PL2H':
         return filteredItems.sort((a, b) => {
@@ -58,109 +64,96 @@ class ItemsList extends React.Component {
   }
 
   render() {
-    if (!this.props.auth.uid)
-      return (
-        <Message color='red'>
-          <Icon name='warning circle'></Icon>
-          In order to access the content on this page, you need to sign in first.
-        </Message>
-      );
-    else {
-      let processedList = this.state.items
-        ? this.sortItems(this.filterItems(this.state.items))
-        : [];
-      return (
-        <div>
-          {this.state.randomItem ? (
-            <Segment className='random-select-container'>
-              {this.state.randomItem ? (
-                <div>
-                  <h3>{this.state.randomItem.name}</h3>
+    let processedList = this.state.items ? this.processItems(this.state.items) : [];
+    return (
+      <div>
+        {this.state.randomItem ? (
+          <Segment className='random-select-container'>
+            <div>
+              <h3>{this.state.randomItem.name}</h3>
 
-                  <a href={this.state.randomItem.url}>
-                    <Icon name='map marker alternate' color='grey' />
-                    {this.state.randomItem.address}
-                  </a>
-                  <p>${this.state.randomItem.price}</p>
+              <a href={this.state.randomItem.url}>
+                <Icon name='map marker alternate' color='grey' />
+                {this.state.randomItem.address}
+              </a>
+              <p>${this.state.randomItem.price}</p>
 
-                  <p>{this.state.randomItem.comments}</p>
+              <p>{this.state.randomItem.comments}</p>
+            </div>
+
+            <Button
+              basic
+              onClick={() => {
+                this.setState({ randomItem: null });
+              }}
+              size='mini'
+              content='Close'
+              icon='close'
+              color='red'
+            />
+          </Segment>
+        ) : (
+          ''
+        )}
+
+        <ItemModal
+          map={this.state.map}
+          item={{}}
+          type={'add'}
+          disabled={!this.props.auth.uid}></ItemModal>
+        <Button
+          size='tiny'
+          disabled={!this.state.items || !this.state.items.length}
+          onClick={this.displayRandom}
+          content={'Random Select'}
+          icon='random'
+        />
+
+        <p>Number of results: {processedList ? processedList.length : 0}</p>
+        {this.state.items ? (
+          processedList.map((item) => (
+            <Segment key={item.id} color='blue'>
+              <h3 className='item-title'>{item.name}</h3>
+
+              <a href={item.url}>
+                <Icon name='map marker alternate' color='grey' />
+                {item.address}
+              </a>
+
+              <div className='price'>
+                {' '}
+                <Icon name='dollar sign' color='grey' />
+                {item.price}
+              </div>
+
+              {item.comments ? (
+                <div className='comments'>
+                  <span>Comments:</span>
+                  <div>{item.comments}</div>
                 </div>
               ) : (
-                'Random Select'
+                ''
               )}
-              <Button
-                basic
-                onClick={() => {
-                  this.setState({ randomItem: null });
-                }}
-                size='mini'
-                content='Close'
-                icon='close'
-                color='red'
-              />
+
+              <ItemModal map={this.state.map} item={item} type={'edit'}></ItemModal>
+              <ItemModal item={item} type={'delete'}></ItemModal>
             </Segment>
-          ) : (
-            ''
-          )}
-
-          <ItemModal
-            map={this.state.map}
-            item={{}}
-            type={'add'}
-            disabled={!this.props.auth.uid}></ItemModal>
-          <Button
-            size='tiny'
-            disabled={!this.state.items || !this.state.items.length}
-            onClick={this.displayRandom}
-            content={'Random Select'}
-            icon='random'
-          />
-
-          <p>Number of results: {processedList ? processedList.length : 0}</p>
-          {this.state.items ? (
-            processedList.map(item => (
-              <Segment key={item.id} color='blue'>
-                <h3 className='item-title'>{item.name}</h3>
-
-                <a href={item.url}>
-                  <Icon name='map marker alternate' color='grey' />
-                  {item.address}
-                </a>
-
-                <div className='price'>
-                  {' '}
-                  <Icon name='dollar sign' color='grey' />
-                  {item.price}
-                </div>
-
-                {item.comments ? (
-                  <div className='comments'>
-                    <span>Comments:</span>
-                    <div>{item.comments}</div>
-                  </div>
-                ) : (
-                  ''
-                )}
-
-                <ItemModal map={this.state.map} item={item} type={'edit'}></ItemModal>
-                <ItemModal item={item} type={'delete'}></ItemModal>
-              </Segment>
-            ))
-          ) : (
-            <Message color='yellow'>
-              <Icon name='circle notch' loading={true}></Icon>
-              loading...
-            </Message>
-          )}
-        </div>
-      );
-    }
+          ))
+        ) : (
+          <Message color='yellow'>
+            <Icon name='circle notch' loading={true}></Icon>
+            loading...
+          </Message>
+        )}
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     items: state.firestore.ordered.restaurants,
+    filter: state.filter,
   };
 };
 
