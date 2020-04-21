@@ -10,6 +10,10 @@
   background-color: white;
 }
 
+.dim {
+  filter: brightness(0.25);
+}
+
 .top-bar {
   position: sticky;
   top: 0;

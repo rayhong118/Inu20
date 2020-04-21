@@ -25,7 +25,7 @@ class SignIn extends React.Component {
     this.closeModal();
   };
 
-  handleInput = e => {
+  handleInput = (e) => {
     this.setState({
       [e.target.id]: e.target.value,
     });
@@ -117,7 +117,7 @@ class SignIn extends React.Component {
         <Modal
           trigger={
             <Button size='mini' onClick={this.openModal}>
-              Settings
+              Sign Out
             </Button>
           }
           size='tiny'
@@ -135,16 +135,16 @@ class SignIn extends React.Component {
       );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     authError: state.auth.authError,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     clearAuthError: () => dispatch(clearAuthError()),
-    signIn: creds => dispatch(signIn(creds)),
+    signIn: (creds) => dispatch(signIn(creds)),
     signOut: () => dispatch(signOut()),
   };
 };

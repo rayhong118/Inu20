@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, NavLink, Switch } from 'react-router-dom';
-import { Dropdown, Menu, Icon } from 'semantic-ui-react';
+import { Dropdown, Menu, Icon, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import AboutPage from './about/about';
 import Restaurant from './restaurants/restaurant-page';
@@ -32,6 +32,9 @@ class Root extends React.Component {
     }
   }
 
+  toggleDim = () => {
+    document.body.classList.toggle('dim');
+  };
   render() {
     return (
       <BrowserRouter>
@@ -97,6 +100,7 @@ class Root extends React.Component {
                     Clock{'   '}
                   </span>
                 </Dropdown.Item>
+                <Dropdown.Item onClick={this.toggleDim}>Toggle Dim Mode</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Item>
@@ -123,13 +127,14 @@ class Root extends React.Component {
             <Route component={NoMatch} />
           </Switch>
         </div>
+
         <Footer></Footer>
       </BrowserRouter>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 
