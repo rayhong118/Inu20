@@ -14,11 +14,11 @@ const restaurantReducer = (state = initState, action) => {
     case 'ADD_ITEM':
       return state;
     case 'ADD_ITEM_ERROR':
-      return state;
+      return { ...state, error: action.payload };
     case 'EDIT_ITEM':
       return state;
     case 'EDIT_ITEM_ERROR':
-      return state;
+      return { ...state, error: action.payload };
     case 'DELETE_ITEM':
       return state;
     case 'DELETE_ITEM_ERROR':
