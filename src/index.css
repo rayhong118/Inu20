@@ -5,11 +5,9 @@
   margin: 0.25em;
 }
 #root {
-  height: '100vh';
-  display: 'flex';
   flex-direction: column;
   flex-wrap: nowrap;
-  position: 'sticky';
+  background-color: white;
 }
 
 .top-bar {
