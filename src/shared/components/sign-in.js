@@ -91,14 +91,14 @@ class SignIn extends React.Component {
               </Message>
             ) : null}
             <Form>
-              <Form.Field
+              <Form.Input
                 label='Email:'
                 control='input'
                 onBlur={this.handleInput}
                 type='text'
                 id='email'
               />
-              <Form.Field
+              <Form.Input
                 label='Password:'
                 control='input'
                 onBlur={this.handleInput}
@@ -113,6 +113,7 @@ class SignIn extends React.Component {
             <Button
               loading={this.state.loading}
               color='blue'
+              basic
               onClick={this.signInTestAccount}>
               Sign in (Public test account)
             </Button>
