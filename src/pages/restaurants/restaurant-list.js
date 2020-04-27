@@ -91,7 +91,10 @@ class ItemsList extends React.Component {
             <div>
               <h3>{this.state.randomItem.name}</h3>
 
-              <a href={this.state.randomItem.url}>
+              <a
+                target='_blank'
+                href={this.state.randomItem.url}
+                rel='noopener noreferrer'>
                 <Icon name='map marker alternate' color='grey' />
                 {this.state.randomItem.address}
               </a>
@@ -134,7 +137,7 @@ class ItemsList extends React.Component {
             <Segment key={item.id} color='blue'>
               <h3 className='item-title'>{item.name}</h3>
 
-              <a href={item.url}>
+              <a target='_blank' href={item.url} rel='noopener noreferrer'>
                 <Icon name='map marker alternate' color='grey' />
                 {item.address}
               </a>
