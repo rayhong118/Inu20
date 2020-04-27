@@ -19,6 +19,10 @@ class SignIn extends React.Component {
     this.setState({ loading: true });
     this.props.signIn({ email: this.state.email, password: 'password' });
   };
+  signInTestAccount = () => {
+    this.setState({ loading: true });
+    this.props.signIn({ email: 'test@inu20.com', password: 'password' });
+  };
 
   signOut = () => {
     this.props.signOut();
@@ -106,6 +110,12 @@ class SignIn extends React.Component {
           </Modal.Content>
           <Modal.Actions>
             <Button onClick={this.closeModal}>Cancel</Button>
+            <Button
+              loading={this.state.loading}
+              color='blue'
+              onClick={this.signInTestAccount}>
+              Sign in (Public test account)
+            </Button>
             <Button loading={this.state.loading} color='blue' onClick={this.signIn}>
               Sign in
             </Button>
