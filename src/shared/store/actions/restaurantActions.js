@@ -16,7 +16,6 @@ export const deleteItem = (id) => {
 };
 
 export const editItem = (item) => {
-  console.log({ ...item });
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     const restaurantRef = firestore.collection('restaurants');
@@ -24,12 +23,14 @@ export const editItem = (item) => {
       .where('address', '==', item.address)
       .get()
       .then((doc) => {
-        if (doc.size) {
+        if (doc.docs[0].id !== item.id) {
+          console.log('edit failed');
           dispatch({
             type: 'EDIT_ITEM_ERROR',
             payload: 'EDIT restaurant failed. This place already exist in the database',
           });
         } else {
+          console.log('edit succeed');
           restaurantRef
             .doc(item.id)
             .update({
