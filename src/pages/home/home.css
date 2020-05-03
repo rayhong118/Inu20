@@ -13,3 +13,18 @@
 #title-banner h1 {
   font-size: 4rem;
 }
+
+#aWord {
+  margin: 5rem 0;
+}
+
+#quickNav {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+#quickNav > div {
+  margin-bottom: 2rem;
+  height: 100%;
+}

@@ -16,7 +16,10 @@ export default class Footer extends React.Component {
             <span>
               <Icon name='mail' />
               rayhong118@gmail.com <br />
-              <a href='https://github.com/dogheadslug'>
+              <a
+                target='_blank'
+                href='https://github.com/dogheadslug'
+                rel='noopener noreferrer'>
                 <Icon name='github' />
                 dogheadslug
               </a>
