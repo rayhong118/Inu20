@@ -118,11 +118,13 @@ class ItemsList extends React.Component {
           ''
         )}
 
-        <ItemModal
+<div className="space-between">
+  <ItemModal
           map={this.state.map}
           item={{}}
           type={'add'}
           disabled={!this.props.auth.uid}></ItemModal>
+        
         <Button
           size='tiny'
           disabled={!this.state.items || !this.state.items.length}
@@ -130,6 +132,8 @@ class ItemsList extends React.Component {
           content={'Random Select'}
           icon='random'
         />
+</div>
+        
 
         <p>Number of results: {processedList ? processedList.length : 0}</p>
         {this.state.items ? (

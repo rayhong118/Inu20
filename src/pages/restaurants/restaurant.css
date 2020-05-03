@@ -21,6 +21,11 @@
   font-size: 0.95rem;
 }
 
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
 .restaurant-modal-button {
   margin-right: 0.5rem !important;
 }
