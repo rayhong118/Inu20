@@ -64,7 +64,7 @@ class ItemModal extends React.Component {
     isFormValid: false,
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     let elem = e.target;
     if (elem.id === 'price') {
       elem.value = Math.max(parseInt(elem.value), 0);
@@ -103,7 +103,7 @@ class ItemModal extends React.Component {
     this.closeModal();
   };
 
-  validateForm = item => {
+  validateForm = (item) => {
     const isValid = item.name && item.address && !!parseInt(item.price);
     this.setState({ isFormValid: isValid, item });
   };
@@ -168,7 +168,7 @@ class ItemModal extends React.Component {
           <Form>
             {this.props.type !== 'delete' ? (
               <Form.Group>
-                <Form.Field width={16} required>
+                <Form.Field width={16} required={this.props.type == 'add'}>
                   <label>Search Place:</label>
                   <input
                     id='autocomplete'
@@ -245,15 +245,15 @@ class ItemModal extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    deleteItem: id => {
+    deleteItem: (id) => {
       dispatch(deleteItem(id));
     },
-    editItem: item => {
+    editItem: (item) => {
       dispatch(editItem(item));
     },
-    addItem: item => {
+    addItem: (item) => {
       dispatch(addItem(item));
     },
   };
@@ -266,7 +266,7 @@ place interface: {
   name: string;
   address: string;
   url: string;
-  comments: string (needs to be updated into {user: string, content: string}[])
+  comments: string (needs to be updated into {user: string, date: Date, content: string}[])
   tags: string[] (proposed)
 }
 */
