@@ -168,7 +168,7 @@ class ItemModal extends React.Component {
           <Form>
             {this.props.type !== 'delete' ? (
               <Form.Group>
-                <Form.Field width={16} required={this.props.type == 'add'}>
+                <Form.Field width={16} required={this.props.type === 'add'}>
                   <label>Search Place:</label>
                   <input
                     id='autocomplete'

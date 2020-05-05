@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, NavLink, Switch } from 'react-router-dom';
-import { Dropdown, Menu, Icon, Button } from 'semantic-ui-react';
+import { Dropdown, Menu, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import AboutPage from './about/about';
 import Restaurant from './restaurants/restaurant-page';

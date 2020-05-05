@@ -118,22 +118,21 @@ class ItemsList extends React.Component {
           ''
         )}
 
-<div className="space-between">
-  <ItemModal
-          map={this.state.map}
-          item={{}}
-          type={'add'}
-          disabled={!this.props.auth.uid}></ItemModal>
-        
-        <Button
-          size='tiny'
-          disabled={!this.state.items || !this.state.items.length}
-          onClick={this.displayRandom}
-          content={'Random Select'}
-          icon='random'
-        />
-</div>
-        
+        <div className='space-between'>
+          <ItemModal
+            map={this.state.map}
+            item={{}}
+            type={'add'}
+            disabled={!this.props.auth.uid}></ItemModal>
+
+          <Button
+            size='tiny'
+            disabled={!this.state.items || !this.state.items.length}
+            onClick={this.displayRandom}
+            content={'Random Select'}
+            icon='random'
+          />
+        </div>
 
         <p>Number of results: {processedList ? processedList.length : 0}</p>
         {this.state.items ? (
