@@ -216,13 +216,14 @@ class ItemModal extends React.Component {
                 width={2}
               />
             </Form.Group>
+            {/*}
             <Form.TextArea
               label='Comments ( additional info )'
               defaultValue={this.props.item.comments}
               onChange={this.handleChange}
               id='comments'
               readOnly={this.props.type === 'delete'}
-            />
+            />*/}
           </Form>
         </Modal.Content>
         <Modal.Actions>

@@ -100,7 +100,7 @@ class ItemsList extends React.Component {
               </a>
               <p>${this.state.randomItem.price}</p>
 
-              <p>{this.state.randomItem.comments}</p>
+              <p>{/*this.state.randomItem.comments*/}</p>
             </div>
 
             <Button
@@ -151,14 +151,14 @@ class ItemsList extends React.Component {
                 {item.price}
               </div>
 
-              {item.comments ? (
+              {/*item.comments ? (
                 <div className='comments'>
                   <span>Comments:</span>
                   <div>{item.comments}</div>
                 </div>
               ) : (
                 ''
-              )}
+              )*/}
 
               <ItemModal map={this.state.map} item={item} type={'edit'}></ItemModal>
               <ItemModal item={item} type={'delete'}></ItemModal>
