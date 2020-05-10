@@ -10,7 +10,7 @@ import { googleMapsApiKey } from '../../config/apikeys';
 import Script from 'react-load-script';
 
 class ItemModal extends React.Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
     // Declare State
     this.state = {
@@ -18,6 +18,19 @@ class ItemModal extends React.Component {
       modalOpen: false,
       isFormValid: false,
     };
+  }*/
+  state = {
+    modalOpen: false,
+    isFormValid: false,
+  };
+
+  componentWillMount() {
+    this.setState({ item: this.props.item, tag: '' });
+  }
+
+  static getDrivedStateFromProps(nextProps, prevState) {
+    console.log(nextProps, prevState);
+    return { ...prevState, item: { tags: nextProps.item.tags } };
   }
 
   handleScriptLoad = () => {
@@ -99,7 +112,8 @@ class ItemModal extends React.Component {
   }
 
   openModal = () => {
-    this.setState({ modalOpen: true });
+    this.setState({ modalOpen: true, item: this.props.item, tag: '' });
+    console.log(this.props, this.state);
   };
 
   closeModal = () => {
@@ -324,13 +338,4 @@ form: {
   address: string
   tag: string
 }
-*/
-
-/*
-oncomponentwillmount
-this.setState()
-use prop to initialize form value
-
-state will only contain form value
-
 */

@@ -39,6 +39,7 @@ export const editItem = (item) => {
               url: item.url,
               price: item.price,
               comments: item.comments || '',
+              tags: item.tags,
             })
             .then(() => {
               dispatch({ type: 'EDIT_ITEM' });
@@ -74,6 +75,7 @@ export const addItem = (item) => {
               url: item.url,
               price: item.price,
               comments: item.comments || '',
+              tags: item.tags,
             })
             .then(() => {
               dispatch({ type: 'ADD_ITEM' });
