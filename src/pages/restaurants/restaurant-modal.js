@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Modal, Form } from 'semantic-ui-react';
+import { Button, Icon, Modal, Form, Input } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {
   deleteItem,
@@ -14,9 +14,9 @@ class ItemModal extends React.Component {
     super(props);
     // Declare State
     this.state = {
-      item: this.props.item.name
-        ? { ...this.props.item }
-        : { address: '', name: '', url: '', comments: '' },
+      item: { ...this.props.item, tag: '' },
+      modalOpen: false,
+      isFormValid: false,
     };
   }
 
@@ -58,11 +58,6 @@ class ItemModal extends React.Component {
       });
     }
   };
-  state = {
-    modalOpen: false,
-    item: this.props.item,
-    isFormValid: false,
-  };
 
   handleChange = (e) => {
     let elem = e.target;
@@ -75,12 +70,38 @@ class ItemModal extends React.Component {
       [e.target.id]: e.target.value,
     };
 
-    this.validateForm(item);
+    if (this.validateForm(item)) this.setState({ isFormValid: true, item });
   };
+
+  validateForm = (item) => {
+    const isValid = item.name && item.address && !!parseInt(item.price);
+    return isValid;
+  };
+
+  addTag = () => {
+    console.log('add tag: ', this.state.item.tag);
+    let currTags = this.state.item.tags || [];
+    let inputTag = this.state.item.tag;
+
+    if (currTags.indexOf(inputTag) !== -1 || !inputTag) return;
+    this.setState({
+      item: { ...this.state.item, tags: [...currTags, inputTag], tag: '' },
+    });
+  };
+
+  deleteTag(tag) {
+    console.log('delete tag: ', tag);
+    let currTags = this.state.item.tags || [];
+
+    let updatedTags = currTags.filter((currTag) => currTag !== tag);
+    console.log(updatedTags);
+    this.setState({ item: { ...this.state.item, tags: updatedTags } });
+  }
 
   openModal = () => {
     this.setState({ modalOpen: true });
   };
+
   closeModal = () => {
     this.setState({
       modalOpen: false,
@@ -101,11 +122,6 @@ class ItemModal extends React.Component {
   deleteData = () => {
     this.props.deleteItem(this.props.item.id);
     this.closeModal();
-  };
-
-  validateForm = (item) => {
-    const isValid = item.name && item.address && !!parseInt(item.price);
-    this.setState({ isFormValid: isValid, item });
   };
 
   render() {
@@ -216,6 +232,35 @@ class ItemModal extends React.Component {
                 width={2}
               />
             </Form.Group>
+
+            <Form.Group>
+              <Form.Field width='5'>
+                <label>Tags:</label>
+                <Input
+                  value={this.state.item.tag || ''}
+                  onChange={this.handleChange}
+                  type='text'
+                  id='tag'
+                  action={
+                    <Button type='button' onClick={this.addTag}>
+                      Add Tag
+                    </Button>
+                  }
+                />
+              </Form.Field>
+            </Form.Group>
+
+            <div>
+              {this.state.item.tags
+                ? this.state.item.tags.map((tag) => (
+                    <Button icon labelPosition='right' key={tag}>
+                      {' '}
+                      {tag}
+                      <Icon name='delete' onClick={() => this.deleteTag(tag)}></Icon>
+                    </Button>
+                  ))
+                : null}
+            </div>
             {/*}
             <Form.TextArea
               label='Comments ( additional info )'
@@ -267,7 +312,25 @@ place interface: {
   name: string;
   address: string;
   url: string;
+  price: number;
   comments: string (needs to be updated into {user: string, date: Date, content: string}[])
   tags: string[] (proposed)
 }
+*/
+
+/*
+form: {
+  name: string
+  address: string
+  tag: string
+}
+*/
+
+/*
+oncomponentwillmount
+this.setState()
+use prop to initialize form value
+
+state will only contain form value
+
 */

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Message, Icon, Button } from 'semantic-ui-react';
+import { Segment, Message, Icon, Button, Label } from 'semantic-ui-react';
 import ItemModal from './restaurant-modal';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -159,6 +159,15 @@ class ItemsList extends React.Component {
               ) : (
                 ''
               )*/}
+              <div>
+                {item.tags
+                  ? item.tags.map((tag) => (
+                      <Label key={tag} basic>
+                        {tag}
+                      </Label>
+                    ))
+                  : null}
+              </div>
 
               <ItemModal map={this.state.map} item={item} type={'edit'}></ItemModal>
               <ItemModal item={item} type={'delete'}></ItemModal>
