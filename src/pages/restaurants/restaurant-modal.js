@@ -83,13 +83,14 @@ class ItemModal extends React.Component {
       [e.target.id]: e.target.value,
     };
 
-    if (this.validateForm(item)) this.setState({ isFormValid: true, item });
+    if (this.validateForm(item)) this.setState({ item });
   };
 
-  validateForm = (item) => {
+  validateForm(item = this.state.item) {
     const isValid = item.name && item.address && !!parseInt(item.price);
+    this.setState({ isFormValid: isValid });
     return isValid;
-  };
+  }
 
   addTag = () => {
     console.log('add tag: ', this.state.item.tag);
@@ -100,20 +101,19 @@ class ItemModal extends React.Component {
     this.setState({
       item: { ...this.state.item, tags: [...currTags, inputTag], tag: '' },
     });
+
+    this.validateForm();
   };
 
   deleteTag(tag) {
-    console.log('delete tag: ', tag);
     let currTags = this.state.item.tags || [];
-
     let updatedTags = currTags.filter((currTag) => currTag !== tag);
-    console.log(updatedTags);
     this.setState({ item: { ...this.state.item, tags: updatedTags } });
+    this.validateForm();
   }
 
   openModal = () => {
     this.setState({ modalOpen: true, item: this.props.item, tag: '' });
-    console.log(this.props, this.state);
   };
 
   closeModal = () => {
