@@ -34,7 +34,7 @@ class ItemsList extends React.Component {
       ? [...items].filter((item) =>
           item.name.toUpperCase().includes(searchText.toUpperCase())
         )
-      : items;
+      : [...items];
   };
 
   filterItemsByPrice = (items) => {

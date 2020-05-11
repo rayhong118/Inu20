@@ -14,6 +14,7 @@ class RestaurantFilter extends React.Component {
     order: '',
     minPrice: 0,
     maxPrice: 0,
+    tags: {},
   };
 
   componentDidUpdate() {
@@ -33,6 +34,17 @@ class RestaurantFilter extends React.Component {
 
   setPriceRange(min, max) {
     this.setState({ minPrice: min, maxPrice: max });
+  }
+
+  toggleTag(tag) {
+    let prevStatus = this.state.tags[tag];
+    this.setState({ tags: { ...this.state.tags, [tag]: !prevStatus } });
+  }
+
+  clearTags() {
+    let origTags = { ...this.state.tags };
+    Object.keys(origTags).forEach((key) => (origTags[key] = false));
+    this.setState({ keys: { ...origTags } });
   }
 
   render() {
