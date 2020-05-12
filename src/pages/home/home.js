@@ -25,7 +25,7 @@ export default class HomePage extends Component {
           </h4>
         </Container>
 
-        <Card.Group as={Container} centered itemsPerRow='3' stackable>
+        <Card.Group as={Container} centered itemsPerRow='2' stackable>
           <Card
             as={Link}
             to='./restaurants'
