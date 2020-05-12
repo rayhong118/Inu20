@@ -180,7 +180,6 @@ class ItemModal extends React.Component {
         trigger={
           <Button
             color={action[this.props.type].color}
-            size='tiny'
             onClick={() => this.openModal()}
             className='restaurant-modal-button'>
             <Icon name={this.props.type}></Icon>

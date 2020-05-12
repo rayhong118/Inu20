@@ -1,5 +1,9 @@
+/* list */
 .item-title {
   margin-bottom: 0.25rem;
+}
+.address {
+  display: flex;
 }
 .price {
   color: #767676;
@@ -12,23 +16,24 @@
   justify-content: space-between;
 }
 
-.comments > span {
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-.comments > div {
-  margin-top: -0.25rem;
-  font-size: 0.95rem;
-}
-
 .space-between {
   display: flex;
   justify-content: space-between;
 }
 
+.in-list-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: -0.5rem;
+}
+
+/* modal */
 .restaurant-modal-button {
   margin-right: 0.5rem !important;
 }
+
+/* filter */
 .price-range {
   display: flex;
   flex-wrap: wrap;

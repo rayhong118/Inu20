@@ -108,7 +108,6 @@ class ItemsList extends React.Component {
               onClick={() => {
                 this.setState({ randomItem: null });
               }}
-              size='mini'
               content='Close'
               icon='close'
               color='red'
@@ -126,7 +125,6 @@ class ItemsList extends React.Component {
             disabled={!this.props.auth.uid}></ItemModal>
 
           <Button
-            size='tiny'
             disabled={!this.state.items || !this.state.items.length}
             onClick={this.displayRandom}
             content={'Random Select'}
@@ -140,10 +138,24 @@ class ItemsList extends React.Component {
             <Segment key={item.id} color='blue'>
               <h3 className='item-title'>{item.name}</h3>
 
-              <a target='_blank' href={item.url} rel='noopener noreferrer'>
+              <div>
+                {item.tags
+                  ? item.tags.map((tag) => (
+                      <Label key={tag} color='grey'>
+                        {tag}
+                      </Label>
+                    ))
+                  : null}
+              </div>
+
+              <hr />
+
+              <div className='address'>
                 <Icon name='map marker alternate' color='grey' />
-                {item.address}
-              </a>
+                <a target='_blank' href={item.url} rel='noopener noreferrer'>
+                  {item.address}
+                </a>
+              </div>
 
               <div className='price'>
                 {' '}
@@ -159,18 +171,11 @@ class ItemsList extends React.Component {
               ) : (
                 ''
               )*/}
-              <div>
-                {item.tags
-                  ? item.tags.map((tag) => (
-                      <Label key={tag} basic>
-                        {tag}
-                      </Label>
-                    ))
-                  : null}
-              </div>
 
-              <ItemModal map={this.state.map} item={item} type={'edit'}></ItemModal>
-              <ItemModal item={item} type={'delete'}></ItemModal>
+              <div className='in-list-actions'>
+                <ItemModal map={this.state.map} item={item} type={'edit'}></ItemModal>
+                <ItemModal item={item} type={'delete'}></ItemModal>
+              </div>
             </Segment>
           ))
         ) : (
