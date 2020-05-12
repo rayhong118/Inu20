@@ -263,11 +263,10 @@ class ItemModal extends React.Component {
               </Form.Field>
             </Form.Group>
 
-            <div>
+            <div className='tag-buttons'>
               {this.state.item.tags
                 ? this.state.item.tags.map((tag) => (
-                    <Button icon labelPosition='right' key={tag}>
-                      {' '}
+                    <Button icon labelPosition='right' key={tag} compact basic>
                       {tag}
                       <Icon name='delete' onClick={() => this.deleteTag(tag)}></Icon>
                     </Button>
