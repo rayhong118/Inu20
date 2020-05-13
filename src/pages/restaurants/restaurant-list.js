@@ -135,7 +135,7 @@ class ItemsList extends React.Component {
         <p>Number of results: {processedList ? processedList.length : 0}</p>
         {this.state.items ? (
           processedList.map((item) => (
-            <Segment key={item.id} color='blue'>
+            <Segment key={item.id} color='grey'>
               <h3 className='item-title'>{item.name}</h3>
 
               <div>
@@ -198,5 +198,5 @@ const mapStateToProps = (state) => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: 'restaurants' }])
+  firestoreConnect(['restaurants'])
 )(ItemsList);
