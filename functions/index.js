@@ -23,25 +23,61 @@ exports.updateTags = functions.firestore
 
     let batch = admin.firestore().batch();
 
-    let promiseAddTags = tagsAdded.forEach((tag) => {
-      let id = tag.toLowerCase();
-      tagsCollectionRef
-        .where('id', '==', id)
-        .get()
-        .then((querySnapshot) => {
-          if (querySnapshot.empty) {
-            let newTagRef = tagsCollectionRef.doc();
-            batch.set(newTagRef, { id, text: tag, count: 1 });
-          } else {
-            let result = querySnapshot.docs[0];
-            batch.update(result.ref, { count: result.data().count + 1 });
-          }
-        });
-    });
+    // let promiseAddTags = tagsAdded.forEach((tag) => {
+    //   let id = tag.toLowerCase();
+    //   tagsCollectionRef
+    //     .where('id', '==', id)
+    //     .get()
+    //     .then((querySnapshot) => {
+    //       if (querySnapshot.empty) {
+    //         let newTagRef = tagsCollectionRef.doc();
+    //         batch.set(newTagRef, { id, text: tag, count: 1 });
+    //       } else {
+    //         let result = querySnapshot.docs[0];
+    //         batch.update(result.ref, { count: result.data().count + 1 });
+    //       }
+    //     });
+    // });
+
+    let promiseAddTags = tagsAdded.length
+      ? tagsCollectionRef
+          .where(
+            'id',
+            'in',
+            tagsAdded.map((tag) => tag.toLowerCase())
+          )
+          .get()
+          .then((querySnapshot) => {
+            let existingTags = [];
+            if (!querySnapshot.empty) {
+              querySnapshot.forEach((doc) => {
+                batch.update(doc.ref, { count: doc.data().count + 1 });
+                existingTags.push(doc.data().id);
+              });
+            }
+            let createdTags = tagsAdded.map((tag) => {
+              let id = tag.toLowerCase();
+              return !existingTags.includes(id) ? tag : '';
+            });
+
+            createdTags.forEach((createdTag) => {
+              let newTagRef = tagsCollectionRef.doc();
+              batch.set(newTagRef, {
+                id: createdTag.toLowerCase(),
+                text: createdTag,
+                count: 1,
+              });
+            });
+          })
+      : '';
 
     let promiseRemoveTags = tagsRemoved.length
       ? tagsCollectionRef
-          .where('id', 'in', tagsRemoved)
+          .where(
+            'id',
+            'in',
+            tagsRemoved.map((tag) => tag.toLowerCase())
+          )
           .get()
           .then((querySnapshot) => {
             if (querySnapshot.empty) return null;
