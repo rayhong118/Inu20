@@ -92,3 +92,7 @@ export const addItem = (item) => {
 export const updateFilter = (filter) => {
   return { type: 'UPDATE_FILTER', filter };
 };
+
+export const updateFilterTags = (tags) => {
+  return { type: 'UPDATE_FILTER_TAGS', tags };
+};

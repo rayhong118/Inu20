@@ -73,7 +73,7 @@ class ItemModal extends React.Component {
       [e.target.id]: e.target.value,
     };
 
-    if (this.validateForm(item) || e.target.id == 'tag') this.setState({ item });
+    if (this.validateForm(item) || e.target.id === 'tag') this.setState({ item });
   };
 
   validateForm(item = this.state.item) {

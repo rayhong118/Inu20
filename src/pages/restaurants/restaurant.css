@@ -44,6 +44,15 @@
   align-content: flex-start;
 }
 
+.filter-by-tags {
+  display: flex;
+}
+
+.filter-by-tags label {
+  padding-right: 2rem;
+  flex-basis: 20rem;
+}
+
 .price-range > .input {
   /*flex-basis: 40%;*/
   width: min(72px, 60%);

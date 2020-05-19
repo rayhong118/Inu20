@@ -6,6 +6,7 @@ const initState = {
     order: '',
     minPrice: 0,
     maxPrice: 0,
+    tags: [],
   },
 };
 
@@ -25,6 +26,8 @@ const restaurantReducer = (state = initState, action) => {
       return { ...state, error: action.payload.message };
     case 'UPDATE_FILTER':
       return { ...state, filter: action.filter };
+    case 'UPDATE_FILTER_TAGS':
+      return { ...state, filter: { ...state.filter, tags: action } };
     default:
       return state;
   }
