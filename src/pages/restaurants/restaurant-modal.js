@@ -10,22 +10,14 @@ import { googleMapsApiKey } from '../../config/apikeys';
 import Script from 'react-load-script';
 
 class ItemModal extends React.Component {
-  /*constructor(props) {
+  constructor(props) {
     super(props);
     // Declare State
     this.state = {
-      item: { ...this.props.item, tag: '' },
+      item: { tag: '' },
       modalOpen: false,
       isFormValid: false,
     };
-  }*/
-  state = {
-    modalOpen: false,
-    isFormValid: false,
-  };
-
-  componentWillMount() {
-    this.setState({ item: this.props.item, tag: '' });
   }
 
   static getDrivedStateFromProps(nextProps, prevState) {
@@ -73,6 +65,7 @@ class ItemModal extends React.Component {
   };
 
   handleChange = (e) => {
+    console.log(e.target.id, e.target.value);
     let elem = e.target;
     if (elem.id === 'price') {
       elem.value = Math.max(parseInt(elem.value), 0);
@@ -82,8 +75,9 @@ class ItemModal extends React.Component {
       ...this.state.item,
       [e.target.id]: e.target.value,
     };
+    console.log(item);
 
-    if (this.validateForm(item)) this.setState({ item });
+    if (this.validateForm(item) || e.target.id == 'tag') this.setState({ item });
   };
 
   validateForm(item = this.state.item) {
@@ -179,6 +173,7 @@ class ItemModal extends React.Component {
       <Modal
         trigger={
           <Button
+            size='small'
             color={action[this.props.type].color}
             onClick={() => this.openModal()}
             className='restaurant-modal-button'>
