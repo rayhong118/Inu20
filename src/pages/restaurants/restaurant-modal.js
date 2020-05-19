@@ -21,7 +21,6 @@ class ItemModal extends React.Component {
   }
 
   static getDrivedStateFromProps(nextProps, prevState) {
-    console.log(nextProps, prevState);
     return { ...prevState, item: { tags: nextProps.item.tags } };
   }
 
@@ -48,7 +47,6 @@ class ItemModal extends React.Component {
     // Extract City From Address Object
     const addressObject = this.autocomplete.getPlace();
     const address = addressObject.address_components;
-    console.log('address', address);
 
     // Check if address is valid
     if (address) {
@@ -65,7 +63,6 @@ class ItemModal extends React.Component {
   };
 
   handleChange = (e) => {
-    console.log(e.target.id, e.target.value);
     let elem = e.target;
     if (elem.id === 'price') {
       elem.value = Math.max(parseInt(elem.value), 0);
@@ -75,7 +72,6 @@ class ItemModal extends React.Component {
       ...this.state.item,
       [e.target.id]: e.target.value,
     };
-    console.log(item);
 
     if (this.validateForm(item) || e.target.id == 'tag') this.setState({ item });
   };
@@ -87,7 +83,6 @@ class ItemModal extends React.Component {
   }
 
   addTag = () => {
-    console.log('add tag: ', this.state.item.tag);
     let currTags = this.state.item.tags || [];
     let inputTag = this.state.item.tag;
 
