@@ -98,7 +98,10 @@ class ItemsList extends React.Component {
                 <Icon name='map marker alternate' color='grey' />
                 {this.state.randomItem.address}
               </a>
-              <p>${this.state.randomItem.price}</p>
+              <p>
+                <Icon name='dollar sign' color='grey' />
+                {this.state.randomItem.price}
+              </p>
 
               <p>{/*this.state.randomItem.comments*/}</p>
             </div>
@@ -125,6 +128,7 @@ class ItemsList extends React.Component {
             disabled={!this.props.auth.uid}></ItemModal>
 
           <Button
+            size='small'
             disabled={!this.state.items || !this.state.items.length}
             onClick={this.displayRandom}
             content={'Random Select'}

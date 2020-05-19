@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Segment, Input, Dropdown, List } from 'semantic-ui-react';
 import { updateFilter } from '../../shared/store/actions/restaurantActions';
+import FilterTags from './restaurant-filter-tags';
 
 const listOrder = [
   { key: 'Default', value: 'Default', text: 'Default' },
@@ -106,6 +107,8 @@ class RestaurantFilter extends React.Component {
               More than $40
             </List.Item>
           </List>
+
+          <FilterTags></FilterTags>
         </Segment>
       </Segment.Group>
     );
