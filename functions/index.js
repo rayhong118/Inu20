@@ -23,22 +23,6 @@ exports.updateTags = functions.firestore
 
     let batch = admin.firestore().batch();
 
-    // let promiseAddTags = tagsAdded.forEach((tag) => {
-    //   let id = tag.toLowerCase();
-    //   tagsCollectionRef
-    //     .where('id', '==', id)
-    //     .get()
-    //     .then((querySnapshot) => {
-    //       if (querySnapshot.empty) {
-    //         let newTagRef = tagsCollectionRef.doc();
-    //         batch.set(newTagRef, { id, text: tag, count: 1 });
-    //       } else {
-    //         let result = querySnapshot.docs[0];
-    //         batch.update(result.ref, { count: result.data().count + 1 });
-    //       }
-    //     });
-    // });
-
     let promiseAddTags = tagsAdded.length
       ? tagsCollectionRef
           .where(
@@ -55,9 +39,9 @@ exports.updateTags = functions.firestore
                 existingTags.push(doc.data().id);
               });
             }
-            let createdTags = tagsAdded.map((tag) => {
+            let createdTags = tagsAdded.filter((tag) => {
               let id = tag.toLowerCase();
-              return !existingTags.includes(id) ? tag : '';
+              return !existingTags.includes(id);
             });
 
             createdTags.forEach((createdTag) => {

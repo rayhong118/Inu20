@@ -46,7 +46,8 @@ class FilterTags extends React.Component {
               : null}
           </Button>
         }
-        open={this.state.modalOpen}>
+        open={this.state.modalOpen}
+        onClose={this.closeModal}>
         <Modal.Header>
           Filter By Tags{' '}
           {this.state.selectedTags.length
