@@ -95,5 +95,5 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect(['restaurant-tags'])
+  firestoreConnect([{ collection: 'restaurant-tags', orderBy: ['value', 'asc'] }])
 )(FilterTags);
