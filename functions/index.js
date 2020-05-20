@@ -14,7 +14,7 @@ exports.updateTags = functions.firestore
   .onWrite((snapshot, context) => {
     const oldValue = snapshot.before.data();
     const newValue = snapshot.after.data();
-    const oldTags = oldValue.tags || [];
+    const oldTags = oldValue ? oldValue.tags || [] : [];
     const newTags = newValue.tags || [];
     const tagsAdded = newTags.filter((tag) => !oldTags.includes(tag));
     const tagsRemoved = oldTags.filter((tag) => !newTags.includes(tag));
@@ -39,10 +39,12 @@ exports.updateTags = functions.firestore
                 existingTags.push(doc.data().id);
               });
             }
+            console.log('existingTags', existingTags);
             let createdTags = tagsAdded.filter((tag) => {
               let id = tag.toLowerCase();
               return !existingTags.includes(id);
             });
+            console.log('createdTags', createdTags);
 
             createdTags.forEach((createdTag) => {
               let newTagRef = tagsCollectionRef.doc();
@@ -53,7 +55,7 @@ exports.updateTags = functions.firestore
               });
             });
           })
-      : '';
+      : null;
 
     let promiseRemoveTags = tagsRemoved.length
       ? tagsCollectionRef

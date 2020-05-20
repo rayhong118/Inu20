@@ -84,9 +84,15 @@ class ItemModal extends React.Component {
 
   addTag = () => {
     let currTags = this.state.item.tags || [];
-    let inputTag = this.state.item.tag;
+    let inputTag = this.state.item.tag.trim();
+    let existingTagFromCol = this.props.tags.filter(
+      (tag) => tag.id === inputTag.toLowerCase()
+    );
+    if (existingTagFromCol.length) inputTag = existingTagFromCol[0].text;
+    else inputTag = inputTag[0].toUpperCase() + inputTag.slice(1);
 
     if (currTags.indexOf(inputTag) !== -1 || !inputTag) return;
+
     this.setState({
       item: { ...this.state.item, tags: [...currTags, inputTag], tag: '' },
     });
@@ -293,6 +299,12 @@ class ItemModal extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    tags: state.firestore.ordered['restaurant-tags'],
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteItem: (id) => {
@@ -307,7 +319,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(ItemModal);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemModal);
 
 /*
 place interface: {
