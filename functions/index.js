@@ -26,7 +26,7 @@ exports.updateTags = functions.firestore
     let promiseAddTags = tagsAdded.length
       ? tagsCollectionRef
           .where(
-            'id',
+            'value',
             'in',
             tagsAdded.map((tag) => tag.toLowerCase())
           )
@@ -36,20 +36,20 @@ exports.updateTags = functions.firestore
             if (!querySnapshot.empty) {
               querySnapshot.forEach((doc) => {
                 batch.update(doc.ref, { count: doc.data().count + 1 });
-                existingTags.push(doc.data().id);
+                existingTags.push(doc.data().value);
               });
             }
             console.log('existingTags', existingTags);
             let createdTags = tagsAdded.filter((tag) => {
-              let id = tag.toLowerCase();
-              return !existingTags.includes(id);
+              let value = tag.toLowerCase();
+              return !existingTags.includes(value);
             });
             console.log('createdTags', createdTags);
 
             createdTags.forEach((createdTag) => {
               let newTagRef = tagsCollectionRef.doc();
               batch.set(newTagRef, {
-                id: createdTag.toLowerCase(),
+                value: createdTag.toLowerCase(),
                 text: createdTag,
                 count: 1,
               });
@@ -60,7 +60,7 @@ exports.updateTags = functions.firestore
     let promiseRemoveTags = tagsRemoved.length
       ? tagsCollectionRef
           .where(
-            'id',
+            'value',
             'in',
             tagsRemoved.map((tag) => tag.toLowerCase())
           )

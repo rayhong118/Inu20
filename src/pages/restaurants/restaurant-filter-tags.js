@@ -9,6 +9,7 @@ class FilterTags extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      tags: props.tags,
       selectedTags: props.filter.selectedTags || [],
       modalOpen: false,
     };
@@ -35,7 +36,7 @@ class FilterTags extends React.Component {
   };
 
   render() {
-    const tags = this.props.tags || [];
+    let tags = this.props.tags || [];
     return (
       <Modal
         trigger={
@@ -58,10 +59,10 @@ class FilterTags extends React.Component {
           {tags.map((tag) => (
             <Checkbox
               key={tag.id}
-              value={tag.id}
+              value={tag.value}
               label={tag.text + '(' + tag.count + ')'}
               onChange={this.toggle}
-              defaultChecked={this.state.selectedTags.includes(tag.id)}
+              defaultChecked={this.state.selectedTags.includes(tag.value)}
             />
           ))}
           current tags: {this.state.selectedTags.join(', ')}{' '}

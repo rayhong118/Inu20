@@ -86,7 +86,7 @@ class ItemModal extends React.Component {
     let currTags = this.state.item.tags || [];
     let inputTag = this.state.item.tag.trim();
     let existingTagFromCol = this.props.tags.filter(
-      (tag) => tag.id === inputTag.toLowerCase()
+      (tag) => tag.value === inputTag.toLowerCase()
     );
     if (existingTagFromCol.length) inputTag = existingTagFromCol[0].text;
     else inputTag = inputTag[0].toUpperCase() + inputTag.slice(1);
