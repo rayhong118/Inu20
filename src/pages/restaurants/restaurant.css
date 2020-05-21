@@ -55,5 +55,5 @@
 
 .price-range > .input {
   /*flex-basis: 40%;*/
-  width: min(72px, 60%);
+  width: min(84px, 80%);
 }
