@@ -7,7 +7,7 @@ import HomePage from './home/home';
 import NoMatch from './404/NoMatch';
 import WIP from './404/WIP';
 import DogheadZh from './comics/doghead-zh';
-import SignIn from '../shared/components/sign-in';
+import User from '../shared/components/user/user-modal';
 import Footer from '../shared/components/footer';
 
 import React from 'react';
@@ -111,7 +111,7 @@ class Root extends React.Component {
           </Menu.Item>
           <Menu.Item position='right'>
             <div>
-              <SignIn auth={this.state.auth}></SignIn>
+              <User auth={this.state.auth} />
             </div>
           </Menu.Item>
         </Menu>
