@@ -2,6 +2,12 @@ import firebase from 'firebase/app';
 
 export const register = (credential) => {
   return (dispatch, getState) => {
+    /*if (credential.password !== credential.repPassword) {
+      dispatch({
+        type: 'REGISTRATION_ERROR',
+        err: 'Password and repeated password should match.',
+      });
+    } else*/
     firebase
       .auth()
       .createUserWithEmailAndPassword(credential.email, credential.password)
@@ -19,6 +25,7 @@ export const register = (credential) => {
 
 export const signIn = (credential) => {
   return (dispatch, getState) => {
+    console.log(credential);
     firebase
       .auth()
       .signInWithEmailAndPassword(credential.email, credential.password)

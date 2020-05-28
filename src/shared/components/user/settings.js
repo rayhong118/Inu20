@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
+import firebase from 'firebase';
 
 class Settings extends React.Component {
   state = { isModalOpen: false };
@@ -19,10 +20,11 @@ class Settings extends React.Component {
   };
 
   render() {
+    const user = firebase.auth().currentUser;
     return (
       <Modal
         trigger={
-          <Button size='mini' onClick={this.openModal}>
+          <Button secondary size='mini' onClick={this.openModal}>
             Settings
           </Button>
         }
@@ -30,10 +32,15 @@ class Settings extends React.Component {
         open={this.state.isModalOpen}
         onClose={this.closeModal}>
         <Modal.Header>Settings</Modal.Header>
-        <Modal.Content>Your Email : {this.props.auth.email}</Modal.Content>
+        <Modal.Content>
+          <div>Your Email : {user.email}</div>
+          <div>Email Verified: {user.emailVerified.toString()}</div>
+        </Modal.Content>
         <Modal.Actions>
-          <Button onClick={this.closeModal}>Cancel</Button>
-          <Button color='red' onClick={this.signOut}>
+          <Button size='mini' onClick={this.closeModal}>
+            Cancel
+          </Button>
+          <Button size='mini' color='red' onClick={this.signOut}>
             Sign out
           </Button>
         </Modal.Actions>

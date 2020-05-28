@@ -3,6 +3,16 @@ const initState = {
 };
 const authReducer = (state = initState, action) => {
   switch (action.type) {
+    case 'REGISTRATION_SUCCESS':
+      return {
+        ...state,
+        authError: null,
+      };
+    case 'REGISTRATION_ERROR':
+      return {
+        ...state,
+        authError: action.err.message,
+      };
     case 'LOGIN_ERROR':
       return {
         ...state,
