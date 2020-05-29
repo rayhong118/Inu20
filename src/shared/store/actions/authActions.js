@@ -26,7 +26,6 @@ export const register = (credential) => {
 
 export const signIn = (credential) => {
   return (dispatch, getState) => {
-    console.log(credential);
     firebase
       .auth()
       .signInWithEmailAndPassword(credential.email, credential.password)

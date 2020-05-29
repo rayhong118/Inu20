@@ -39,12 +39,12 @@ exports.updateTags = functions.firestore
                 existingTags.push(doc.data().value);
               });
             }
-            console.log('existingTags', existingTags);
+            //console.log('existingTags', existingTags);
             let createdTags = tagsAdded.filter((tag) => {
               let value = tag.toLowerCase();
               return !existingTags.includes(value);
             });
-            console.log('createdTags', createdTags);
+            //console.log('createdTags', createdTags);
 
             createdTags.forEach((createdTag) => {
               let newTagRef = tagsCollectionRef.doc();

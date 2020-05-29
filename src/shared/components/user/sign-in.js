@@ -18,8 +18,8 @@ class SignIn extends React.Component {
     this.setState({ ...this.state, isModalOpen: true, isSignIn: true });
     this.props.clearAuthError();
 
-    console.log('auth', this.props.auth);
-    console.log('user', this.props.auth.user);
+    // console.log('auth', this.props.auth);
+    // console.log('user', this.props.auth.user);
   };
 
   closeModal = () => {
@@ -27,7 +27,6 @@ class SignIn extends React.Component {
   };
 
   toggleIsSignIn = () => {
-    console.log('toggle', this.state.isSignIn);
     this.setState({
       isSignIn: !this.state.isSignIn,
       email: '',
@@ -37,7 +36,6 @@ class SignIn extends React.Component {
   };
 
   register = () => {
-    console.log('register');
     this.setState({ loading: true });
     this.props.register({
       email: this.state.email,
@@ -48,7 +46,7 @@ class SignIn extends React.Component {
 
   signIn = () => {
     this.setState({ loading: true });
-    console.log(this.state);
+
     this.props.signIn({ email: this.state.email, password: this.state.password });
   };
 
@@ -69,7 +67,7 @@ class SignIn extends React.Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log(nextProps, prevState);
+    // console.log(nextProps, prevState);
     let clearPasswordFields = { password: '', repPassword: '' };
     // new sign in
     if (!prevState.authUid) {

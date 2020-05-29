@@ -25,7 +25,6 @@ class Root extends React.Component {
 
   handleOutSideClick(e) {
     if (!e) return;
-    console.log(e);
     e.stopPropagation();
     if (e.target.name !== 'SideBarToggle') {
       this.setState({ sideBarVisible: false });

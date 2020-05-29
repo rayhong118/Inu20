@@ -8,7 +8,6 @@ class Settings extends React.Component {
   state = { isModalOpen: false };
 
   openModal = () => {
-    console.log(this.props);
     this.setState({ ...this.state, isModalOpen: true });
   };
   closeModal = () => {

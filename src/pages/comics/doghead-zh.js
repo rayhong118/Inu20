@@ -218,7 +218,7 @@ export default class DogheadZh extends React.Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const id = nextProps.match.params.epid;
-    console.log(id);
+
     window.scrollTo(0, 0);
 
     return {
