@@ -18,6 +18,10 @@ class Settings extends React.Component {
     this.props.signOut();
     this.closeModal();
   };
+  verifyEmail = () => {
+    let currentUser = firebase.auth().currentUser;
+    currentUser.sendEmailVerification();
+  };
 
   render() {
     const user = firebase.auth().currentUser;
@@ -34,7 +38,14 @@ class Settings extends React.Component {
         <Modal.Header>Settings</Modal.Header>
         <Modal.Content>
           <div>Your Email : {user.email}</div>
-          <div>Email Verified: {user.emailVerified.toString()}</div>
+
+          {!user.emailVerified ? (
+            <Button secondary onClick={this.verifyEmail}>
+              Verify your email address
+            </Button>
+          ) : (
+            <div>Email Verified</div>
+          )}
         </Modal.Content>
         <Modal.Actions>
           <Button size='mini' onClick={this.closeModal}>

@@ -8,6 +8,7 @@ export const register = (credential) => {
         err: 'Password and repeated password should match.',
       });
     } else*/
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(credential.email, credential.password)
