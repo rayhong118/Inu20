@@ -50,9 +50,18 @@ class SignIn extends React.Component {
     this.props.signIn({ email: this.state.email, password: this.state.password });
   };
 
-  signOut = () => {
-    this.props.signOut();
-    this.closeModal();
+  signInWithGoogle = () => {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function (result) {
+        let token = result.credential;
+        let user = result.user;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   handleInput = (e) => {
@@ -157,8 +166,8 @@ class SignIn extends React.Component {
               {this.state.isSignIn ? 'Register here' : 'Sign in here'}
             </Button>
             or{' '}
-            <Button secondary size='mini' compact>
-              <Icon name='google' /> Use Google account
+            <Button onClick={this.signInWithGoogle} secondary size='mini' compact>
+              <Icon name='google' onClick={this.signInWithGoogle} /> Use Google account
             </Button>
           </div>
         </Modal.Content>

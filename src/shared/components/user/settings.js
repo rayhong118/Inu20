@@ -21,6 +21,7 @@ class Settings extends React.Component {
     let currentUser = firebase.auth().currentUser;
     currentUser.sendEmailVerification();
   };
+  resetPassword = () => {};
 
   render() {
     const user = firebase.auth().currentUser;
