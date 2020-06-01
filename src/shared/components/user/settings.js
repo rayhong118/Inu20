@@ -9,6 +9,7 @@ class Settings extends React.Component {
 
   openModal = () => {
     this.setState({ ...this.state, isModalOpen: true });
+    console.log(firebase.auth().currentUser);
   };
   closeModal = () => {
     this.setState({ isModalOpen: false, loading: false });
@@ -21,7 +22,16 @@ class Settings extends React.Component {
     let currentUser = firebase.auth().currentUser;
     currentUser.sendEmailVerification();
   };
-  resetPassword = () => {};
+
+  resetPassword = () => {
+    let auth = firebase.auth();
+    auth
+      .sendPasswordResetEmail(auth.currentUser.email)
+      .then(function () {})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   render() {
     const user = firebase.auth().currentUser;
@@ -40,11 +50,19 @@ class Settings extends React.Component {
           <div>Your Email : {user.email}</div>
 
           {!user.emailVerified ? (
-            <Button secondary onClick={this.verifyEmail}>
+            <Button secondary size='mini' onClick={this.verifyEmail}>
               Verify your email address
             </Button>
           ) : (
             <div>Email Verified</div>
+          )}
+
+          {user.providerData[0].providerId === 'password' ? (
+            <Button secondary size='mini' onClick={this.resetPassword}>
+              Reset password
+            </Button>
+          ) : (
+            <div>You are using 3rd Party Account</div>
           )}
         </Modal.Content>
         <Modal.Actions>
