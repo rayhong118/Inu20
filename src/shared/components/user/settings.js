@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 class Settings extends React.Component {
   state = { isModalOpen: false };

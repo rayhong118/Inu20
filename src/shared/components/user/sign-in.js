@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, Form, Message, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { signIn, clearAuthError, register } from '../../store/actions/authActions';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 class SignIn extends React.Component {
   state = {
     isModalOpen: false,
@@ -55,13 +55,14 @@ class SignIn extends React.Component {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(function (result) {
-        let token = result.credential;
-        let user = result.user;
-      })
+      .then(function () {})
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  resetPassword = () => {
+    console.log('reset password');
   };
 
   handleInput = (e) => {
@@ -156,41 +157,36 @@ class SignIn extends React.Component {
               />
             )}
           </Form>
-
           <hr />
-          <div>
-            {this.state.isSignIn
-              ? `Don't have an account yet? `
-              : `Already have an account? `}
-            <Button size='mini' compact secondary onClick={this.toggleIsSignIn}>
-              {this.state.isSignIn ? 'Register here' : 'Sign in here'}
-            </Button>
-            or{' '}
-            <Button onClick={this.signInWithGoogle} secondary size='mini' compact>
-              <Icon name='google' onClick={this.signInWithGoogle} /> Use Google account
-            </Button>
-          </div>
+          {this.state.isSignIn
+            ? `Don't have an account yet? `
+            : `Already have an account? `}
+          <Button size='mini' compact secondary onClick={this.toggleIsSignIn}>
+            {this.state.isSignIn ? 'Register here' : 'Sign in here'}
+          </Button>
+          or{' '}
+          <Button onClick={this.signInWithGoogle} secondary size='mini' compact>
+            <Icon name='google' onClick={this.signInWithGoogle} /> Use Google account
+          </Button>
         </Modal.Content>
         <Modal.Actions>
           <Button onClick={this.closeModal} size='mini'>
             Cancel
           </Button>
-          <Button
-            loading={this.state.loading}
-            color='blue'
-            basic
-            onClick={this.signInTestAccount}
-            size='mini'>
-            Sign in (Public test account)
-          </Button>
+
           {this.state.isSignIn ? (
-            <Button
-              loading={this.state.loading}
-              size='mini'
-              color='blue'
-              onClick={this.signIn}>
-              Sign in
-            </Button>
+            <span>
+              <Button size='mini' color='blue' basic onClick={this.resetPassword}>
+                <b>Forgot Password?</b>
+              </Button>
+              <Button
+                loading={this.state.loading}
+                size='mini'
+                color='blue'
+                onClick={this.signIn}>
+                Sign in
+              </Button>
+            </span>
           ) : (
             <Button
               loading={this.state.loading}
