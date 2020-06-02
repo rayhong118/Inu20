@@ -63,6 +63,17 @@ class SignIn extends React.Component {
 
   resetPassword = () => {
     console.log('reset password');
+    if (!this.state.email)
+      this.setState({ authError: 'please enter your email for password reset' });
+    else {
+      let auth = firebase.auth();
+      auth
+        .sendPasswordResetEmail(this.state.email)
+        .then(function () {})
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   handleInput = (e) => {
@@ -169,6 +180,7 @@ class SignIn extends React.Component {
             <Icon name='google' onClick={this.signInWithGoogle} /> Use Google account
           </Button>
         </Modal.Content>
+
         <Modal.Actions>
           <Button onClick={this.closeModal} size='mini'>
             Cancel
