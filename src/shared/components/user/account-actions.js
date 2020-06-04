@@ -21,13 +21,16 @@ export default class AccountActions extends React.Component {
         .auth()
         .verifyPasswordResetCode(parsed.oobCode)
         .then((email) => {
-          let currentUserEmail = firebase.auth().currentUser.email;
+          let currentUserEmail = firebase.auth().currentUser
+            ? firebase.auth().currentUser.emai
+            : '';
           if (!currentUserEmail || currentUserEmail === email)
             this.setState({ email, action: parsed.mode, oobCode: parsed.oobCode });
           else this.setState({ errorMessage: 'User Credential Error!', action: 'error' });
         })
-        .catch(() => {
-          this.setState({ action: 'error', errorMessage: 'invalid password reset code' });
+        .catch((error) => {
+          console.log(error);
+          this.setState({ action: 'error', errorMessage: error.Message });
         });
       console.log(parsed);
     }
