@@ -9,6 +9,7 @@ class Settings extends React.Component {
 
   openModal = () => {
     this.setState({ ...this.state, isModalOpen: true });
+    let currentUser = firebase.auth().currentUser;
     console.log(firebase.auth().currentUser);
   };
   closeModal = () => {

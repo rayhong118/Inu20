@@ -9,10 +9,10 @@ import WIP from './404/WIP';
 import DogheadZh from './comics/doghead-zh';
 import User from '../shared/components/user/user-modal';
 import Footer from '../shared/components/footer';
-import PasswordReset from '../shared/components/user/password-reset';
 
 import React from 'react';
 import Clock from './clock/clock';
+import AccountActions from '../shared/components/user/account-actions';
 
 class Root extends React.Component {
   state = {
@@ -124,7 +124,7 @@ class Root extends React.Component {
             <Route path='/wip' component={WIP} />
             <Route path='/doghead-zh/:epid?' component={DogheadZh} />
             <Route path='/clock' component={Clock} />
-            <Route path='/passwordreset' component={PasswordReset} />
+            <Route path='/account-actions' component={AccountActions} />
             <Route component={NoMatch} />
           </Switch>
         </div>

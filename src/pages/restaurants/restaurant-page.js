@@ -27,8 +27,10 @@ class Restautant extends React.Component {
       return (
         <Container>
           <Message color='red'>
-            <Icon name='warning circle'></Icon>
-            In order to access the content on this page, you need to sign in first.
+            <h4>
+              <Icon name='warning circle'></Icon>
+              In order to access the content on this page, you need to sign in first.
+            </h4>
           </Message>
         </Container>
       );
