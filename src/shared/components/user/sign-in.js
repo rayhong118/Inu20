@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button, Form, Message, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { signIn, clearAuthError, register } from '../../store/actions/authActions';
+import { signIn, setAuthError, register } from '../../store/actions/authActions';
 import firebase from 'firebase/app';
 class SignIn extends React.Component {
   state = {
@@ -14,9 +14,22 @@ class SignIn extends React.Component {
     repPassword: '',
   };
 
+  handleInput = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value,
+    });
+    if (this.state.authError) this.props.setAuthError();
+  };
+
   openModal = () => {
-    this.setState({ ...this.state, isModalOpen: true, isSignIn: true });
-    this.props.clearAuthError();
+    this.setState({
+      ...this.state,
+      isModalOpen: true,
+      isSignIn: true,
+      email: '',
+      password: '',
+    });
+    this.props.setAuthError();
 
     // console.log('auth', this.props.auth);
     // console.log('user', this.props.auth.user);
@@ -33,15 +46,7 @@ class SignIn extends React.Component {
       password: '',
       repPassword: '',
     });
-  };
-
-  register = () => {
-    this.setState({ loading: true });
-    this.props.register({
-      email: this.state.email,
-      password: this.state.password,
-      repPassword: this.state.repPassword,
-    });
+    this.props.setAuthError();
   };
 
   signIn = () => {
@@ -61,10 +66,20 @@ class SignIn extends React.Component {
       });
   };
 
+  register = () => {
+    this.setState({ loading: true });
+    this.props.register({
+      email: this.state.email,
+      password: this.state.password,
+      repPassword: this.state.repPassword,
+    });
+  };
+
   resetPassword = () => {
-    console.log('reset password');
+    console.log('reset password', !!this.state.email);
+
     if (!this.state.email)
-      this.setState({ authError: 'please enter your email for password reset' });
+      this.props.setAuthError('Please enter your email for password reset');
     else {
       let auth = firebase.auth();
       auth
@@ -72,14 +87,9 @@ class SignIn extends React.Component {
         .then(function () {})
         .catch((err) => {
           console.log(err);
+          this.props.setAuthError(err.message);
         });
     }
-  };
-
-  handleInput = (e) => {
-    this.setState({
-      [e.target.id]: e.target.value,
-    });
   };
 
   log = () => {
@@ -88,8 +98,6 @@ class SignIn extends React.Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    // console.log(nextProps, prevState);
-    let clearPasswordFields = { password: '', repPassword: '' };
     // new sign in
     if (!prevState.authUid) {
       // sign in success
@@ -228,7 +236,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    clearAuthError: () => dispatch(clearAuthError()),
+    setAuthError: (errorMessage) => dispatch(setAuthError(errorMessage)),
     signIn: (creds) => dispatch(signIn(creds)),
     register: (creds) => dispatch(register(creds)),
   };

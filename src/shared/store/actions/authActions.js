@@ -30,7 +30,7 @@ export const signIn = (credential) => {
       .auth()
       .signInWithEmailAndPassword(credential.email, credential.password)
       .then(() => dispatch({ type: 'LOGIN_SUCCESS' }))
-      .catch((err) => dispatch({ type: 'LOGIN_ERROR', err }));
+      .catch((err) => dispatch({ type: 'AUTH_ERROR', err }));
   };
 };
 
@@ -45,6 +45,6 @@ export const signOut = () => {
   };
 };
 
-export const clearAuthError = () => {
-  return (dispatch, getState) => dispatch({ type: 'CLEAR_AUTH_ERROR' });
+export const setAuthError = (errorMessage = '') => {
+  return (dispatch, getState) => dispatch({ type: 'CLEAR_AUTH_ERROR', errorMessage });
 };
