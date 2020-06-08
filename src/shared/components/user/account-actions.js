@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import queryString from 'query-string';
 import { Container, Button, Input, Message, Icon } from 'semantic-ui-react';
 

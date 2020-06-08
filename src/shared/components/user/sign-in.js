@@ -145,14 +145,16 @@ class SignIn extends React.Component {
             <Form.Input
               label='Email:'
               control='input'
-              onBlur={this.handleInput}
+              onChange={this.handleInput}
+              value={this.state.email}
               type='text'
               id='email'
             />
             <Form.Input
               label='Password:'
               control='input'
-              onBlur={this.handleInput}
+              onChange={this.handleInput}
+              value={this.state.password}
               type='password'
               id='password'
             />
@@ -162,7 +164,8 @@ class SignIn extends React.Component {
               <Form.Input
                 label='Repeat Password:'
                 control='input'
-                onBlur={this.handleInput}
+                onChange={this.handleInput}
+                value={this.state.repPassword}
                 type='password'
                 id='repPassword'
               />
@@ -172,11 +175,11 @@ class SignIn extends React.Component {
           {this.state.isSignIn
             ? `Don't have an account yet? `
             : `Already have an account? `}
-          <Button size='mini' compact secondary onClick={this.toggleIsSignIn}>
+          <Button size='mini' compact color='blue' onClick={this.toggleIsSignIn}>
             {this.state.isSignIn ? 'Register here' : 'Sign in here'}
           </Button>
           or{' '}
-          <Button onClick={this.signInWithGoogle} secondary size='mini' compact>
+          <Button onClick={this.signInWithGoogle} size='mini' color='blue' compact>
             <Icon name='google' onClick={this.signInWithGoogle} /> Use Google account
           </Button>
         </Modal.Content>
@@ -187,18 +190,21 @@ class SignIn extends React.Component {
           </Button>
 
           {this.state.isSignIn ? (
-            <span>
-              <Button size='mini' color='blue' basic onClick={this.resetPassword}>
-                <b>Forgot Password?</b>
-              </Button>
-              <Button
-                loading={this.state.loading}
-                size='mini'
-                color='blue'
-                onClick={this.signIn}>
-                Sign in
-              </Button>
-            </span>
+            <Button size='mini' color='blue' basic onClick={this.resetPassword}>
+              <b>Forgot Password?</b>
+            </Button>
+          ) : (
+            ''
+          )}
+
+          {this.state.isSignIn ? (
+            <Button
+              loading={this.state.loading}
+              size='mini'
+              color='blue'
+              onClick={this.signIn}>
+              Sign in
+            </Button>
           ) : (
             <Button
               loading={this.state.loading}
