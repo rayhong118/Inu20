@@ -9,6 +9,7 @@ import WIP from './404/WIP';
 import DogheadZh from './comics/doghead-zh';
 import User from '../shared/components/user/user-modal';
 import Footer from '../shared/components/footer';
+import Notification from '../shared/components/notification';
 
 import React from 'react';
 import Clock from './clock/clock';
@@ -38,6 +39,7 @@ class Root extends React.Component {
   render() {
     return (
       <BrowserRouter>
+        <Notification></Notification>
         <Menu secondary className='top-bar'>
           <Menu.Item header>
             <Dropdown icon='bars' className='menu-icon'>
@@ -115,7 +117,6 @@ class Root extends React.Component {
             </div>
           </Menu.Item>
         </Menu>
-
         <div className='content-panel-container'>
           <Switch>
             <Route exact path='/' component={HomePage} />
@@ -128,7 +129,6 @@ class Root extends React.Component {
             <Route component={NoMatch} />
           </Switch>
         </div>
-
         <Footer></Footer>
       </BrowserRouter>
     );
