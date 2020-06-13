@@ -8,6 +8,7 @@ import {
 } from '../../shared/store/actions/restaurantActions';
 import { googleMapsApiKey } from '../../config/apikeys';
 import Script from 'react-load-script';
+import { showNotification } from '../../shared/store/actions/notificationActions';
 
 class ItemModal extends React.Component {
   constructor(props) {
@@ -84,7 +85,14 @@ class ItemModal extends React.Component {
 
   addTag = () => {
     let currTags = this.state.item.tags || [];
-    let inputTag = this.state.item.tag.trim();
+    let inputTag = this.state.item.tag;
+
+    if (!inputTag) {
+      console.log('tag input error');
+      this.props.showNotification({ text: 'this is test text', sec: 3 });
+      return;
+    }
+    inputTag.trim();
     let existingTagFromCol = this.props.tags.filter(
       (tag) => tag.value === inputTag.toLowerCase()
     );
@@ -104,6 +112,7 @@ class ItemModal extends React.Component {
     let currTags = this.state.item.tags || [];
     let updatedTags = currTags.filter((currTag) => currTag !== tag);
     this.setState({ item: { ...this.state.item, tags: updatedTags } });
+    this.props.showNotification({ text: 'this is test text', sec: 3 });
     this.validateForm();
   }
 
@@ -315,6 +324,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     addItem: (item) => {
       dispatch(addItem(item));
+    },
+    showNotification: (notificationConfig) => {
+      dispatch(showNotification(notificationConfig));
     },
   };
 };
