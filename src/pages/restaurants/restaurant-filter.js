@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Segment, Input, Dropdown, List } from 'semantic-ui-react';
 import { updateFilter } from '../../shared/store/actions/restaurantActions';
 import FilterTags from './restaurant-filter-tags';
-import { showNotification } from '../../shared/store/actions/notificationActions';
 
 const listOrder = [
   { key: 'Default', value: 'Default', text: 'Default' },
@@ -36,7 +35,6 @@ class RestaurantFilter extends React.Component {
 
   setPriceRange(min, max) {
     this.setState({ minPrice: min, maxPrice: max });
-    this.props.showNotification({ text: 'this is test text', sec: 3 });
   }
 
   toggleTag(tag) {
@@ -125,9 +123,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateFilter: (filter) => {
       dispatch(updateFilter(filter));
-    },
-    showNotification: (notificationConfig) => {
-      dispatch(showNotification(notificationConfig));
     },
   };
 };

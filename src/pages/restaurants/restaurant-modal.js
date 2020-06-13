@@ -89,7 +89,12 @@ class ItemModal extends React.Component {
 
     if (!inputTag) {
       console.log('tag input error');
-      this.props.showNotification({ text: 'this is test text', sec: 3 });
+      this.props.showNotification({
+        iconName: 'warning',
+        iconColor: 'red',
+        title: 'Invalid Tag',
+        sec: 3,
+      });
       return;
     }
     inputTag.trim();
@@ -112,7 +117,12 @@ class ItemModal extends React.Component {
     let currTags = this.state.item.tags || [];
     let updatedTags = currTags.filter((currTag) => currTag !== tag);
     this.setState({ item: { ...this.state.item, tags: updatedTags } });
-    this.props.showNotification({ text: 'this is test text', sec: 3 });
+    /*this.props.showNotification({
+      iconName: 'check',
+      iconColor: 'green',
+      text: `Tag "${tag}" removed. Click "Edit" button to submit changes.`,
+      sec: 3,
+    });*/
     this.validateForm();
   }
 

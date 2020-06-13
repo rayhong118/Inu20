@@ -8,12 +8,9 @@
  */
 
 import React from 'react';
-import { Portal, Segment, Icon } from 'semantic-ui-react';
+import { Portal, Icon, Message } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import {
-  hideNotification,
-  NotificationConfig,
-} from '../store/actions/notificationActions';
+import { hideNotification } from '../store/actions/notificationActions';
 
 class Notification extends React.Component {
   state = { isOpen: false };
@@ -44,19 +41,22 @@ class Notification extends React.Component {
   render() {
     return (
       <Portal open={this.state.isOpen} onClose={() => this.props.hideNotification()}>
-        <Segment
-          padded
-          raised
+        <Message
+          color={this.state.iconColor}
           style={{
             position: 'fixed',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             zIndex: '1001',
+            fontSize: '1rem',
           }}>
-          <Icon></Icon>
+          <Message.Header>
+            <Icon name={this.state.iconName} color={this.state.iconColor}></Icon>
+            {this.state.title}
+          </Message.Header>
           {this.state.text}
-        </Segment>
+        </Message>
       </Portal>
     );
   }
