@@ -36,6 +36,8 @@ class Notification extends React.Component {
         this.setState({ isOpen: false });
         this.props.hideNotification();
       }, currConfig.sec * 1000);
+    } else if (currSec === 0 && prevSec > 0) {
+      this.setState({ isOpen: false });
     }
   }
 
@@ -49,7 +51,6 @@ class Notification extends React.Component {
             position: 'fixed',
             top: '50%',
             left: '50%',
-            zIndex: '10',
             transform: 'translate(-50%, -50%)',
             zIndex: '1001',
           }}>
