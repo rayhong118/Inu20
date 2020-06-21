@@ -22,7 +22,7 @@ export default class AccountActions extends React.Component {
         .verifyPasswordResetCode(parsed.oobCode)
         .then((email) => {
           let currentUserEmail = firebase.auth().currentUser
-            ? firebase.auth().currentUser.emai
+            ? firebase.auth().currentUser.email
             : '';
           if (!currentUserEmail || currentUserEmail === email)
             this.setState({ email, action: parsed.mode, oobCode: parsed.oobCode });
