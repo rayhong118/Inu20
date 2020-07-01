@@ -1,0 +1,14 @@
+.notification-container {
+  width: 100vw;
+  position: fixed;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, -1rem);
+  z-index: 1001 !important;
+  font-size: 1rem;
+}
+
+.hide > #notification {
+  transition: 1s;
+  opacity: 0;
+}

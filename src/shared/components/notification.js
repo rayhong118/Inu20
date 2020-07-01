@@ -8,12 +8,14 @@
  */
 
 import React from 'react';
-import { Portal, Icon, Message } from 'semantic-ui-react';
+import { Portal, Icon, Message, Container } from 'semantic-ui-react';
+
 import { connect } from 'react-redux';
 import { hideNotification } from '../store/actions/notificationActions';
+import './notification.css';
 
 class Notification extends React.Component {
-  state = { isOpen: false };
+  state = { isOpen: false, willClose: false };
 
   /*showNotification = (sec) => {
     this.setState({ isOpen: true });
@@ -30,33 +32,37 @@ class Notification extends React.Component {
       this.setState({ ...currConfig, isOpen: true });
       setTimeout(() => {
         console.log('timeout end');
-        this.setState({ isOpen: false });
+        this.setState({ isOpen: false, willClose: false });
         this.props.hideNotification();
       }, currConfig.sec * 1000);
+      setTimeout(() => {
+        console.log('willClose');
+        this.setState({ willClose: true });
+      }, (currConfig.sec - 1) * 1000);
     } else if (currSec === 0 && prevSec > 0) {
-      this.setState({ isOpen: false });
+      this.setState({ isOpen: false, willClose: false });
     }
   }
 
   render() {
     return (
       <Portal open={this.state.isOpen} onClose={() => this.props.hideNotification()}>
-        <Message
-          color={this.state.iconColor}
-          style={{
-            position: 'fixed',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: '1001',
-            fontSize: '1rem',
-          }}>
-          <Message.Header>
-            <Icon name={this.state.iconName} color={this.state.iconColor}></Icon>
-            {this.state.title}
-          </Message.Header>
-          {this.state.text}
-        </Message>
+        <div
+          className={`${
+            this.state.willClose
+              ? 'notification-container hide'
+              : 'notification-container'
+          }`}>
+          <Container id='notification'>
+            <Message color={this.state.iconColor}>
+              <Message.Header>
+                <Icon name={this.state.iconName} color={this.state.iconColor}></Icon>
+                {this.state.title}
+              </Message.Header>
+              {this.state.text}
+            </Message>
+          </Container>
+        </div>
       </Portal>
     );
   }

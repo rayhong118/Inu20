@@ -88,7 +88,6 @@ class ItemModal extends React.Component {
     let inputTag = this.state.item.tag;
 
     if (!inputTag) {
-      console.log('tag input error');
       this.props.showNotification({
         iconName: 'warning',
         iconColor: 'red',
