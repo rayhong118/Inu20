@@ -3,6 +3,7 @@ import { Modal, Button, Form, Message, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { signIn, setAuthError, register } from '../../store/actions/authActions';
 import firebase from 'firebase/app';
+import { showNotification } from '../../store/actions/notificationActions';
 class SignIn extends React.Component {
   state = {
     isModalOpen: false,
@@ -51,7 +52,6 @@ class SignIn extends React.Component {
 
   signIn = () => {
     this.setState({ loading: true });
-
     this.props.signIn({ email: this.state.email, password: this.state.password });
   };
 
@@ -84,7 +84,15 @@ class SignIn extends React.Component {
       let auth = firebase.auth();
       auth
         .sendPasswordResetEmail(this.state.email)
-        .then(function () {})
+        .then(() => {
+          let config = {
+            iconName: 'check',
+            iconColor: 'green',
+            title: 'A password reset email has been sent to your email address.',
+            sec: 5,
+          };
+          this.props.showNotification(config);
+        })
         .catch((err) => {
           console.log(err);
           this.props.setAuthError(err.message);
@@ -239,6 +247,7 @@ const mapDispatchToProps = (dispatch) => {
     setAuthError: (errorMessage) => dispatch(setAuthError(errorMessage)),
     signIn: (creds) => dispatch(signIn(creds)),
     register: (creds) => dispatch(register(creds)),
+    showNotification: (config) => dispatch(showNotification(config)),
   };
 };
 

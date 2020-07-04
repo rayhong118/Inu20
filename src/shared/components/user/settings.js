@@ -3,6 +3,7 @@ import { Modal, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
 import firebase from 'firebase/app';
+import { showNotification } from '../../store/actions/notificationActions';
 
 class Settings extends React.Component {
   state = { isModalOpen: false };
@@ -19,18 +20,40 @@ class Settings extends React.Component {
   signOut = () => {
     this.props.signOut();
     this.closeModal();
+    let config = {
+      iconName: 'check',
+      iconColor: 'green',
+      title: 'Signed out successfully',
+      sec: 3,
+    };
+    this.props.showNotification(config);
   };
 
   verifyEmail = () => {
     let currentUser = firebase.auth().currentUser;
     currentUser.sendEmailVerification();
+    let config = {
+      iconName: 'check',
+      iconColor: 'green',
+      title: 'An email address verification email has been sent to your email address.',
+      sec: 5,
+    };
+    this.props.showNotification(config);
   };
 
   resetPassword = () => {
     let auth = firebase.auth();
     auth
       .sendPasswordResetEmail(auth.currentUser.email)
-      .then(function () {})
+      .then(() => {
+        let config = {
+          iconName: 'check',
+          iconColor: 'green',
+          title: 'A password reset email has been sent to your email address.',
+          sec: 5,
+        };
+        this.props.showNotification(config);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -90,6 +113,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signOut: () => dispatch(signOut()),
+    showNotification: (config) => dispatch(showNotification(config)),
   };
 };
 

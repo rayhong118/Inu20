@@ -88,12 +88,13 @@ class ItemModal extends React.Component {
     let inputTag = this.state.item.tag;
 
     if (!inputTag) {
-      this.props.showNotification({
+      let notificationConfig = {
         iconName: 'warning',
         iconColor: 'red',
         title: 'Invalid Tag',
         sec: 3,
-      });
+      };
+      this.props.showNotification(notificationConfig);
       return;
     }
     inputTag.trim();
@@ -334,8 +335,8 @@ const mapDispatchToProps = (dispatch) => {
     addItem: (item) => {
       dispatch(addItem(item));
     },
-    showNotification: (notificationConfig) => {
-      dispatch(showNotification(notificationConfig));
+    showNotification: (config) => {
+      dispatch(showNotification(config));
     },
   };
 };
