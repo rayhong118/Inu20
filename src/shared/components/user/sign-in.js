@@ -73,6 +73,15 @@ class SignIn extends React.Component {
       password: this.state.password,
       repPassword: this.state.repPassword,
     });
+
+    let config = {
+      iconName: 'check',
+      iconColor: 'green',
+      title: 'Regristration success!',
+      sec: 5,
+    };
+
+    this.props.showNotification(config);
   };
 
   resetPassword = () => {
