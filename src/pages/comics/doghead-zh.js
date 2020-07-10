@@ -219,7 +219,7 @@ export default class DogheadZh extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const id = nextProps.match.params.epid;
 
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
 
     return {
       epid: id,
@@ -275,7 +275,7 @@ export default class DogheadZh extends React.Component {
           size='small'
           disabled={id === this.data.length - 1}
           to={`/doghead-zh/${parseInt(id + 1)}`}>
-          NEXT>>
+          NEXT{'>>'}
         </Button>
         <Button as={Link} color='grey' compact size='small' to={`/doghead-zh/`}>
           {'>|'}
