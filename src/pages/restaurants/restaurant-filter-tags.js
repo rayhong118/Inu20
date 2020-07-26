@@ -16,7 +16,6 @@ class FilterTags extends React.Component {
   }
 
   toggle = (e, { value }) => {
-    console.log(value);
     const selectedTags = this.state.selectedTags;
     if (selectedTags.includes(value))
       this.setState({
@@ -41,14 +40,15 @@ class FilterTags extends React.Component {
       <Modal
         trigger={
           <Button size='mini' onClick={() => this.setState({ modalOpen: true })}>
-            Filter By Tags{' '}
+            Filter By Tags
             {this.state.selectedTags.length
               ? '(' + this.state.selectedTags.length + ')'
               : null}
           </Button>
         }
         open={this.state.modalOpen}
-        onClose={this.closeModal}>
+        onClose={this.closeModal}
+      >
         <Modal.Header>
           Filter By Tags{' '}
           {this.state.selectedTags.length

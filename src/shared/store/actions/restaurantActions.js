@@ -9,7 +9,6 @@ export const deleteItem = (id) => {
         dispatch({ type: 'DELETE_ITEM' });
       })
       .catch((err) => {
-        console.log(err);
         dispatch({ type: 'DELETE_ITEM_ERROR', payload: err });
       });
   };
@@ -24,13 +23,11 @@ export const editItem = (item) => {
       .get()
       .then((doc) => {
         if (doc.docs[0].id !== item.id) {
-          console.log('edit failed');
           dispatch({
             type: 'EDIT_ITEM_ERROR',
             payload: 'EDIT restaurant failed. This place already exist in the database',
           });
         } else {
-          console.log('edit succeed');
           restaurantRef
             .doc(item.id)
             .update({
@@ -45,7 +42,6 @@ export const editItem = (item) => {
               dispatch({ type: 'EDIT_ITEM' });
             })
             .catch((err) => {
-              console.log(err);
               dispatch({ type: 'EDIT_ITEM_ERROR', payload: err });
             });
         }
@@ -61,7 +57,6 @@ export const addItem = (item) => {
       .where('address', '==', item.address)
       .get()
       .then(function (doc) {
-        console.log(doc);
         if (doc.size) {
           dispatch({
             type: 'ADD_ITEM_ERROR',
@@ -81,7 +76,6 @@ export const addItem = (item) => {
               dispatch({ type: 'ADD_ITEM' });
             })
             .catch((err) => {
-              console.log(err);
               dispatch({ type: 'ADD_ITEM_ERROR', payload: err });
             });
         }

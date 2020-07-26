@@ -29,10 +29,8 @@ export default class AccountActions extends React.Component {
           else this.setState({ errorMessage: 'User Credential Error!', action: 'error' });
         })
         .catch((error) => {
-          console.log(error);
           this.setState({ action: 'error', errorMessage: error.Message });
         });
-      console.log(parsed);
     }
   }
   handleInput = (e) => {
@@ -53,7 +51,6 @@ export default class AccountActions extends React.Component {
   };
 
   render() {
-    console.log(this.props.location.search);
     switch (this.state.action) {
       case 'resetPassword':
         return (

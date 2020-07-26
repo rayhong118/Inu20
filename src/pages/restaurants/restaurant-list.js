@@ -25,7 +25,8 @@ class ItemsList extends React.Component {
     let filteredNameItems = this.filterItemsByName(items);
     let filteredPriceItems = this.filterItemsByPrice(filteredNameItems);
     let sortedItems = this.sortItems(filteredPriceItems);
-    return sortedItems;
+    let tagMatchItems = this.filterItemsByTag(sortedItems);
+    return tagMatchItems;
   }
 
   filterItemsByName = (items) => {
@@ -44,6 +45,20 @@ class ItemsList extends React.Component {
     if (this.state.filter.maxPrice) {
       items = items.filter((item) => item.price <= this.state.filter.maxPrice);
     }
+    return items;
+  };
+
+  filterItemsByTag = (items) => {
+    let newItems;
+    if (this.props.filter.tags[0]) {
+      newItems = items.filter((item) =>
+        this.props.filter.tags.some((tag) =>
+          item.tags ? item.tags.includes(tag) : false
+        )
+      );
+      return newItems;
+    }
+
     return items;
   };
 
@@ -94,7 +109,8 @@ class ItemsList extends React.Component {
               <a
                 target='_blank'
                 href={this.state.randomItem.url}
-                rel='noopener noreferrer'>
+                rel='noopener noreferrer'
+              >
                 <Icon name='map marker alternate' color='grey' />
                 {this.state.randomItem.address}
               </a>
@@ -125,7 +141,8 @@ class ItemsList extends React.Component {
             map={this.state.map}
             item={{}}
             type={'add'}
-            disabled={!this.props.auth.uid}></ItemModal>
+            disabled={!this.props.auth.uid}
+          ></ItemModal>
 
           <Button
             size='small'

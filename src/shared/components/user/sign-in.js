@@ -85,8 +85,6 @@ class SignIn extends React.Component {
   };
 
   resetPassword = () => {
-    console.log('reset password', !!this.state.email);
-
     if (!this.state.email)
       this.props.setAuthError('Please enter your email for password reset');
     else {
@@ -158,7 +156,8 @@ class SignIn extends React.Component {
         }
         size='tiny'
         open={this.state.isModalOpen}
-        onClose={this.closeModal}>
+        onClose={this.closeModal}
+      >
         <Modal.Header>{this.state.isSignIn ? 'Sign in' : 'Register'}</Modal.Header>
         <Modal.Content>
           {this.state.authError ? (
@@ -227,7 +226,8 @@ class SignIn extends React.Component {
               loading={this.state.loading}
               size='mini'
               color='blue'
-              onClick={this.signIn}>
+              onClick={this.signIn}
+            >
               Sign in
             </Button>
           ) : (
@@ -235,7 +235,8 @@ class SignIn extends React.Component {
               loading={this.state.loading}
               size='mini'
               color='blue'
-              onClick={this.register}>
+              onClick={this.register}
+            >
               Register
             </Button>
           )}

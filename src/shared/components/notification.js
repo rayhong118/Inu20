@@ -23,20 +23,17 @@ class Notification extends React.Component {
   };*/
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps);
     let currConfig = this.props.notificationConfig;
     let currSec = currConfig ? currConfig.sec : 0;
     let prevSec = prevProps.notificationConfig ? prevProps.notificationConfig.sec : 0;
-    console.log('noti sec', currSec, 'prev sec', prevSec);
+
     if (currSec && currSec !== prevSec) {
       this.setState({ ...currConfig, isOpen: true });
       setTimeout(() => {
-        console.log('timeout end');
         this.setState({ isOpen: false, willClose: false });
         this.props.hideNotification();
       }, currConfig.sec * 1000);
       setTimeout(() => {
-        console.log('willClose');
         this.setState({ willClose: true });
       }, (currConfig.sec - 1) * 1000);
     } else if (currSec === 0 && prevSec > 0) {
@@ -52,7 +49,8 @@ class Notification extends React.Component {
             this.state.willClose
               ? 'notification-container hide'
               : 'notification-container'
-          }`}>
+          }`}
+        >
           <Container id='notification'>
             <Message color={this.state.iconColor}>
               <Message.Header>

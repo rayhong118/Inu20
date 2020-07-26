@@ -27,7 +27,7 @@ const restaurantReducer = (state = initState, action) => {
     case 'UPDATE_FILTER':
       return { ...state, filter: action.filter };
     case 'UPDATE_FILTER_TAGS':
-      return { ...state, filter: { ...state.filter, tags: action } };
+      return { ...state, filter: { ...state.filter, tags: action.tags } };
     default:
       return state;
   }

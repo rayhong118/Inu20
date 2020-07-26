@@ -102,8 +102,6 @@ class ItemModal extends React.Component {
       (tag) => tag.value === inputTag.toLowerCase()
     );
     if (existingTagFromCol.length) inputTag = existingTagFromCol[0].text;
-    else inputTag = inputTag[0].toUpperCase() + inputTag.slice(1);
-
     if (currTags.indexOf(inputTag) !== -1 || !inputTag) return;
 
     this.setState({
@@ -167,7 +165,8 @@ class ItemModal extends React.Component {
           type='button'
           color={action.add.color}
           onClick={this.addData}
-          disabled={!this.state.isFormValid}>
+          disabled={!this.state.isFormValid}
+        >
           Add
         </Button>
       );
@@ -183,7 +182,8 @@ class ItemModal extends React.Component {
           type='button'
           color={action.edit.color}
           onClick={this.editData}
-          disabled={!this.state.isFormValid}>
+          disabled={!this.state.isFormValid}
+        >
           Edit
         </Button>
       );
@@ -196,7 +196,8 @@ class ItemModal extends React.Component {
             size='small'
             color={action[this.props.type].color}
             onClick={() => this.openModal()}
-            className='restaurant-modal-button'>
+            className='restaurant-modal-button'
+          >
             <Icon name={this.props.type}></Icon>
             {action[this.props.type].title}
           </Button>
@@ -204,7 +205,8 @@ class ItemModal extends React.Component {
         open={this.state.modalOpen}
         onClose={() => {
           this.closeModal();
-        }}>
+        }}
+      >
         <Modal.Header>
           {action[this.props.type].title} restaurant: {this.props.item.name}
         </Modal.Header>
