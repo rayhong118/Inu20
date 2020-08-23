@@ -29,13 +29,14 @@ class Notification extends React.Component {
 
     if (currSec && currSec !== prevSec) {
       this.setState({ ...currConfig, isOpen: true });
-      setTimeout(() => {
+      let closeNotification = setTimeout(() => {
         this.setState({ isOpen: false, willClose: false });
         this.props.hideNotification();
       }, currConfig.sec * 1000);
-      setTimeout(() => {
+      let fadeNotification = setTimeout(() => {
         this.setState({ willClose: true });
       }, (currConfig.sec - 1) * 1000);
+      window.clearTimeout(closeNotification, fadeNotification);
     } else if (currSec === 0 && prevSec > 0) {
       this.setState({ isOpen: false, willClose: false });
     }
