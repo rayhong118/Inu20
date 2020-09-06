@@ -66,22 +66,23 @@ class SignIn extends React.Component {
       });
   };
 
-  register = () => {
+  register = async () => {
     this.setState({ loading: true });
-    this.props.register({
+    await this.props.register({
       email: this.state.email,
       password: this.state.password,
       repPassword: this.state.repPassword,
     });
+    if (!this.state.authError) {
+      let config = {
+        iconName: 'check',
+        iconColor: 'green',
+        title: 'Regristration success!',
+        sec: 5,
+      };
 
-    let config = {
-      iconName: 'check',
-      iconColor: 'green',
-      title: 'Regristration success!',
-      sec: 5,
-    };
-
-    this.props.showNotification(config);
+      this.props.showNotification(config);
+    }
   };
 
   resetPassword = () => {
