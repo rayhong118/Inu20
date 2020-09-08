@@ -17,20 +17,35 @@ export default class AccountActions extends React.Component {
     if (!this.props.location.search)
       this.setState({ action: 'error', errorMessage: 'Invalid Account Action' });
     else if (parsed) {
-      firebase
-        .auth()
-        .verifyPasswordResetCode(parsed.oobCode)
-        .then((email) => {
-          let currentUserEmail = firebase.auth().currentUser
-            ? firebase.auth().currentUser.email
-            : '';
-          if (!currentUserEmail || currentUserEmail === email)
-            this.setState({ email, action: parsed.mode, oobCode: parsed.oobCode });
-          else this.setState({ errorMessage: 'User Credential Error!', action: 'error' });
-        })
-        .catch((error) => {
-          this.setState({ action: 'error', errorMessage: error.Message });
-        });
+      let auth = firebase.auth();
+      if (parsed.mode === 'resetPassword') {
+        auth
+          .verifyPasswordResetCode(parsed.oobCode)
+          .then((email) => {
+            let currentUserEmail = firebase.auth().currentUser
+              ? firebase.auth().currentUser.email
+              : '';
+            if (!currentUserEmail || currentUserEmail === email)
+              this.setState({ email, action: parsed.mode, oobCode: parsed.oobCode });
+            else
+              this.setState({ errorMessage: 'User Credential Error!', action: 'error' });
+          })
+          .catch((error) => {
+            this.setState({ action: 'error', errorMessage: error.Message });
+          });
+      }
+      if (parsed.mode === 'verifyEmail') {
+        auth
+          .applyActionCode(parsed.oobCode)
+          .then((res) => {
+            //res is undefined
+            console.log(res);
+            this.setState({ action: parsed.mode });
+          })
+          .catch((error) => {
+            this.setState({ action: 'error', errorMessage: error.Message });
+          });
+      }
     }
   }
   handleInput = (e) => {
@@ -72,7 +87,7 @@ export default class AccountActions extends React.Component {
           </Container>
         );
 
-      case 'emailVerification':
+      case 'verifyEmail':
         return (
           <Container>
             <Message color='green'>
