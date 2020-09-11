@@ -183,18 +183,6 @@ class SignIn extends React.Component {
               type='password'
               id='password'
             />
-            {this.state.isSignIn ? (
-              ''
-            ) : (
-              <Form.Input
-                label='Repeat Password:'
-                control='input'
-                onChange={this.handleInput}
-                value={this.state.repPassword}
-                type='password'
-                id='repPassword'
-              />
-            )}
           </Form>
           <hr />
           {this.state.isSignIn
