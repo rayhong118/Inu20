@@ -1,12 +1,14 @@
+import { notificationActionConst } from '../actions/notificationActions';
+
 const initState = {
   notificationConfig: { sec: 0, iconName: '', iconColor: '', title: '', text: '' },
 };
 
 const notificationReducer = (state = initState, action) => {
   switch (action.type) {
-    case 'HIDE_NOTIFICATION':
+    case notificationActionConst.HIDE_NOTIFICATION:
       return initState;
-    case 'SHOW_NOTIFICATION':
+    case notificationActionConst.SHOW_NOTIFICATION:
       return { ...action };
     default:
       return state;

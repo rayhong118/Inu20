@@ -1,5 +1,14 @@
 import firebase from 'firebase/app';
 
+export const authActionConst = {
+  REGISTRATION_SUCCESS: 'REGISTRATION_SUCCESS',
+  REGISTRATION_ERROR: 'REGISTRATION_ERROR',
+  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+  AUTH_ERROR: 'AUTH_ERROR',
+  SIGNOUT_SUCCESS: 'SIGNOUT_SUCCESS',
+  CLEAR_AUTH_ERROR: 'CLEAR_AUTH_ERROR',
+};
+
 export const register = (credential) => {
   return (dispatch, getState) => {
     /*if (credential.password !== credential.repPassword) {

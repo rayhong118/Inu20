@@ -1,3 +1,5 @@
+import { restaurantActionsConst } from '../actions/restaurantActions';
+
 const initState = {
   items: [],
   error: '',
@@ -12,21 +14,21 @@ const initState = {
 
 const restaurantReducer = (state = initState, action) => {
   switch (action.type) {
-    case 'ADD_ITEM':
+    case restaurantActionsConst.ADD_ITEM:
       return state;
-    case 'ADD_ITEM_ERROR':
+    case restaurantActionsConst.ADD_ITEM_ERROR:
       return { ...state, error: action.payload };
-    case 'EDIT_ITEM':
+    case restaurantActionsConst.EDIT_ITEM:
       return state;
-    case 'EDIT_ITEM_ERROR':
+    case restaurantActionsConst.EDIT_ITEM_ERROR:
       return { ...state, error: action.payload };
-    case 'DELETE_ITEM':
+    case restaurantActionsConst.DELETE_ITEM:
       return state;
-    case 'DELETE_ITEM_ERROR':
+    case restaurantActionsConst.DELETE_ITEM_ERROR:
       return { ...state, error: action.payload.message };
-    case 'UPDATE_FILTER':
+    case restaurantActionsConst.UPDATE_FILTER:
       return { ...state, filter: action.filter };
-    case 'UPDATE_FILTER_TAGS':
+    case restaurantActionsConst.UPDATE_FILTER_TAGS:
       return { ...state, filter: { ...state.filter, tags: action.tags } };
     default:
       return state;

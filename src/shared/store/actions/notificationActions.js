@@ -1,5 +1,9 @@
+export const notificationActionConst = {
+  SHOW_NOTIFICATION: 'SHOW_NOTIFICATION',
+  HIDE_NOTIFICATION: 'HIDE_NOTIFICATION',
+};
 export const showNotification = (notificationConfig) => {
-  return { type: 'SHOW_NOTIFICATION', notificationConfig };
+  return { type: notificationActionConst.SHOW_NOTIFICATION, notificationConfig };
 };
 
 export const hideNotification = () => {

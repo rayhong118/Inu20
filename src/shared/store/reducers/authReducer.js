@@ -1,28 +1,30 @@
+import { authActionConst } from '../actions/authActions';
+
 const initState = {
   authError: null,
 };
 const authReducer = (state = initState, action) => {
   switch (action.type) {
-    case 'REGISTRATION_SUCCESS':
+    case authActionConst.REGISTRATION_SUCCESS:
       return {
         ...state,
         authError: null,
       };
-    case 'REGISTRATION_ERROR':
+    case authActionConst.REGISTRATION_ERROR:
       return {
         ...state,
         authError: action.err.message,
       };
-    case 'AUTH_ERROR':
+    case authActionConst.AUTH_ERROR:
       return {
         ...state,
         authError: action.err.message,
       };
-    case 'LOGIN_SUCCESS':
+    case authActionConst.LOGIN_SUCCESS:
       return { ...state, authError: null };
-    case 'SIGNOUT_SUCCESS':
+    case authActionConst.SIGNOUT_SUCCESS:
       return state;
-    case 'CLEAR_AUTH_ERROR':
+    case authActionConst.CLEAR_AUTH_ERROR:
       return { ...state, authError: action.errorMessage };
     default:
       return state;
